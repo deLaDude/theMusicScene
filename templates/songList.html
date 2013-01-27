@@ -1,0 +1,19 @@
+<thead>
+	<tr data-bind='foreach: $data.listHeaders'>
+		<th><div data-bind='text: $data'></div></th>
+	</tr>
+</thead>	
+<tbody data-bind='foreach: $data.songs()'> 
+	<tr>
+		<!-- <td>
+			<img data-bind='attr: { src: $data.art }'>
+		</td> -->
+		<td><div data-bind='text: $data.artist'></div></td>
+		<td><div data-bind='text: $data.song'></div></td>
+		<td><div data-bind='text: $data.album'></div></td>
+		<td><div data-bind='text: $data.genre'></div></td>
+		<td><div data-bind='text: $data.formatedLength'></div></td>
+<!-- 		<td><div data-bind='text: $data.source'></div></td>
+		<td><div data-bind='text: $data.snaggable'></div></td> -->
+	</tr>
+</tbody>

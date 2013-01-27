@@ -1,0 +1,151 @@
+// variables
+$border-radius: 5px !default;
+
+$headerHeight: 60px !default;
+$libraryHeight: 400px !default;
+
+$wrapperWidth: 700px !default;
+$wrapperOpenHeight: 460px !default;
+$wrapperClosedHeight: $headerHeight !default;
+
+$contentBgColor: #cccccc !default;
+$contentColor: #333333 !default;
+
+$stripesOdd: #eeeeee !default;
+$stripesEven: #ffffff !default;
+$stripesHighlight: #baebfe !default;
+
+$headingColor1: #ffffff !default;
+$headingColor2: #999999 !default;
+
+// imports
+@import "config";
+@import "common";
+@import "dataTables";
+@import "songList";
+
+#tmsLibrary, 
+#tmsLibrary * {
+	@include box-sizing(border-box);
+}
+
+// begin base styles
+#tmsLibrary {
+	position: absolute;
+	bottom: -75px;
+	width: $wrapperWidth;
+	height: $wrapperClosedHeight;
+	margin-right: -350px;
+	overflow: hidden;
+	z-index: 25009;
+	opacity: .95;
+
+	font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+
+	// class leveraged from TT for responsive updates
+	.width-level-0 &, .width-level-1 & { right: 631px; }
+	.width-level-2 &, .centered-mode & { right: 50%; }
+
+	@include border-radius($border-radius); 
+	@include transition(height 0.4s ease-in-out);
+	
+	&.open {
+		height: $wrapperOpenHeight;
+	}
+
+	header {
+		@extend %ttHeader;
+		left: 0;
+		bottom: 0;
+		z-index: 9;
+
+	}
+
+	&.open header {
+		@include border-top-radius(0); 
+	}
+
+	#tmsLogo {
+		@extend %headphones-icon;
+
+		position: absolute;
+		left: 10px;
+		top: 10px;
+		width: $headerHeight;
+		height: $headerHeight;
+		display: block;
+	}
+
+	hgroup {
+		@extend %ttHeaderInsert;
+		position: absolute;
+		left: 85px;
+		width:400px;
+		padding-top: 10px;
+
+		h1, h2 {
+			text-align: center;
+		}
+
+		h1 {
+			@extend %headingOne;
+
+			font-size: 20px;
+			opacity: .75;
+		}
+
+		h2 {
+			@extend %headingTwo;
+			font-size: 14px;
+		}
+	}
+
+	.toggleBtn {
+		@extend %ttHeaderButton;
+
+		position: absolute;
+		right: 20px;
+		top: 50%;
+		margin-top: -18px;
+		height: 36px;
+		width: 84px;
+		text-indent: 0;
+		font-size: 14px;
+		font-weight: bold;
+	}	
+}
+
+#tmsContent {
+	position: relative;
+	width: $wrapperWidth;
+	height: 10px;
+	margin-bottom: 5px;
+	overflow: hidden;
+
+	color: $contentColor;
+	background-color: $contentBgColor;
+
+	@include border-top-radius($border-radius); 
+	@include transition(height 0.4s ease-in-out);
+
+	.open & {
+		height: $libraryHeight;
+		margin-bottom: 0;
+	}
+}
+
+
+
+::-webkit-scrollbar {
+  width: 12px;	
+  background-color: #FFFFFF;
+}
+ 
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+}
+ 
+::-webkit-scrollbar-thumb {
+	background-color: rgba(0,0,0,0.3);
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}

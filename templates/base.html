@@ -1,0 +1,19 @@
+<article id='tmsLibrary' data-bind="css: { open: isOpen }">
+	<header>
+		<div id="tmsLogo"><div><div></div></div></div>
+		<hgroup>
+			<h1>Turntable qNinja</h1>
+			<h2><span class="emoji emoji-blue_heart"></span> Duder</h2>
+		</hgroup>
+		<nav>
+			<button class='toggleBtn' data-bind='click: toggleOpen, text: isOpen() ? "Close" : "Open"'></button>		
+		</nav>
+	</header>
+
+	<div id="tmsContent">
+		<div>
+			<table data-bind='template: { name: "songList-template", data: songList }'>
+			</table>
+		</div>
+	</div>
+</article>

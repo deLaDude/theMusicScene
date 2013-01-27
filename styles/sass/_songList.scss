@@ -1,0 +1,81 @@
+#tmsContent {
+	table {
+		font-size: 11px;
+		height: 0px;
+		border-spacing: 0;
+
+		thead {
+			@extend %ttPanelHeader;
+
+			.sorting_asc, .sorting_desc {
+				color: darken($headingColor2, 20%);
+				text-shadow: 0 1px 0 #eee;
+			}
+		}
+
+		tbody {
+			height: $libraryHeight;
+			overflow: auto;
+			color: $contentColor;
+		}
+
+		td,
+		th {
+			width: 120px;
+			padding: 2px;
+			padding-left: 5px;	
+
+			div {
+				width: 120px;
+				overflow: hidden;
+				word-wrap: nowrap;
+			}
+		}
+
+		th { cursor: pointer; }
+	}
+
+	.songListHead {
+		@include border-top-radius($border-radius);	
+		@extend %ttPanelHeader;
+		padding: 5px;
+		height: 30px;
+
+		.dataTables_info {
+			text-align: left;
+		}
+
+		.dataTables_filter {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			width: 25%;
+
+			input {
+				padding: 2px 5px;
+				border: 0;
+			  outline: 0;
+			  background: #FFF;
+			  border-radius: 14px;
+			  box-shadow: inset 0 0 0 1px #888,0 1px 0 0 #FFF;
+				width: 100%;
+				outline: none;
+			}
+		}
+
+	}
+
+	.dataTables_wrapper {
+		@include border-radius($border-radius);	
+	}
+	
+	.dataTables_scrollHead {
+		@extend %headingTwo;
+		width: $wrapperWidth !important;
+		height: 18px;
+	}
+
+	.dataTables_scrollBody {
+		width: $wrapperWidth !important;
+	}
+}

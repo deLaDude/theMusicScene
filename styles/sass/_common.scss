@@ -1,0 +1,133 @@
+/**
+ * Common styles taken directly from TT's stylesheet for use with extension.
+ */
+
+%ttHeader {
+	position: absolute;
+  width: $wrapperWidth;
+  height: $headerHeight;
+  background: #4e4e4e;
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#666),color-stop(100%,#333));
+  background: -webkit-linear-gradient(top,#666 0,#333 100%);
+  background: linear-gradient(to bottom,#666 0,#333 100%);
+  @include border-radius($border-radius);
+}
+
+%ttHeaderInsert {
+	height: $headerHeight;
+  color: #FFFFFF;
+  background: #333333;
+  background: -webkit-gradient(linear, left top, left bottom,color-stop(0%, #2a2a2a), color-stop(100%, #333333));
+  background: -webkit-linear-gradient(top, #2a2a2a 0, #333333 100%);
+  background: linear-gradient(to bottom, #2a2a2a 0, #333333 100%);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+%ttHeaderButton {
+  width: 31px;
+  height: 30px;
+  text-indent: -9999px;
+
+	box-shadow: inset 0 0 0 1px #000,inset 0 2px 0 0 rgba(255,255,255,0.25),0 1px 0 0 rgba(0,0,0,0.25);
+  overflow: hidden;
+  margin-left: -1px;
+  background: #808080;
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#999),color-stop(100%,#666));
+  background: -webkit-linear-gradient(top,#999 0,#666 100%);
+  background: linear-gradient(to bottom,#999 0,#666 100%);	
+	border: none;
+	cursor: pointer;
+
+	@include border-radius($border-radius);
+
+	&:hover {
+		background: #808080;
+	  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#bbb),color-stop(100%,#888));
+	  background: -webkit-linear-gradient(top,#bbb 0,#888 100%);
+	  background: linear-gradient(to bottom,#bbb 0,#888 100%);
+	}
+
+	&:active {
+		box-shadow: inset 0 0 0 1px #000,inset 0 1px 5px 0 #000,0 1px 0 0 rgba(255,255,255,0.1);
+	  background: #808080;
+	  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#666),color-stop(100%,#999));
+	  background: -webkit-linear-gradient(top,#666 0,#999 100%);
+	  background: linear-gradient(to bottom,#666 0,#999 100%);
+	}
+}
+
+%ttPanelHeader {
+	height: 36px;
+  color: $headingColor2;
+  font-size: 13px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #FFF;
+  text-align: center;
+  border-top: solid 1px #FFF;
+  border-bottom: solid 1px #999;
+  background: #eee;
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#eee),color-stop(100%,#ccc));
+  background: -webkit-linear-gradient(top,#eee 0,#ccc 100%);
+  background: linear-gradient(to bottom,#eee 0,#ccc 100%);
+}
+
+/**
+ * Custom Common Styles
+ */
+
+%headingOne {
+	color: $headingColor1;
+	text-shadow: 0 1px 1px #000;
+}
+
+%headingTwo {
+	color: $headingColor2;
+	text-shadow: 0 1px 1px #000;	
+}
+
+%headphones-icon {
+	text-align: center;
+	
+	& > div	{
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	div div	{
+		@include box-sizing(content-box);
+		font-size:20px;
+		width: 1.625em;
+		border: 0.2em solid #d8a126;
+		height: 1.438em;
+		border-radius: 3em 3em 0 0;
+		border-bottom: none;
+		margin-left:-0.2em;
+		position: relative;
+
+		&:hover {
+			opacity: .8;
+		}
+
+		&:before {
+			position: absolute;
+			content: '';
+			top: 1.1em;
+			left: 0.05em;
+			width: 0.313em;
+			height: 0.625em;
+			background: #d8a126;
+			border-radius: 0 0.125em 0.125em 0;
+		}
+
+		&:after {
+			position: absolute;
+			content: '';
+			top: 1.1em;
+			left: 1.26em;
+			width: 0.313em;
+			height: 0.625em;
+			background: #d8a126;
+			border-radius: 0.125em 0 0 0.125em;			
+		}
+	}
+}
