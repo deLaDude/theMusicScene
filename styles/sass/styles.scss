@@ -24,13 +24,13 @@ $headingColor2: #999999 !default;
 @import "dataTables";
 @import "songList";
 
-#tmsLibrary, 
-#tmsLibrary * {
+#tmsPanel, 
+#tmsPanel * {
 	@include box-sizing(border-box);
 }
 
 // begin base styles
-#tmsLibrary {
+#tmsPanel {
 	position: absolute;
 	bottom: -75px;
 	width: $wrapperWidth;

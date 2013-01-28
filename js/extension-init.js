@@ -1,13 +1,17 @@
 /**
- * Inject the script need to run the library
+ * Inject the scripts needed to run the library
  */
 (function () {
 	// scripts
 	var scripts = [
-		"/js/lib/jquery.getStyleObject.js",
+		"/js/tms.js",
 		"/js/lib/jquery.dataTables.min.js",
 		"/js/lib/knockout.js",
-		"/js/library.js"
+		"/js/currentSongViewModel.js",
+		"/js/songViewModel.js",
+		"/js/libraryViewModel.js",
+		"/js/tmsViewModel.js",
+		"/js/bootstrapper.js"
 	];
 
 	var templates = [
@@ -39,6 +43,14 @@
 			(document.head||document.documentElement).appendChild(s);			
 		}
 	}
+
+	// inject namespace directly 
+	// var ns = document.createElement('script');
+	// ns.type = "text/javascript";
+	// ns.onload = function() { 
+	// 	ns.innerHtml = "var tms = { viewModels: {}, factories: {}, app: {} };";
+	// };
+	// (document.head||document.documentElement).appendChild(ns);
 	
 	// loop through templates
 	for(var i in templates) {

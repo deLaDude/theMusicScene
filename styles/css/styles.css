@@ -2,7 +2,7 @@
  * Common styles taken directly from TT's stylesheet for use with extension.
  */
 /* line 5, ../sass/_common.scss */
-#tmsLibrary header {
+#tmsPanel header {
   position: absolute;
   width: 700px;
   height: 60px;
@@ -18,7 +18,7 @@
 }
 
 /* line 16, ../sass/_common.scss */
-#tmsLibrary hgroup {
+#tmsPanel hgroup {
   height: 60px;
   color: #FFFFFF;
   background: #333333;
@@ -29,7 +29,7 @@
 }
 
 /* line 26, ../sass/_common.scss */
-#tmsLibrary .toggleBtn {
+#tmsPanel .toggleBtn {
   width: 31px;
   height: 30px;
   text-indent: -9999px;
@@ -49,14 +49,14 @@
   border-radius: 5px;
 }
 /* line 43, ../sass/_common.scss */
-#tmsLibrary .toggleBtn:hover {
+#tmsPanel .toggleBtn:hover {
   background: #808080;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bbbbbb), color-stop(100%, #888888));
   background: -webkit-linear-gradient(top, #bbbbbb 0, #888888 100%);
   background: linear-gradient(to bottom, #bbbbbb 0%, #888888 100%);
 }
 /* line 50, ../sass/_common.scss */
-#tmsLibrary .toggleBtn:active {
+#tmsPanel .toggleBtn:active {
   box-shadow: inset 0 0 0 1px black, inset 0 1px 5px 0 black, 0 1px 0 0 rgba(255, 255, 255, 0.1);
   background: #808080;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #666666), color-stop(100%, #999999));
@@ -84,28 +84,28 @@
  * Custom Common Styles
  */
 /* line 78, ../sass/_common.scss */
-#tmsLibrary hgroup h1 {
+#tmsPanel hgroup h1 {
   color: white;
   text-shadow: 0 1px 1px black;
 }
 
 /* line 83, ../sass/_common.scss */
-#tmsContent .dataTables_scrollHead, #tmsLibrary hgroup h2 {
+#tmsContent .dataTables_scrollHead, #tmsPanel hgroup h2 {
   color: #999999;
   text-shadow: 0 1px 1px black;
 }
 
 /* line 88, ../sass/_common.scss */
-#tmsLibrary #tmsLogo {
+#tmsPanel #tmsLogo {
   text-align: center;
 }
 /* line 91, ../sass/_common.scss */
-#tmsLibrary #tmsLogo > div {
+#tmsPanel #tmsLogo > div {
   display: inline-block;
   vertical-align: middle;
 }
 /* line 96, ../sass/_common.scss */
-#tmsLibrary #tmsLogo div div {
+#tmsPanel #tmsLogo div div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -119,11 +119,11 @@
   position: relative;
 }
 /* line 107, ../sass/_common.scss */
-#tmsLibrary #tmsLogo div div:hover {
+#tmsPanel #tmsLogo div div:hover {
   opacity: .8;
 }
 /* line 111, ../sass/_common.scss */
-#tmsLibrary #tmsLogo div div:before {
+#tmsPanel #tmsLogo div div:before {
   position: absolute;
   content: '';
   top: 1.1em;
@@ -134,7 +134,7 @@
   border-radius: 0 0.125em 0.125em 0;
 }
 /* line 122, ../sass/_common.scss */
-#tmsLibrary #tmsLogo div div:after {
+#tmsPanel #tmsLogo div div:after {
   position: absolute;
   content: '';
   top: 1.1em;
@@ -903,15 +903,15 @@ div.box {
 }
 
 /* line 28, ../sass/styles.scss */
-#tmsLibrary,
-#tmsLibrary * {
+#tmsPanel,
+#tmsPanel * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 /* line 33, ../sass/styles.scss */
-#tmsLibrary {
+#tmsPanel {
   position: absolute;
   bottom: -75px;
   width: 700px;
@@ -932,25 +932,25 @@ div.box {
   transition: height 0.4s ease-in-out;
 }
 /* line 46, ../sass/styles.scss */
-.width-level-0 #tmsLibrary, .width-level-1 #tmsLibrary {
+.width-level-0 #tmsPanel, .width-level-1 #tmsPanel {
   right: 631px;
 }
 /* line 47, ../sass/styles.scss */
-.width-level-2 #tmsLibrary, .centered-mode #tmsLibrary {
+.width-level-2 #tmsPanel, .centered-mode #tmsPanel {
   right: 50%;
 }
 /* line 52, ../sass/styles.scss */
-#tmsLibrary.open {
+#tmsPanel.open {
   height: 460px;
 }
 /* line 56, ../sass/styles.scss */
-#tmsLibrary header {
+#tmsPanel header {
   left: 0;
   bottom: 0;
   z-index: 9;
 }
 /* line 64, ../sass/styles.scss */
-#tmsLibrary.open header {
+#tmsPanel.open header {
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;
   border-top-left-radius: 0;
@@ -959,7 +959,7 @@ div.box {
   border-top-right-radius: 0;
 }
 /* line 68, ../sass/styles.scss */
-#tmsLibrary #tmsLogo {
+#tmsPanel #tmsLogo {
   position: absolute;
   left: 10px;
   top: 10px;
@@ -968,27 +968,27 @@ div.box {
   display: block;
 }
 /* line 79, ../sass/styles.scss */
-#tmsLibrary hgroup {
+#tmsPanel hgroup {
   position: absolute;
   left: 85px;
   width: 400px;
   padding-top: 10px;
 }
 /* line 86, ../sass/styles.scss */
-#tmsLibrary hgroup h1, #tmsLibrary hgroup h2 {
+#tmsPanel hgroup h1, #tmsPanel hgroup h2 {
   text-align: center;
 }
 /* line 90, ../sass/styles.scss */
-#tmsLibrary hgroup h1 {
+#tmsPanel hgroup h1 {
   font-size: 20px;
   opacity: .75;
 }
 /* line 97, ../sass/styles.scss */
-#tmsLibrary hgroup h2 {
+#tmsPanel hgroup h2 {
   font-size: 14px;
 }
 /* line 103, ../sass/styles.scss */
-#tmsLibrary .toggleBtn {
+#tmsPanel .toggleBtn {
   position: absolute;
   right: 20px;
   top: 50%;

@@ -1,4 +1,4 @@
-<article id='tmsLibrary' data-bind="css: { open: isOpen }">
+<article id='tmsPanel' data-bind="css: { open: isContentOpen }">
 	<header>
 		<div id="tmsLogo"><div><div></div></div></div>
 		<hgroup>
@@ -6,13 +6,13 @@
 			<h2><span class="emoji emoji-blue_heart"></span> Duder</h2>
 		</hgroup>
 		<nav>
-			<button class='toggleBtn' data-bind='click: toggleOpen, text: isOpen() ? "Close" : "Open"'></button>		
+			<button class='toggleBtn' data-bind='click: toggleOpen, text: isContentOpen() ? "Close" : "Open"'></button>		
 		</nav>
 	</header>
 
 	<div id="tmsContent">
 		<div>
-			<table data-bind='template: { name: "songList-template", data: songList }'>
+			<table data-bind='template: { name: "songList-template", data: library.songList }'>
 			</table>
 		</div>
 	</div>

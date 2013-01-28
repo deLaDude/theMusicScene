@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "ttLibrary",
-  "description": "TT music library",
+  "name": "theMusicScene",
+  "description": "Making TT a better place since '13",
   "version": "1.0",
 
   "content_scripts": [
