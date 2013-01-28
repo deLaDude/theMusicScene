@@ -16,6 +16,12 @@
     };
 
     self.currentSong = ko.observable(model.currentSong);
+    self.recentlyPlayed = ko.observableArray([]);
+    
+    self.songChange = function (roomData) {
+      self.recentlyPlayed.push(self.currentSong());
+      self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
+    };
   };
 
   /**
@@ -23,11 +29,37 @@
    * @return {viewmodel} [a library view model]
    */
   tms.factories.tmsFactory = function (model) {
-    return new tms.viewmodels.tmsViewModel(model);
+    var app = new tms.viewmodels.tmsViewModel(model);
+
 
     // Event Dispatcher
-    // turntable.addEventListener("message", function (data) {
-    //   // console.log(data);
-    // }); 
+    turntable.addEventListener("message", function (data) {
+      var on = tms.constants.events.tt;
+
+      if (data.command) {
+        switch (data.command) {
+          case on.songChange:
+            app.songChange(data.room);
+            break;
+          case on.voteUpdate: 
+            app.currentSong().updateVotes(data.room.metadata);
+            break;
+          case on.songSnag:
+            app.currentSong().updateSnags();
+            break;
+          default:
+            console.log("no actions for: " + data.command);
+            break;
+        }
+      }
+
+      if (data.snagid) {
+        app.currentSong().updateSnags();
+      }
+
+      // console.log(data);
+    }); 
+
+    return app;
   };
 })();

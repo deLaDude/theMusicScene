@@ -5,6 +5,7 @@
 	// scripts
 	var scripts = [
 		"/js/tms.js",
+		"/js/lib/jquery.liveQuery.js",
 		"/js/lib/jquery.dataTables.min.js",
 		"/js/lib/knockout.js",
 		"/js/currentSongViewModel.js",
@@ -16,6 +17,7 @@
 
 	var templates = [
 		"/templates/songList.html",
+		"/templates/songBoard.html",
 		"/templates/base.html"
 	];
 

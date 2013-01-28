@@ -18,14 +18,19 @@ $stripesHighlight: #baebfe !default;
 $headingColor1: #ffffff !default;
 $headingColor2: #999999 !default;
 
+$songBoardColor: #f2dace;
+
 // imports
 @import "config";
 @import "common";
 @import "dataTables";
 @import "songList";
+@import "songBoard";
 
 #tmsPanel, 
-#tmsPanel * {
+#tmsPanel *
+#tmsCurrentSong, 
+#tmsCurrentSong * {
 	@include box-sizing(border-box);
 }
 
@@ -108,7 +113,7 @@ $headingColor2: #999999 !default;
 		top: 50%;
 		margin-top: -18px;
 		height: 36px;
-		width: 84px;
+		width: 100px;
 		text-indent: 0;
 		font-size: 14px;
 		font-weight: bold;

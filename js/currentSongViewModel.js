@@ -3,6 +3,7 @@
    * [CurrentViewModel]
    * @param {object} model [room meta data]
    */
+  // TODO: inherit from SongViewModel, duh
   tms.viewmodels.CurrentSongViewModel = function (model) {
     model = model || {};
     var self = this;
@@ -26,8 +27,18 @@
       self.art = ko.observable(model.metadata.current_song.metadata.coverart);
       self.length = ko.observable(model.metadata.current_song.metadata.length);
     } else {
-      console.log("ERROR: metadata not provided for song change");
+      console.log("ERROR: metadata not provided for current song");
     }
+
+    self.updateVotes = function (eventData) {
+      self.upvotes(eventData.upvotes);
+      self.downvotes(eventData.downvotes);  
+    };
+
+    self.updateSnags = function () {
+      self.snags(self.snags() + 1);
+      console.log("snags updated");
+    };
   };
 
   // tms.factories.songFactory = function (roomInfo) {

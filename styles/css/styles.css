@@ -80,31 +80,39 @@
   background: linear-gradient(to bottom, #eeeeee 0%, #cccccc 100%);
 }
 
+/* line 75, ../sass/_common.scss */
+#tmsCurrentSong div {
+  font-family: 'DSDotsMedium',Helvetica,Arial,sans-serif;
+  color: #f2dace;
+  text-shadow: 0 0 5px red;
+  background: url(https://s3.amazonaws.com/static.turntable.fm/images/room/board-sprite-0.png?cachebuster=1) -303px -178px no-repeat;
+}
+
 /**
  * Custom Common Styles
  */
-/* line 78, ../sass/_common.scss */
+/* line 87, ../sass/_common.scss */
 #tmsPanel hgroup h1 {
   color: white;
   text-shadow: 0 1px 1px black;
 }
 
-/* line 83, ../sass/_common.scss */
+/* line 92, ../sass/_common.scss */
 #tmsContent .dataTables_scrollHead, #tmsPanel hgroup h2 {
   color: #999999;
   text-shadow: 0 1px 1px black;
 }
 
-/* line 88, ../sass/_common.scss */
+/* line 97, ../sass/_common.scss */
 #tmsPanel #tmsLogo {
   text-align: center;
 }
-/* line 91, ../sass/_common.scss */
+/* line 100, ../sass/_common.scss */
 #tmsPanel #tmsLogo > div {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 96, ../sass/_common.scss */
+/* line 105, ../sass/_common.scss */
 #tmsPanel #tmsLogo div div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -118,11 +126,11 @@
   margin-left: -0.2em;
   position: relative;
 }
-/* line 107, ../sass/_common.scss */
+/* line 116, ../sass/_common.scss */
 #tmsPanel #tmsLogo div div:hover {
   opacity: .8;
 }
-/* line 111, ../sass/_common.scss */
+/* line 120, ../sass/_common.scss */
 #tmsPanel #tmsLogo div div:before {
   position: absolute;
   content: '';
@@ -133,7 +141,7 @@
   background: #d8a126;
   border-radius: 0 0.125em 0.125em 0;
 }
-/* line 122, ../sass/_common.scss */
+/* line 131, ../sass/_common.scss */
 #tmsPanel #tmsLogo div div:after {
   position: absolute;
   content: '';
@@ -265,36 +273,6 @@
   margin-left: 10px;
 }
 
-/* line 106, ../sass/_dataTables.scss */
-.paginate_disabled_previous {
-  background: url("../images/back_disabled.png") no-repeat top left;
-}
-
-/* line 110, ../sass/_dataTables.scss */
-.paginate_enabled_previous {
-  background: url("../images/back_enabled.png") no-repeat top left;
-}
-
-/* line 113, ../sass/_dataTables.scss */
-.paginate_enabled_previous:hover {
-  background: url("../images/back_enabled_hover.png") no-repeat top left;
-}
-
-/* line 117, ../sass/_dataTables.scss */
-.paginate_disabled_next {
-  background: url("../images/forward_disabled.png") no-repeat top right;
-}
-
-/* line 121, ../sass/_dataTables.scss */
-.paginate_enabled_next {
-  background: url("../images/forward_enabled.png") no-repeat top right;
-}
-
-/* line 124, ../sass/_dataTables.scss */
-.paginate_enabled_next:hover {
-  background: url("../images/forward_enabled_hover.png") no-repeat top right;
-}
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables display
  */
@@ -351,31 +329,6 @@ table.display td.center {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
-/* line 184, ../sass/_dataTables.scss */
-.sorting_asc {
-  background: url("../images/sort_asc.png") no-repeat center right;
-}
-
-/* line 188, ../sass/_dataTables.scss */
-.sorting_desc {
-  background: url("../images/sort_desc.png") no-repeat center right;
-}
-
-/* line 192, ../sass/_dataTables.scss */
-.sorting {
-  background: url("../images/sort_both.png") no-repeat center right;
-}
-
-/* line 196, ../sass/_dataTables.scss */
-.sorting_asc_disabled {
-  background: url("../images/sort_asc_disabled.png") no-repeat center right;
-}
-
-/* line 200, ../sass/_dataTables.scss */
-.sorting_desc_disabled {
-  background: url("../images/sort_desc_disabled.png") no-repeat center right;
-}
-
 /* line 205, ../sass/_dataTables.scss */
 table.display thead th:active,
 table.display thead td:active {
@@ -881,10 +834,9 @@ div.box {
   background: #FFF;
   border-radius: 14px;
   box-shadow: inset 0 0 0 1px #888888, 0 1px 0 0 white;
-  width: 100%;
   outline: none;
 }
-/* line 68, ../sass/_songList.scss */
+/* line 67, ../sass/_songList.scss */
 #tmsContent .dataTables_wrapper {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -892,25 +844,73 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 72, ../sass/_songList.scss */
+/* line 71, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollHead {
   width: 700px !important;
   height: 18px;
 }
-/* line 78, ../sass/_songList.scss */
+/* line 77, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollBody {
   width: 700px !important;
 }
 
-/* line 28, ../sass/styles.scss */
+/**
+ * Additional Styles for the Song Board
+ */
+/* line 5, ../sass/_songBoard.scss */
+#bigboard {
+  text-align: center;
+}
+
+/* line 9, ../sass/_songBoard.scss */
+.zoom-0 #awesome-meter {
+  top: -57px !important;
+}
+
+/* line 13, ../sass/_songBoard.scss */
+#tmsCurrentSong {
+  position: relative;
+  top: -126px;
+  left: 0px;
+  display: inline-block;
+  padding: 5px 7px 0px 7px;
+  background: url(https://s3.amazonaws.com/static.turntable.fm/images/room/board-sprite-0.png) top left no-repeat;
+  background-size: 100%;
+}
+/* line 24, ../sass/_songBoard.scss */
+#tmsCurrentSong div {
+  background-position: -20px -102px;
+  padding: 0 5px;
+  text-align: center;
+  box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.5);
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+/* line 34, ../sass/_songBoard.scss */
+#tmsCurrentSong label {
+  display: inline-block;
+  margin: 2px 2px 0 2px;
+}
+/* line 38, ../sass/_songBoard.scss */
+#tmsCurrentSong label .emoji {
+  opacity: .7;
+}
+
+/* line 33, ../sass/styles.scss */
 #tmsPanel,
-#tmsPanel * {
+#tmsPanel *
+#tmsCurrentSong,
+#tmsCurrentSong * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 33, ../sass/styles.scss */
+/* line 38, ../sass/styles.scss */
 #tmsPanel {
   position: absolute;
   bottom: -75px;
@@ -931,25 +931,25 @@ div.box {
   -o-transition: height 0.4s ease-in-out;
   transition: height 0.4s ease-in-out;
 }
-/* line 46, ../sass/styles.scss */
+/* line 51, ../sass/styles.scss */
 .width-level-0 #tmsPanel, .width-level-1 #tmsPanel {
   right: 631px;
 }
-/* line 47, ../sass/styles.scss */
+/* line 52, ../sass/styles.scss */
 .width-level-2 #tmsPanel, .centered-mode #tmsPanel {
   right: 50%;
 }
-/* line 52, ../sass/styles.scss */
+/* line 57, ../sass/styles.scss */
 #tmsPanel.open {
   height: 460px;
 }
-/* line 56, ../sass/styles.scss */
+/* line 61, ../sass/styles.scss */
 #tmsPanel header {
   left: 0;
   bottom: 0;
   z-index: 9;
 }
-/* line 64, ../sass/styles.scss */
+/* line 69, ../sass/styles.scss */
 #tmsPanel.open header {
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;
@@ -958,7 +958,7 @@ div.box {
   -webkit-border-top-right-radius: 0;
   border-top-right-radius: 0;
 }
-/* line 68, ../sass/styles.scss */
+/* line 73, ../sass/styles.scss */
 #tmsPanel #tmsLogo {
   position: absolute;
   left: 10px;
@@ -967,40 +967,40 @@ div.box {
   height: 60px;
   display: block;
 }
-/* line 79, ../sass/styles.scss */
+/* line 84, ../sass/styles.scss */
 #tmsPanel hgroup {
   position: absolute;
   left: 85px;
   width: 400px;
   padding-top: 10px;
 }
-/* line 86, ../sass/styles.scss */
+/* line 91, ../sass/styles.scss */
 #tmsPanel hgroup h1, #tmsPanel hgroup h2 {
   text-align: center;
 }
-/* line 90, ../sass/styles.scss */
+/* line 95, ../sass/styles.scss */
 #tmsPanel hgroup h1 {
   font-size: 20px;
   opacity: .75;
 }
-/* line 97, ../sass/styles.scss */
+/* line 102, ../sass/styles.scss */
 #tmsPanel hgroup h2 {
   font-size: 14px;
 }
-/* line 103, ../sass/styles.scss */
+/* line 108, ../sass/styles.scss */
 #tmsPanel .toggleBtn {
   position: absolute;
   right: 20px;
   top: 50%;
   margin-top: -18px;
   height: 36px;
-  width: 84px;
+  width: 100px;
   text-indent: 0;
   font-size: 14px;
   font-weight: bold;
 }
 
-/* line 118, ../sass/styles.scss */
+/* line 123, ../sass/styles.scss */
 #tmsContent {
   position: relative;
   width: 700px;
@@ -1020,24 +1020,24 @@ div.box {
   -o-transition: height 0.4s ease-in-out;
   transition: height 0.4s ease-in-out;
 }
-/* line 131, ../sass/styles.scss */
+/* line 136, ../sass/styles.scss */
 .open #tmsContent {
   height: 400px;
   margin-bottom: 0;
 }
 
-/* line 139, ../sass/styles.scss */
+/* line 144, ../sass/styles.scss */
 ::-webkit-scrollbar {
   width: 12px;
   background-color: #FFFFFF;
 }
 
-/* line 144, ../sass/styles.scss */
+/* line 149, ../sass/styles.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* line 148, ../sass/styles.scss */
+/* line 153, ../sass/styles.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);

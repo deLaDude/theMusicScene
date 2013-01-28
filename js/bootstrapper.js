@@ -2,6 +2,8 @@
  * Extension's bootstrapper functions
  */
 (function () {
+  var songBoardMarkup;
+
   /**
    * Scraps page for templates loaded by content script and reloads them to privide acess in the TT sandbox
    * @return {[type]} [description]
@@ -13,13 +15,16 @@
       var $t = $(el),
           src = $t.attr("src"),
           id = $t.attr("id");
+          console.log(id);
 
       $t.remove();
 
       templates.push($.get(src, function (payload, status, xhr) {
         if (id === "base") {
-          // append base html to DOM
+          // append content panel base template
          $("#turntable .roomView").append(payload);
+        } else if (id === "songBoard") {
+          songBoardMarkup = payload;
         } else {
           $("body").append("<script id='" + id + "-template' type='text/html'>" + payload + "</script>");
         }
@@ -34,13 +39,15 @@
    * @param  {object} model    [app model]
    */
   function build (model) {
-    model.currentSong = tms.viewmodels.CurrentSongViewModel(model.roomInfo);
+    model.currentSong = new tms.viewmodels.CurrentSongViewModel(model.roomInfo.room);
 
-    $("#turntabl .room-veiw").ready(function(){
+    $("#bigboard").livequery(function(){
+      // append song board template
+      $(this).append(songBoardMarkup).expire();
+
       // create library and bind to view
-      var tmsViewModel = tms.factories.tmsFactory(model);
-      console.log(tmsViewModel);
-      ko.applyBindings(tmsViewModel);
+      tms.app.tmsViewModel = tms.factories.tmsFactory(model);
+      ko.applyBindings(tms.app.tmsViewModel);
 
       // TODO: move datatables code to bindingHandler
       $("#tmsPanel").find("table").dataTable({
@@ -52,9 +59,10 @@
 
       // data tables clean-up
       $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
-      $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
+      $("#DataTables_Table_0_filter input").attr("placeholder", "Library Search");
 
-      console.log("ready");  
+
+      console.log("ready");   
     });
   }
 
@@ -91,11 +99,7 @@
         model.roomInfo = data;
         build(model);
       }))
-      .fail(function(err){ console.log(err); })
-      .always(function(data) {
-        console.log("always:");
-        console.log(data);
-      });     
+      .fail(function(err){ console.log(err); });     
     } catch (e) {
       console.log(e);
 
