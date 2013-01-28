@@ -1,6 +1,8 @@
 # the Music Scene: Chrome Extension
 This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsFeedback
 
+Screenshots of current functiolity can be viewed here: http://minus.com/mJLZvRryAGfqg
+
 # IMPORTANT NOTE: 
 This extensions is currently in Alpha development. Bugs and odd behavior is to be expected. Help us make it better by providing your constuctive critisims, features requests and bug reports here: http://bit.ly/tmsFeedback 
 
