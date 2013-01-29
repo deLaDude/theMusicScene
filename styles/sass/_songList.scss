@@ -1,6 +1,6 @@
 #tmsContent {
 	table {
-		font-size: 11px;
+		font-size: 12px;
 		height: 0px;
 		border-spacing: 0;
 
@@ -19,27 +19,52 @@
 			color: $contentColor;
 		}
 
-		td,
-		th {
-			width: 120px;
-			padding: 2px;
-			padding-left: 5px;	
-
-			div {
-				width: 120px;
-				overflow: hidden;
-				word-wrap: nowrap;
-			}
+		th { 
+			cursor: pointer; 
+			padding: 0 2px;
 		}
 
-		th { cursor: pointer; }
+		td div {
+			@include box-sizing(content-box);
+
+			line-height: 12px;
+			padding: 5px 3px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			@include transition(all 0.4s ease-in-out);
+		
+			&.artist {
+				width: 120px;
+			}
+
+			&.songname {
+				width: 230px;
+			}
+
+			&.album {
+				width: 150px;
+			}
+
+			&.genre {
+				width: 100px;
+				text-align: center;
+			}
+
+			&.length {
+				width: 40px;
+				text-align: center;
+			}
+		}
 	}
 
 	.songListHead {
-		@include border-top-radius($border-radius);	
 		@extend %ttPanelHeader;
+		
 		padding: 5px;
 		height: 30px;
+
+		@include border-top-radius($border-radius);	
 
 		.dataTables_info {
 			text-align: left;
@@ -61,7 +86,6 @@
 				outline: none;
 			}
 		}
-
 	}
 
 	.dataTables_wrapper {

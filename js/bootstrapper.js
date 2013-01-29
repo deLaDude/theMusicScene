@@ -88,9 +88,14 @@
     // TODO: move datatables code to bindingHandler
     $("#tmsPanel").find("table").dataTable({
       "sScrollY": "352px",
-      "bPaginate": false,
       "bScrollCollapse": true,
-      "sDom": '<"songListHead"if>t'
+      "bPaginate": false,
+      "iTabIndex": 1, // keybaord navigation for column sorting (tab > enter)
+      "sDom": '<"songListHead"if>t',
+      "aoColumnDefs": [
+        { "aDataSort": [ 0, 2 ], "aTargets": [ 0 ] }, // when sorting artist, secondary sort is on album
+        { "aDataSort": [ 4, 0 ], "aTargets": [ 4 ] }  // when sorting genre, secondary sort is on artist
+      ]
     });
 
     // data tables clean-up

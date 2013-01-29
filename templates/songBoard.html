@@ -1,5 +1,5 @@
 <div id='tmsCurrentSong'>
-	<div>
+	<div data-bind='attr: { title: "Album: " + currentSong().album() + " | Genre: " + currentSong().genre() }'>
 		<label>
 			<span class='emoji emoji-thumbsup'></span>
 			<span data-bind='text: currentSong().upvotes'></span>

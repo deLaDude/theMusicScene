@@ -8,11 +8,11 @@
 		<!-- <td>
 			<img data-bind='attr: { src: $data.art }'>
 		</td> -->
-		<td><div data-bind='text: $data.artist'></div></td>
-		<td><div data-bind='text: $data.song'></div></td>
-		<td><div data-bind='text: $data.album'></div></td>
-		<td><div data-bind='text: $data.genre'></div></td>
-		<td><div data-bind='text: $data.formatedLength'></div></td>
+		<td><div class='artist' data-bind='text: $data.artist, attr: { title:  $data.artist }'></div></td>
+		<td><div class='songname' data-bind='text: $data.song, attr: { title:  $data.song }'></div></td>
+		<td><div class='album' data-bind='text: $data.album, attr: { title:  $data.album }'></div></td>
+		<td><div class='genre' data-bind='text: $data.genre, attr: { title:  $data.genre }'></div></td>
+		<td><div class='length' data-bind='text: $data.formatedLength'></div></td>
 <!-- 		<td><div data-bind='text: $data.source'></div></td>
 		<td><div data-bind='text: $data.snaggable'></div></td> -->
 	</tr>

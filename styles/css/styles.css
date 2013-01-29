@@ -771,7 +771,7 @@ div.box {
 
 /* line 2, ../sass/_songList.scss */
 #tmsContent table {
-  font-size: 11px;
+  font-size: 12px;
   height: 0px;
   border-spacing: 0;
 }
@@ -786,47 +786,71 @@ div.box {
   overflow: auto;
   color: #333333;
 }
-/* line 23, ../sass/_songList.scss */
-#tmsContent table td,
-#tmsContent table th {
-  width: 120px;
-  padding: 2px;
-  padding-left: 5px;
-}
-/* line 28, ../sass/_songList.scss */
-#tmsContent table td div,
-#tmsContent table th div {
-  width: 120px;
-  overflow: hidden;
-  word-wrap: nowrap;
-}
-/* line 35, ../sass/_songList.scss */
+/* line 22, ../sass/_songList.scss */
 #tmsContent table th {
   cursor: pointer;
+  padding: 0 2px;
 }
-/* line 38, ../sass/_songList.scss */
+/* line 27, ../sass/_songList.scss */
+#tmsContent table td div {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  line-height: 12px;
+  padding: 5px 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+/* line 37, ../sass/_songList.scss */
+#tmsContent table td div.artist {
+  width: 120px;
+}
+/* line 41, ../sass/_songList.scss */
+#tmsContent table td div.songname {
+  width: 230px;
+}
+/* line 45, ../sass/_songList.scss */
+#tmsContent table td div.album {
+  width: 150px;
+}
+/* line 49, ../sass/_songList.scss */
+#tmsContent table td div.genre {
+  width: 100px;
+  text-align: center;
+}
+/* line 54, ../sass/_songList.scss */
+#tmsContent table td div.length {
+  width: 40px;
+  text-align: center;
+}
+/* line 61, ../sass/_songList.scss */
 #tmsContent .songListHead {
+  padding: 5px;
+  height: 30px;
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
-  padding: 5px;
-  height: 30px;
 }
-/* line 44, ../sass/_songList.scss */
+/* line 69, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_info {
   text-align: left;
 }
-/* line 48, ../sass/_songList.scss */
+/* line 73, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_filter {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 25%;
 }
-/* line 54, ../sass/_songList.scss */
+/* line 79, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_filter input {
   padding: 2px 5px;
   border: 0;
@@ -836,7 +860,7 @@ div.box {
   box-shadow: inset 0 0 0 1px #888888, 0 1px 0 0 white;
   outline: none;
 }
-/* line 67, ../sass/_songList.scss */
+/* line 91, ../sass/_songList.scss */
 #tmsContent .dataTables_wrapper {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -844,12 +868,12 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 71, ../sass/_songList.scss */
+/* line 95, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollHead {
   width: 700px !important;
   height: 18px;
 }
-/* line 77, ../sass/_songList.scss */
+/* line 101, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollBody {
   width: 700px !important;
 }
