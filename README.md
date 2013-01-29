@@ -3,7 +3,7 @@ This extension will provide a set of features commonly sought after by TT power 
 
 Screenshots of current functiolity can be viewed here: http://minus.com/mJLZvRryAGfqg
 
-Checkout the development roadmap here: http://bit.ly/VsNV7g
+Checkout the development roadmap here: http://bit.ly/114rmCS
 
 # IMPORTANT NOTE: 
 This extensions is currently in Alpha development. Bugs and odd behavior is to be expected. Help us make it better by providing your constuctive critisims, features requests and bug reports here: http://bit.ly/tmsFeedback 
