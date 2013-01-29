@@ -2,6 +2,7 @@
 This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsFeedback
 
 Screenshots of current functiolity can be viewed here: http://minus.com/mJLZvRryAGfqg
+
 Checkout the development roadmap here: http://bit.ly/VsNV7g
 
 # IMPORTANT NOTE: 
