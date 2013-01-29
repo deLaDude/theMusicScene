@@ -2,8 +2,6 @@
  * Extension's bootstrapper functions
  */
 (function () {
-  var songBoardMarkup;
-
   /**
    * Scraps page for templates loaded by content script and reloads them to privide acess in the TT sandbox
    * @return {[type]} [description]
@@ -20,11 +18,10 @@
       $t.remove();
 
       templates.push($.get(src, function (payload, status, xhr) {
-        if (id === "base") {
-          // append content panel base template
-         $("#turntable .roomView").append(payload);
+        if (id === "panelBase") {
+          $("#turntable .roomView").append(payload);
         } else if (id === "songBoard") {
-          songBoardMarkup = payload;
+          $("#bigboard").append(payload);
         } else {
           $("body").append("<script id='" + id + "-template' type='text/html'>" + payload + "</script>");
         }
@@ -35,41 +32,9 @@
   }
 
   /**
-   * Create and bind application view model
-   * @param  {object} model    [app model]
-   */
-  function build (model) {
-    model.currentSong = new tms.viewmodels.CurrentSongViewModel(model.roomInfo.room);
-
-    $("#bigboard").livequery(function(){
-      // append song board template
-      $(this).append(songBoardMarkup).expire();
-
-      // create library and bind to view
-      tms.app.tmsViewModel = tms.factories.tmsFactory(model);
-      ko.applyBindings(tms.app.tmsViewModel);
-
-      // TODO: move datatables code to bindingHandler
-      $("#tmsPanel").find("table").dataTable({
-        "sScrollY": "352px",
-        "bPaginate": false,
-        "bScrollCollapse": true,
-        "sDom": '<"songListHead"if>t'
-      });
-
-      // data tables clean-up
-      $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
-      $("#DataTables_Table_0_filter input").attr("placeholder", "Library Search");
-
-
-      console.log("ready");   
-    });
-  }
-
-  /**
    * Initializes the extension in the TT sandbox
    */
-  function init () {
+  function buildModel () {
     // build up application model
     var model = {
       tt: turntable,
@@ -97,7 +62,7 @@
       })
       .done($.proxy(function(data) { 
         model.roomInfo = data;
-        build(model);
+        init(model);
       }))
       .fail(function(err){ console.log(err); });     
     } catch (e) {
@@ -106,29 +71,40 @@
       // TODO: we'll need to update model params to avoid errors, 
       //   but extension should still start - maybe retry api call..
       // return new tms.viewmodels.tmsViewModel(model);
-    }
-
-        
+    }        
   }
 
-
   /**
-   * Loop until TT is initialized then init extension
+   * Create and bind application view model
+   * @param  {object} model    [app model]
    */
-  tms.app.bootstrapper = function () {
-    var playlist = turntable.playlist;
+  function init (model) {
+    model.currentSong = new tms.viewmodels.CurrentSongViewModel(model.roomInfo.room);
 
-    if (!playlist || !playlist.queue || !playlist.queue.attributes || !playlist.queue.attributes.songids || playlist.queue.attributes.songids.length === 0) {
-      console.log("...");
-      setTimeout(tms.app.bootstrapper, 250);
-    } else { // initialize 
-      $.when.apply(null, getTemplates()).done(init);
-    } 
-  };
-})();
+    // create library and bind to view
+    tms.app.tmsViewModel = tms.factories.tmsFactory(model);
+    ko.applyBindings(tms.app.tmsViewModel);
 
+    // TODO: move datatables code to bindingHandler
+    $("#tmsPanel").find("table").dataTable({
+      "sScrollY": "352px",
+      "bPaginate": false,
+      "bScrollCollapse": true,
+      "sDom": '<"songListHead"if>t'
+    });
 
-// GO!
-$(function(){
-  tms.app.bootstrapper();
-});
+    // data tables clean-up
+    $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
+    $("#DataTables_Table_0_filter input").attr("placeholder", "Library Search");
+
+    console.log("ready");   
+  }
+
+  $(function(){
+    // wait till dynamically generated TT markup is ready
+    $("#bigboard").livequery(function () {
+      $.when.apply(null, getTemplates()).done(buildModel);
+      $("#bigboard").expire();
+    });
+  });
+}());

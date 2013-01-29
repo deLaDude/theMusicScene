@@ -1,5 +1,5 @@
 /**
- * Inject the scripts needed to run the library
+ * Inject the scripts needed to run the extension
  */
 (function () {
 	// scripts
@@ -18,7 +18,7 @@
 	var templates = [
 		"/templates/songList.html",
 		"/templates/songBoard.html",
-		"/templates/base.html"
+		"/templates/panelBase.html"
 	];
 
 	// loader utility - loads scripts into the TT sandbox
