@@ -4,9 +4,9 @@ $border-radius: 5px !default;
 $headerHeight: 60px !default;
 $libraryHeight: 400px !default;
 
-$wrapperWidth: 700px !default;
-$wrapperOpenHeight: 460px !default;
-$wrapperClosedHeight: $headerHeight !default;
+$panelWidth: 700px !default;
+$panelOpenHeight: 460px !default;
+$panelClosedHeight: $headerHeight !default;
 
 $contentBgColor: #cccccc !default;
 $contentColor: #333333 !default;
@@ -31,15 +31,15 @@ $songBoardColor: #f2dace;
 #tmsPanel *
 #tmsCurrentSong, 
 #tmsCurrentSong * {
-	@include box-sizing(border-box);
+	@include box-sizing(content-box);
 }
 
 // begin base styles
 #tmsPanel {
 	position: absolute;
 	bottom: -75px;
-	width: $wrapperWidth;
-	height: $wrapperClosedHeight;
+	width: $panelWidth;
+	height: $panelClosedHeight;
 	margin-right: -350px;
 	overflow: hidden;
 	z-index: 25009;
@@ -55,7 +55,7 @@ $songBoardColor: #f2dace;
 	@include transition(height 0.4s ease-in-out);
 	
 	&.open {
-		height: $wrapperOpenHeight;
+		height: $panelOpenHeight;
 	}
 
 	header {
@@ -122,7 +122,7 @@ $songBoardColor: #f2dace;
 
 #tmsContent {
 	position: relative;
-	width: $wrapperWidth;
+	width: $panelWidth;
 	height: 10px;
 	margin-bottom: 5px;
 	overflow: hidden;
@@ -142,7 +142,7 @@ $songBoardColor: #f2dace;
 
 
 ::-webkit-scrollbar {
-  width: 12px;	
+  width: 8px;	
   background-color: #FFFFFF;
 }
  

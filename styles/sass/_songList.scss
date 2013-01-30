@@ -1,8 +1,11 @@
 #tmsContent {
 	table {
-		font-size: 11px;
+		font-size: 12px;
 		height: 0px;
 		border-spacing: 0;
+		margin-right: -8px;
+		width: 680px;
+		table-layout: fixed;
 
 		thead {
 			@extend %ttPanelHeader;
@@ -19,27 +22,33 @@
 			color: $contentColor;
 		}
 
-		td,
-		th {
-			width: 120px;
-			padding: 2px;
-			padding-left: 5px;	
+		tr { 
+			cursor: pointer; 
+			
+			&:hover div { background: $stripesHighlight; }
 
-			div {
-				width: 120px;
-				overflow: hidden;
-				word-wrap: nowrap;
-			}
+			& .length, & .genre { text-align:center; }
 		}
 
-		th { cursor: pointer; }
+		td div { 
+			height: 12px;
+ 			line-height: 12px;
+			padding: 5px 3px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			@include transition(all 0.3s ease-in-out);
+
+		}
 	}
 
 	.songListHead {
-		@include border-top-radius($border-radius);	
 		@extend %ttPanelHeader;
+		
 		padding: 5px;
 		height: 30px;
+
+		@include border-top-radius($border-radius);	
 
 		.dataTables_info {
 			text-align: left;
@@ -61,7 +70,6 @@
 				outline: none;
 			}
 		}
-
 	}
 
 	.dataTables_wrapper {
@@ -70,11 +78,11 @@
 	
 	.dataTables_scrollHead {
 		@extend %headingTwo;
-		width: $wrapperWidth !important;
+		width: $panelWidth !important;
 		height: 18px;
 	}
 
 	.dataTables_scrollBody {
-		width: $wrapperWidth !important;
+		width: $panelWidth !important;
 	}
 }
