@@ -19,6 +19,7 @@ $headingColor1: #ffffff !default;
 $headingColor2: #999999 !default;
 
 $songBoardColor: #f2dace;
+$buttonActive: #d8a126;
 
 // imports
 @import "config";
@@ -26,6 +27,7 @@ $songBoardColor: #f2dace;
 @import "dataTables";
 @import "songList";
 @import "songBoard";
+@import "checkbox";
 
 #tmsPanel, 
 #tmsPanel *
@@ -63,30 +65,21 @@ $songBoardColor: #f2dace;
 		left: 0;
 		bottom: 0;
 		z-index: 9;
-
 	}
 
 	&.open header {
 		@include border-top-radius(0); 
 	}
 
-	#tmsLogo {
-		@extend %headphones-icon;
-
-		position: absolute;
-		left: 10px;
-		top: 10px;
-		width: $headerHeight;
-		height: $headerHeight;
-		display: block;
+	hgroup, #hud, nav {
+		float: left;
 	}
 
 	hgroup {
-		@extend %ttHeaderInsert;
-		position: absolute;
-		left: 85px;
-		width:400px;
-		padding-top: 10px;
+		width: 15%;
+		height: 43px;
+		padding-top: 17px;
+		-webkit-transform: rotate(-20deg);
 
 		h1, h2 {
 			text-align: center;
@@ -95,29 +88,96 @@ $songBoardColor: #f2dace;
 		h1 {
 			@extend %headingOne;
 
-			font-size: 20px;
+			font-size: 12px;
 			opacity: .75;
 		}
 
 		h2 {
 			@extend %headingTwo;
-			font-size: 14px;
+			font-size: 10px;
 		}
 	}
 
-	.toggleBtn {
-		@extend %ttHeaderButton;
+	#hud {
+		@extend %ttHeaderInsert;
+		width: 45%;
+	}
 
+	nav {
+		position: relative;
+		width: 40%;
+	}
+
+	.toggleBtn,
+	.bopBtn {
 		position: absolute;
-		right: 20px;
-		top: 50%;
-		margin-top: -18px;
-		height: 36px;
-		width: 100px;
-		text-indent: 0;
-		font-size: 14px;
-		font-weight: bold;
+		top: 5px;
+		height: 50px;
+		width: 50px;
+		cursor: pointer;
+
+		border-radius: 25px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+
+		&:hover {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0, 0.9);
+		}	
+
+		@include transition(all 0.2s ease-in-out);
 	}	
+
+	.toggleBtn {
+		@extend %power-icon;
+		right: 10px;
+
+		& > div {
+			margin-top: 24px;			
+		}
+
+		&.open {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0,0.7);
+
+			& > div > div {
+        background: $buttonActive;
+
+	      &::before {
+					border-right-color: $buttonActive;
+	      }
+
+	      &::after {
+	        border-right-color: $buttonActive;
+	        border-left-color: $buttonActive;
+	        border-bottom-color: $buttonActive;
+	      }				
+			}
+		}
+	}
+
+	.bopBtn {
+		@extend %headphones-icon;
+		left: 10px;
+
+		& > div {
+			margin-top: 6px;			
+			margin-left: 2px;
+		}
+
+		&.active {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0,0.7);
+
+			& > div > div {
+        border-color: $buttonActive;
+
+	      &::before {
+					background: $buttonActive;
+	      }
+
+	      &::after {
+	        background: $buttonActive;
+	      }				
+			}
+		}
+	}
 }
 
 #tmsContent {

@@ -1,12 +1,18 @@
 <article id='tmsPanel' data-bind="css: { open: isContentOpen }">
 	<header>
-		<div id="tmsLogo"><div><div></div></div></div>
 		<hgroup>
 			<h1>the Music Scene</h1>
-			<h2><span class="emoji emoji-blue_heart"></span> Duder</h2>
+			<h2>by Duder</h2>
 		</hgroup>
+		<div id="hud"></div>
 		<nav>
-			<button class='toggleBtn' data-bind='click: toggleOpen, text: isContentOpen() ? "Close Libary" : "Open Libary"'></button>		
+			<div class='bopBtn' data-bind='click: toggleAutoBop, css: { active: autoBopOn }, attr: { title: autoBopOn() ? "Turn off auto-bop." : "Turn on auto-bop." }'>
+				<div><div></div></div>
+			</div>
+
+			<div class='toggleBtn' data-bind='click: toggleOpen, css: { open: isContentOpen }, attr: { title: isContentOpen() ? "Close panel." : "Open panel." }'>
+				<div><div></div></div>
+			</div>		
 		</nav>
 	</header>
 

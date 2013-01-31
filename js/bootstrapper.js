@@ -108,7 +108,7 @@
     $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
     $("#DataTables_Table_0_filter input").attr("placeholder", "Library Search");
 
-    console.log("ready");   
+    console.log("tms ready");   
   }
 
   $(function(){

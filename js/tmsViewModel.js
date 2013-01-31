@@ -21,6 +21,50 @@
     self.songChange = function (roomData) {
       self.recentlyPlayed.push(self.currentSong());
       self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
+      
+      if (self.autoBopOn()) {
+        setBopTimer(roomData.metadata.current_song.metadata.length);
+      }
+    };
+
+    /******** Auto Bop  *********/
+    var bopTimer = null,
+        btn = $("#awesome-button");
+    
+    // sets a random time to bop based on songs length
+    function setBopTimer () {
+      bopTimer = setTimeout(bop, Math.floor(Math.random()*model.room.currentSong.metadata.length/4*1000));
+    }
+
+    // make request and set state upon success
+    function bop () {
+      var songId = $.sha1(model.room.roomId + 'up' + model.room.currentSong._id);
+
+      turntable.fASrAToS({
+        api: 'room.vote',
+        roomid: model.room.roomId,
+        section: model.room.section,
+        val: 'up',
+        vh: songId,
+        th: $.sha1(Math.random() + ""),
+        ph: $.sha1(Math.random() + "")
+      })
+      .done($.proxy(function(data) { 
+        btn.addClass("selected");
+      }))
+      .fail(function(err){ console.log(err); });
+    }
+
+    // ui toggle
+    self.autoBopOn = ko.observable(false);
+    self.toggleAutoBop = function () {
+      if (self.autoBopOn()) {
+        clearTimeout(bopTimer);
+        self.autoBopOn(false);
+      } else {
+        bop();
+        self.autoBopOn(true);
+      }
     };
   };
 
@@ -31,8 +75,7 @@
   tms.factories.tmsFactory = function (model) {
     var app = new tms.viewmodels.tmsViewModel(model);
 
-
-    // Event Dispatcher
+    // TT Event Dispatcher
     turntable.addEventListener("message", function (data) {
       var on = tms.constants.events.tt;
 
@@ -56,8 +99,6 @@
       if (data.snagid) {
         app.currentSong().updateSnags();
       }
-
-      // console.log(data);
     }); 
 
     return app;
