@@ -1,4 +1,5 @@
-# ATTN: currently broken due to recent TT update (they added playlists! one less thing I need to do)
+# ATTN: currently broken due to recent TT update 
+(they added playlists! one less thing I need to do)
 
 # the Music Scene: Chrome Extension
 This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsFeedback
