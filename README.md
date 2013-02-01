@@ -2,7 +2,7 @@
 (they added playlists! one less thing I need to do)
 
 # the Music Scene: Chrome Extension
-This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsFeedback
+This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsCommunity
 
 Screenshots of current functiolity can be viewed here: http://minus.com/mJLZvRryAGfqg
 
