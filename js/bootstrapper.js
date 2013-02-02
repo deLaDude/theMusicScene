@@ -118,7 +118,7 @@
       "sDom": '<"songListHead"if>t',
       "aoColumnDefs": [
         { "aDataSort": [ 0, 2 ], "aTargets": [ 0 ] }, // when sorting artist, secondary sort is on album
-        { "aDataSort": [ 4, 0 ], "aTargets": [ 4 ] }, // when sorting genre, secondary sort is on artist
+        { "aDataSort": [ 4, 0 ], "aTargets": [ 4 ] },  // when sorting genre, secondary sort is on artist
         { "sWidth": "20%", "aTargets": [ 0 ]  },
         { "sWidth": "33%", "aTargets": [ 1 ]  },
         { "sWidth": "22%", "aTargets": [ 2 ]  },

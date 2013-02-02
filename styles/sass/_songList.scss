@@ -1,74 +1,97 @@
-#tmsContent {
-	table {
-		font-size: 12px;
-		height: 0px;
-		border-spacing: 0;
-		margin-right: -8px;
-		width: 680px;
-		table-layout: fixed;
+#tmsContent table {
+	font-size: 12px;
+	height: 0px;
+	border-spacing: 0;
+	margin-right: -8px;
+	width: 680px;
+	table-layout: fixed;
 
-		thead {
-			@extend %ttPanelHeader;
+	thead {
+		@extend %ttPanelHeader;
 
-			.sorting_asc, .sorting_desc {
-				color: darken($headingColor2, 20%);
-				text-shadow: 0 1px 0 #eee;
-			}
-		}
-
-		tbody {
-			height: $libraryHeight;
-			overflow: auto;
-			color: $contentColor;
-		}
-
-		tr { 
-			cursor: pointer; 
-			
-			&:hover div { background: $stripesHighlight; }
-
-			& .length, & .genre { text-align:center; }
-		}
-
-		td div { 
-			height: 12px;
- 			line-height: 12px;
-			padding: 5px 3px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			@include transition(all 0.3s ease-in-out);
-
+		.sorting_asc, .sorting_desc {
+			color: darken($headingColor2, 20%);
+			text-shadow: 0 1px 0 #eee;
 		}
 	}
 
-	.songListHead {
-		@extend %ttPanelHeader;
+	tbody {
+		height: $libraryHeight;
+		overflow: auto;
+		color: $contentColor;
+	}
+
+	tr { 
+		cursor: pointer; 
 		
-		padding: 5px;
-		height: 30px;
+		&:hover div { background: $stripesHighlight; }
+	}
 
-		@include border-top-radius($border-radius);	
+	th { 
+		cursor: pointer; 
+		padding: 0 2px;
+	}
 
-		.dataTables_info {
-			text-align: left;
+	td div {
+		@include box-sizing(content-box);
+
+		line-height: 12px;
+		padding: 5px 3px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		@include transition(all 0.4s ease-in-out);
+	
+		&.artist {
+			width: 120px;
 		}
 
-		.dataTables_filter {
-			position: absolute;
-			top: 5px;
-			right: 5px;
-			width: 25%;
+		&.songname {
+			width: 230px;
+		}
 
-			input {
-				padding: 2px 5px;
-				border: 0;
-			  outline: 0;
-			  background: #FFF;
-			  border-radius: 14px;
-			  box-shadow: inset 0 0 0 1px #888,0 1px 0 0 #FFF;
-				outline: none;
-			}
+		&.album {
+			width: 150px;
+		}
+
+		&.genre {
+			width: 100px;
+			text-align: center;
+		}
+
+		&.length {
+			width: 40px;
+			text-align: center;
+		}
+	}
+}
+
+.songListHead {
+	@extend %ttPanelHeader;
+	
+	padding: 5px;
+	height: 30px;
+
+	@include border-top-radius($border-radius);	
+
+	.dataTables_info {
+		text-align: left;
+	}
+
+	.dataTables_filter {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 25%;
+
+		input {
+			padding: 2px 5px;
+			border: 0;
+		  outline: 0;
+		  background: #FFF;
+		  border-radius: 14px;
+		  box-shadow: inset 0 0 0 1px #888,0 1px 0 0 #FFF;
+			outline: none;
 		}
 	}
 
