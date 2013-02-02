@@ -1,83 +1,69 @@
-#tmsContent {
-	table {
-		font-size: 12px;
-		height: 0px;
-		border-spacing: 0;
-		margin-right: -8px;
-		width: 680px;
-		table-layout: fixed;
+#tmsContent table {
+	font-size: 12px;
+	height: 0px;
+	border-spacing: 0;
+	margin-right: -8px;
+	width: 680px;
+	table-layout: fixed;
 
-		thead {
-			@extend %ttPanelHeader;
+	thead {
+		@extend %ttPanelHeader;
 
-			.sorting_asc, .sorting_desc {
-				color: darken($headingColor2, 20%);
-				text-shadow: 0 1px 0 #eee;
-			}
+		.sorting_asc, .sorting_desc {
+			color: darken($headingColor2, 20%);
+			text-shadow: 0 1px 0 #eee;
 		}
+	}
 
-		tbody {
-			height: $libraryHeight;
-			overflow: auto;
-			color: $contentColor;
-		}
+	tbody {
+		height: $libraryHeight;
+		overflow: auto;
+		color: $contentColor;
+	}
 
-<<<<<<< HEAD
-		th { 
-			cursor: pointer; 
-			padding: 0 2px;
-		}
+	th { 
+		cursor: pointer; 
+		padding: 0 2px;
+	}
 
-		td div {
-			@include box-sizing(content-box);
-
-			line-height: 12px;
-			padding: 5px 3px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			@include transition(all 0.4s ease-in-out);
+	tr { 
+		cursor: pointer; 
 		
-			&.artist {
-				width: 120px;
-			}
+		&:hover div { background: $stripesHighlight; }
 
-			&.songname {
-				width: 230px;
-			}
+		& .length, & .genre { text-align:center; }
+	}
 
-			&.album {
-				width: 150px;
-			}
+	td div {
+		@include box-sizing(content-box);
 
-			&.genre {
-				width: 100px;
-				text-align: center;
-			}
-
-			&.length {
-				width: 40px;
-				text-align: center;
-			}
-=======
-		tr { 
-			cursor: pointer; 
-			
-			&:hover div { background: $stripesHighlight; }
-
-			& .length, & .genre { text-align:center; }
+		line-height: 12px;
+		padding: 5px 3px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		@include transition(all 0.4s ease-in-out);
+	
+		&.artist {
+			width: 120px;
 		}
 
-		td div { 
-			height: 12px;
- 			line-height: 12px;
-			padding: 5px 3px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-			@include transition(all 0.3s ease-in-out);
+		&.songname {
+			width: 230px;
+		}
 
->>>>>>> origin/autoawesome
+		&.album {
+			width: 150px;
+		}
+
+		&.genre {
+			width: 100px;
+			text-align: center;
+		}
+
+		&.length {
+			width: 40px;
+			text-align: center;
 		}
 	}
 
