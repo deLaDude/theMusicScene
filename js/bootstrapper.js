@@ -2,6 +2,7 @@
  * Extension's bootstrapper functions
  */
 (function () {
+
   /**
    * Scraps page for templates loaded by content script and reloads them to privide acess in the TT sandbox
    * @return {[type]} [description]
@@ -38,9 +39,10 @@
     // build up application model
     var model = {
       tt: turntable,
+      api: tms.utils.socket,
       ttRoom: null,
       roomInfo: null,
-      library: tms.factories.libraryFactory(turntable.playlist)
+      library: null
     };
 
     // get TT room obj
@@ -51,21 +53,42 @@
       } 
     }
 
-    // get room info from TT api
-    // NOTE: wrapped in catch in case api identifier changes.
-    // .. we need to figure out a long term solution for this.
+    // get room info and user playlists
     try {
-      turntable.fASrAToS({
-          api: "room.info",
-          roomid: model.room.roomId,
-          section: model.room.section
-      })
-      .done($.proxy(function(data) { 
-        model.roomInfo = data;
-        init(model);
-      }))
-      .fail(function(err){ console.log(err); });     
+      var roomReq = {
+            api: "room.info",
+            roomid: model.room.roomId,
+            section: model.room.section,
+            userid: model.tt.user.id,
+            userauth: model.tt.user.auth
+          },
+          playlistReq = { api: "playlist.list_all" };
+
+      $.when(tms.utils.socket(roomReq), tms.utils.socket(playlistReq))
+        .done($.proxy(function(roomInfo, playlists) {
+          var libraryModel = {
+            playlist: turntable.playlist,
+            playlists: playlists.lists
+          };
+
+          console.log(playlists);
+
+          // test code
+          for (var j in playlists.files) {
+            if (playlists.files.hasOwnProperty(j)) {
+              var h = playlists.files[j];
+              console.log(h);
+            }
+          }
+
+          model.roomInfo = roomInfo;
+          model.library = tms.factories.libraryFactory(libraryModel);
+
+          init(model);
+        }))
+        .fail(function(err){ console.log(err); });     
     } catch (e) {
+      console.log("API Exception!");
       console.log(e);
 
       // TODO: we'll need to update model params to avoid errors, 
@@ -79,6 +102,7 @@
    * @param  {object} model    [app model]
    */
   function init (model) {
+    console.log("here");
     model.currentSong = new tms.viewmodels.CurrentSongViewModel(model.roomInfo.room);
 
     // create library and bind to view

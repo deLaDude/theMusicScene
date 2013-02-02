@@ -15,9 +15,11 @@
       self.isContentOpen(self.isContentOpen() ? false : true); 
     };
 
+    /********************** 
+     *   Current Song     *
+     *********************/
     self.currentSong = ko.observable(model.currentSong);
-    self.recentlyPlayed = ko.observableArray([]);
-    
+    self.recentlyPlayed = ko.observableArray([]);    
     self.songChange = function (roomData) {
       self.recentlyPlayed.push(self.currentSong());
       self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
@@ -27,7 +29,9 @@
       }
     };
 
-    /******** Auto Bop  *********/
+    /********************** 
+     *     Auto Bop       *
+     *********************/
     var bopTimer = null,
         btn = $("#awesome-button");
     
@@ -40,7 +44,7 @@
     function bop () {
       var songId = $.sha1(model.room.roomId + 'up' + model.room.currentSong._id);
 
-      turntable.fASrAToS({
+      model.api({
         api: 'room.vote',
         roomid: model.room.roomId,
         section: model.room.section,
