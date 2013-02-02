@@ -3,6 +3,9 @@
 		font-size: 12px;
 		height: 0px;
 		border-spacing: 0;
+		margin-right: -8px;
+		width: 680px;
+		table-layout: fixed;
 
 		thead {
 			@extend %ttPanelHeader;
@@ -19,6 +22,7 @@
 			color: $contentColor;
 		}
 
+<<<<<<< HEAD
 		th { 
 			cursor: pointer; 
 			padding: 0 2px;
@@ -55,6 +59,25 @@
 				width: 40px;
 				text-align: center;
 			}
+=======
+		tr { 
+			cursor: pointer; 
+			
+			&:hover div { background: $stripesHighlight; }
+
+			& .length, & .genre { text-align:center; }
+		}
+
+		td div { 
+			height: 12px;
+ 			line-height: 12px;
+			padding: 5px 3px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			@include transition(all 0.3s ease-in-out);
+
+>>>>>>> origin/autoawesome
 		}
 	}
 
@@ -94,11 +117,11 @@
 	
 	.dataTables_scrollHead {
 		@extend %headingTwo;
-		width: $wrapperWidth !important;
+		width: $panelWidth !important;
 		height: 18px;
 	}
 
 	.dataTables_scrollBody {
-		width: $wrapperWidth !important;
+		width: $panelWidth !important;
 	}
 }

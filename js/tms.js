@@ -2,6 +2,7 @@
  * Setup global namespace for TMS 
  */
 var tms = {
+	utils: {},
   viewmodels: {},
   factories: {},
   app: {},

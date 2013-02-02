@@ -4,7 +4,7 @@
 
 %ttHeader {
 	position: absolute;
-  width: $wrapperWidth;
+  width: $panelWidth;
   height: $headerHeight;
   background: #4e4e4e;
   background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#666),color-stop(100%,#333));
@@ -57,7 +57,7 @@
 }
 
 %ttPanelHeader {
-	height: 36px;
+  height: 36px;
   color: $headingColor2;
   font-size: 13px;
   font-weight: bold;
@@ -102,41 +102,122 @@
 		vertical-align: middle;
 	}
 
-	div div	{
-		@include box-sizing(content-box);
-		font-size:20px;
-		width: 1.625em;
-		border: 0.2em solid #d8a126;
-		height: 1.438em;
-		border-radius: 3em 3em 0 0;
-		border-bottom: none;
-		margin-left:-0.2em;
-		position: relative;
+  &:hover div div {
+    border-color: $buttonActive;
 
-		&:hover {
-			opacity: .8;
-		}
+    &::before {
+      background: $buttonActive;
+    }
 
-		&:before {
+    &::after {
+      background: $buttonActive;
+    }
+  }
+  
+  div div {
+    @include box-sizing(content-box);
+    font-size: 18px;
+    width: 1.625em;
+    border: 0.2em solid $contentColor;
+    height: 1.438em;
+    border-radius: 3em 3em 0 0;
+    border-bottom: none;
+    margin-left: -0.1em;
+    position: relative;
+
+    @include transition(all 0.2s ease-in-out);
+
+		&::before {
 			position: absolute;
 			content: '';
 			top: 1.1em;
 			left: 0.05em;
 			width: 0.313em;
 			height: 0.625em;
-			background: #d8a126;
+			background: $contentColor;
 			border-radius: 0 0.125em 0.125em 0;
 		}
 
-		&:after {
+		&::after {
 			position: absolute;
 			content: '';
 			top: 1.1em;
 			left: 1.26em;
 			width: 0.313em;
 			height: 0.625em;
-			background: #d8a126;
+			background: $contentColor;
 			border-radius: 0.125em 0 0 0.125em;			
 		}
 	}
+}
+
+%power-icon {
+  text-align: center;
+  
+  & > div {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &:hover div div {
+      background: $buttonActive;
+
+      &::before {
+        border-right-color: $buttonActive;
+      }
+
+      &::after {
+        border-right-color: $buttonActive;
+        border-left-color: $buttonActive;
+        border-bottom-color: $buttonActive;
+      }
+    }
+
+  div > div { 
+    font-size: 13px;
+    margin-top: -1.5em;
+    border-radius: 1em;
+    background: $contentColor;
+    width: 0.4em;
+    height: 1.2em;
+    position: relative;
+    
+    @include transition(all 0.2s ease-in-out);
+
+    &::before {
+      right: -1.2em;
+
+      -webkit-transform: rotate(-25deg);
+      transform: rotate(-25deg);
+      border-top: 0.4em solid rgba(44, 44, 44, 0);
+      top: 0.2em;
+      position: absolute;
+      content: '';
+      height: 2em;
+      width: 2em;
+      border-radius: 100%;
+      border-right: 0.4em solid $contentColor;
+      border-bottom: 0.4em solid rgba(44, 44, 44, 0);
+      border-left: 0.4em solid rgba(44, 44, 44, 0);
+      @include transition(all 0.2s ease-in-out);
+    }
+    
+    &::after {
+      right: -1.2em;
+
+      -webkit-transform: rotate(25deg);
+      transform: rotate(25deg);
+      border-top: 0.4em solid rgba(44, 44, 44, 0);
+      top: 0.2em;
+      position: absolute;
+      content: '';
+      height: 2em;
+      width: 2em;
+      border-radius: 100%;
+      border-right: 0.4em solid $contentColor;
+      border-bottom: 0.4em solid $contentColor;
+      border-left: 0.4em solid $contentColor;
+      @include transition(all 0.2s ease-in-out);
+    }
+  }
 }

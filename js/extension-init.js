@@ -8,6 +8,7 @@
 		"/js/lib/jquery.liveQuery.js",
 		"/js/lib/jquery.dataTables.min.js",
 		"/js/lib/knockout.js",
+		"/js/socketUtility.js",
 		"/js/currentSongViewModel.js",
 		"/js/songViewModel.js",
 		"/js/libraryViewModel.js",
@@ -28,7 +29,7 @@
 		
 		if (isTemplate) {
 			// Knockout templates need to be handled differently than normal scripts
-			//  This is step one of two. step two gets carried out by loadTemplates in library.js
+			//  This is step one of two. step two gets carried out by loadTemplates() in library.js
 		  
 			var startpoint = source.lastIndexOf("/") + 1;
 		  var name = source.substring(startpoint, source.length-5);
@@ -46,14 +47,6 @@
 		}
 	}
 
-	// inject namespace directly 
-	// var ns = document.createElement('script');
-	// ns.type = "text/javascript";
-	// ns.onload = function() { 
-	// 	ns.innerHtml = "var tms = { viewModels: {}, factories: {}, app: {} };";
-	// };
-	// (document.head||document.documentElement).appendChild(ns);
-	
 	// loop through templates
 	for(var i in templates) {
 		loadResource(templates[i], true);

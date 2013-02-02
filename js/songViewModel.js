@@ -6,8 +6,9 @@
 	tms.viewmodels.SongViewModel = function (model) {
 		model = model || {};
 		var self = this;
-
+  
 		if (model.metadata) {
+      // TODO: add releasedate and label properties
 			self.artist = ko.observable(model.metadata.artist || "");
 			self.song = ko.observable(model.metadata.song || "");
 			self.album = ko.observable(model.metadata.album || "");

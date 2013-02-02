@@ -4,9 +4,9 @@ $border-radius: 5px !default;
 $headerHeight: 60px !default;
 $libraryHeight: 400px !default;
 
-$wrapperWidth: 700px !default;
-$wrapperOpenHeight: 460px !default;
-$wrapperClosedHeight: $headerHeight !default;
+$panelWidth: 700px !default;
+$panelOpenHeight: 460px !default;
+$panelClosedHeight: $headerHeight !default;
 
 $contentBgColor: #cccccc !default;
 $contentColor: #333333 !default;
@@ -19,6 +19,7 @@ $headingColor1: #ffffff !default;
 $headingColor2: #999999 !default;
 
 $songBoardColor: #f2dace;
+$buttonActive: #d8a126;
 
 // imports
 @import "config";
@@ -26,20 +27,21 @@ $songBoardColor: #f2dace;
 @import "dataTables";
 @import "songList";
 @import "songBoard";
+@import "checkbox";
 
 #tmsPanel, 
 #tmsPanel *
 #tmsCurrentSong, 
 #tmsCurrentSong * {
-	@include box-sizing(border-box);
+	@include box-sizing(content-box);
 }
 
 // begin base styles
 #tmsPanel {
 	position: absolute;
 	bottom: -75px;
-	width: $wrapperWidth;
-	height: $wrapperClosedHeight;
+	width: $panelWidth;
+	height: $panelClosedHeight;
 	margin-right: -350px;
 	overflow: hidden;
 	z-index: 25009;
@@ -55,7 +57,7 @@ $songBoardColor: #f2dace;
 	@include transition(height 0.4s ease-in-out);
 	
 	&.open {
-		height: $wrapperOpenHeight;
+		height: $panelOpenHeight;
 	}
 
 	header {
@@ -63,30 +65,21 @@ $songBoardColor: #f2dace;
 		left: 0;
 		bottom: 0;
 		z-index: 9;
-
 	}
 
 	&.open header {
 		@include border-top-radius(0); 
 	}
 
-	#tmsLogo {
-		@extend %headphones-icon;
-
-		position: absolute;
-		left: 10px;
-		top: 10px;
-		width: $headerHeight;
-		height: $headerHeight;
-		display: block;
+	hgroup, #hud, nav {
+		float: left;
 	}
 
 	hgroup {
-		@extend %ttHeaderInsert;
-		position: absolute;
-		left: 85px;
-		width:400px;
-		padding-top: 10px;
+		width: 15%;
+		height: 43px;
+		padding-top: 17px;
+		-webkit-transform: rotate(-20deg);
 
 		h1, h2 {
 			text-align: center;
@@ -95,34 +88,101 @@ $songBoardColor: #f2dace;
 		h1 {
 			@extend %headingOne;
 
-			font-size: 20px;
+			font-size: 12px;
 			opacity: .75;
 		}
 
 		h2 {
 			@extend %headingTwo;
-			font-size: 14px;
+			font-size: 10px;
 		}
 	}
 
-	.toggleBtn {
-		@extend %ttHeaderButton;
+	#hud {
+		@extend %ttHeaderInsert;
+		width: 45%;
+	}
 
+	nav {
+		position: relative;
+		width: 40%;
+	}
+
+	.toggleBtn,
+	.bopBtn {
 		position: absolute;
-		right: 20px;
-		top: 50%;
-		margin-top: -18px;
-		height: 36px;
-		width: 100px;
-		text-indent: 0;
-		font-size: 14px;
-		font-weight: bold;
+		top: 5px;
+		height: 50px;
+		width: 50px;
+		cursor: pointer;
+
+		border-radius: 25px;
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+
+		&:hover {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0, 0.9);
+		}	
+
+		@include transition(all 0.2s ease-in-out);
 	}	
+
+	.toggleBtn {
+		@extend %power-icon;
+		right: 10px;
+
+		& > div {
+			margin-top: 24px;			
+		}
+
+		&.open {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0,0.7);
+
+			& > div > div {
+        background: $buttonActive;
+
+	      &::before {
+					border-right-color: $buttonActive;
+	      }
+
+	      &::after {
+	        border-right-color: $buttonActive;
+	        border-left-color: $buttonActive;
+	        border-bottom-color: $buttonActive;
+	      }				
+			}
+		}
+	}
+
+	.bopBtn {
+		@extend %headphones-icon;
+		left: 10px;
+
+		& > div {
+			margin-top: 6px;			
+			margin-left: 2px;
+		}
+
+		&.active {
+			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0,0.7);
+
+			& > div > div {
+        border-color: $buttonActive;
+
+	      &::before {
+					background: $buttonActive;
+	      }
+
+	      &::after {
+	        background: $buttonActive;
+	      }				
+			}
+		}
+	}
 }
 
 #tmsContent {
 	position: relative;
-	width: $wrapperWidth;
+	width: $panelWidth;
 	height: 10px;
 	margin-bottom: 5px;
 	overflow: hidden;
@@ -142,7 +202,7 @@ $songBoardColor: #f2dace;
 
 
 ::-webkit-scrollbar {
-  width: 12px;	
+  width: 8px;	
   background-color: #FFFFFF;
 }
  
