@@ -1,5 +1,5 @@
 # the Music Scene: Chrome Extension
-This extension will provide a set of features commonly sought after by TT power users. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsCommunity
+This extension will provide integrated enhancements for Turntable power users and noobs alike. The intial focus is on better queue management, but additional features will come in the future. Help shape future development by joining the discussion: http://bit.ly/tmsCommunity
 
 Latest Update & Screenshots: http://bit.ly/14I4xt7
 
