@@ -10,7 +10,7 @@
     self.library = model.library;
 
     // handle opening/closing the content panel
-    self.isContentOpen = ko.observable(false);
+    self.isContentOpen = ko.observable(true);
     self.toggleOpen = function () {
       self.isContentOpen(self.isContentOpen() ? false : true); 
     };
@@ -44,7 +44,7 @@
     function bop () {
       var songId = $.sha1(model.room.roomId + 'up' + model.room.currentSong._id);
 
-      model.api({
+      tms.utils.socket({
         api: 'room.vote',
         roomid: model.room.roomId,
         section: model.room.section,

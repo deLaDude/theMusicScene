@@ -5,12 +5,14 @@
 	// scripts
 	var scripts = [
 		"/js/tms.js",
+		"/js/lib/knockout.js",
 		"/js/lib/jquery.liveQuery.js",
 		"/js/lib/jquery.dataTables.min.js",
-		"/js/lib/knockout.js",
+		"/js/lib/dataTablesBindingHandler.js",
 		"/js/socketUtility.js",
 		"/js/currentSongViewModel.js",
 		"/js/songViewModel.js",
+		"/js/playlistViewModel.js",
 		"/js/libraryViewModel.js",
 		"/js/tmsViewModel.js",
 		"/js/bootstrapper.js"
@@ -18,6 +20,7 @@
 
 	var templates = [
 		"/templates/songList.html",
+		"/templates/playlists.html",
 		"/templates/songBoard.html",
 		"/templates/panelBase.html"
 	];

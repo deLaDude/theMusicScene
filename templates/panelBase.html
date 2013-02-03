@@ -1,23 +1,52 @@
 <article id='tmsPanel' data-bind="css: { open: isContentOpen }">
 	<header>
 		<hgroup>
-			<h1>the Music Scene</h1>
-			<h2>by Duder</h2>
+			<a href="https://plus.google.com/u/0/communities/104349056546867898421" target="_blank">
+				<h1>the Music Scene</h1>
+				<h2>by Duder</h2>
+			</a>
 		</hgroup>
-		<div id="hud"></div>
+		<div id="hud">
+			<section>
+				<hgroup>
+					<h1>Top of Playlist</h1>
+					<h2 data-bind="text: library.activePlayList().name"></h2>
+				</hgroup>
+				<div data-bind="with: library.topOfQueue()">
+					<div>
+						<img data-bind="attr: { src: art(), title: album() }" />
+					</div>
+					<div>
+						<label data-bind="text: artist"></label>
+						<span data-bind="text: song"></span>
+					</div>
+				</div>
+			</section>
+		</div>
 		<nav>
+			<div class='listBtn' data-bind='click: toggleOpen, css: { open: isContentOpen }, attr: { title: isContentOpen() ? "Close Library." : "Open Library." }'>
+				<div><div></div></div>
+			</div>
+					
 			<div class='bopBtn' data-bind='click: toggleAutoBop, css: { active: autoBopOn }, attr: { title: autoBopOn() ? "Turn off auto-bop." : "Turn on auto-bop." }'>
 				<div><div></div></div>
 			</div>
 
-			<div class='toggleBtn' data-bind='click: toggleOpen, css: { open: isContentOpen }, attr: { title: isContentOpen() ? "Close panel." : "Open panel." }'>
+		 <!-- data-bind='click: openPlaylists, css: { active: playlistsOpen }' -->
+			<!-- <div class='listBtn'>
 				<div><div></div></div>
-			</div>		
+			</div> -->
+
+			<div class='heartBtn' title='under construction <3'>
+				<div><div></div></div>
+			</div>
+
 		</nav>
 	</header>
 
 	<div id="tmsContent">
 		<!-- Song List -->
-		<div data-bind='template: { name: "songList-template", data: library.songList }'></div>
+		<div data-bind='template: { name: "songList-template", data: library }'></div>
+
 	</div>
 </article>

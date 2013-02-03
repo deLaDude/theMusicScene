@@ -1,72 +1,60 @@
-#tmsContent table {
-	font-size: 12px;
-	height: 0px;
-	border-spacing: 0;
-	margin-right: -8px;
-	width: 680px;
-	table-layout: fixed;
+#tmsContent {
+	table {
+		font-size: 12px;
+		height: 0px;
+		border-spacing: 0;
+		margin-right: -8px;
+		width: 680px;
+		table-layout: fixed;
 
-	thead {
-		@extend %ttPanelHeader;
+		thead {
+			@extend %ttPanelHeader;
 
-		.sorting_asc, .sorting_desc {
-			color: darken($headingColor2, 20%);
-			text-shadow: 0 1px 0 #eee;
+			.sorting_asc, .sorting_desc {
+				color: darken($headingColor2, 20%);
+				text-shadow: 0 1px 0 #eee;
+			}
 		}
+
+		tbody {
+			height: $libraryHeight;
+			overflow: auto;
+			color: $contentColor;
+			
+			tr {
+				&:hover td { background: $stripesHighlight; }
+			}
+		}
+
+		th { 
+			cursor: pointer; 
+			padding: 0 2px;
+		}
+
+		tr { 
+			cursor: pointer; 
+			
+			& .length, 
+			& .genre, 
+			& .pos { 
+				text-align:center; 
+			}
+		}
+
+		td {
+			@include box-sizing(content-box);
+
+			height: 12px;
+			line-height: 12px;
+			padding: 5px 3px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			@include transition(all $panelSpeed ease-in-out);
+		}
+
 	}
-
-	tbody {
-		height: $libraryHeight;
-		overflow: auto;
-		color: $contentColor;
-	}
-
-	th { 
-		cursor: pointer; 
-		padding: 0 2px;
-	}
-
-	tr { 
-		cursor: pointer; 
-		
-		&:hover div { background: $stripesHighlight; }
-
-		& .length, & .genre { text-align:center; }
-	}
-
-	td div {
-		@include box-sizing(content-box);
-
-		line-height: 12px;
-		padding: 5px 3px;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		@include transition(all 0.4s ease-in-out);
 	
-		&.artist {
-			width: 120px;
-		}
-
-		&.songname {
-			width: 230px;
-		}
-
-		&.album {
-			width: 150px;
-		}
-
-		&.genre {
-			width: 100px;
-			text-align: center;
-		}
-
-		&.length {
-			width: 40px;
-			text-align: center;
-		}
-	}
-
 	.songListHead {
 		@extend %ttPanelHeader;
 		
@@ -109,5 +97,84 @@
 
 	.dataTables_scrollBody {
 		width: $panelWidth !important;
+	}
+}
+
+// playlist menu
+#tmsContent section { 
+	position: absolute;
+	right: 10px;
+	bottom: 0px;
+	width: 250px;
+	height: 25px;
+	background-color: $stripesOdd;
+	opacity: .91;
+
+	@include box-shadow(#333 0px 0px 5px);
+
+	@include transition(height $panelSpeed ease-in-out);
+	@include border-top-radius($border-radius);
+
+	&.open {
+		height: 220px;
+
+		h2 {
+			// opacity: 1;
+		}
+	}
+
+	h2 {
+		@include border-top-radius($border-radius);
+		@include transition(opacity $panelSpeed ease-in-out);
+		@extend %ttPanelHeader;
+
+		height: 20px;
+		padding-top: 5px;
+		cursor: pointer;
+		// opacity: .6;
+
+		&:hover {
+			// opacity: 1;
+		}
+	}
+
+	ul {
+		list-style-type: none;
+		height: 193px;
+		overflow: auto;
+	}
+
+	li {
+		padding: 2px;
+		cursor: pointer;
+		@include transition(background-color 0.3s ease-in-out);
+
+		&.active::before {
+			content: '♫';
+			font-size: 14px;
+			margin-right: 3px;		
+			text-shadow: 0 0 7px $buttonActive, 
+										0 0 8px $buttonActive,
+										0 0 9px $buttonActive, 
+										0 0 10px $buttonActive;
+		}
+
+
+		&:nth-child(even) {
+			background-color: $stripesEven;
+		}
+
+		&:nth-child(odd) {
+			background-color: $stripesOdd;
+		}
+
+		&.viewing {
+			background-color: transparentize($stripesHighlight, .5);
+		}
+
+		&:hover {
+			background-color: $stripesHighlight;
+		}
+
 	}
 }

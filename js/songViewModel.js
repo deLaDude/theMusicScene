@@ -6,7 +6,12 @@
 	tms.viewmodels.SongViewModel = function (model) {
 		model = model || {};
 		var self = this;
-  
+    
+    // queueId maps to the songIds in playlist viewmodel to determine position in playlist(queue)
+    //  its also used to access local storage data
+    self.queueId = ko.observable(model.fieldId);
+    self.queuePosition = ko.observable(model.queuePosition);
+
 		if (model.metadata) {
       // TODO: add releasedate and label properties
 			self.artist = ko.observable(model.metadata.artist || "");

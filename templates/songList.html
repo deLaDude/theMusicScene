@@ -1,21 +1,4 @@
-<table cellspacing="0" cellpadding="0">
-	<thead>
-		<tr data-bind='foreach: $data.listHeaders'>
-			<th><div data-bind='text: $data'></div></th>
-		</tr>
-	</thead>	
-	<tbody data-bind='foreach: $data.songs()'> 
-		<tr>
-			<!-- <td>
-				<img data-bind='attr: { src: $data.art }'>
-			</td> -->
-			<td class='artist'><div data-bind='text: $data.artist'></div></td>
-			<td class='songname'><div data-bind='text: $data.song'></div></td>
-			<td class='album'><div data-bind='text: $data.album'></div></td>
-			<td class='genre'><div data-bind='text: $data.genre'></div></td>
-			<td class='length'><div data-bind='text: $data.formatedLength'></div></td>
-	<!-- 		<td><div data-bind='text: $data.source'></div></td>
-			<td><div data-bind='text: $data.snaggable'></div></td> -->
-		</tr>
-	</tbody>
+<table data-bind="dataTable: { data: songList, options: tableOptions }">
 </table>
+
+<section data-bind='template: { name: "playlists-template", data: $data }, css: { open: playListsOpen }'></section>
