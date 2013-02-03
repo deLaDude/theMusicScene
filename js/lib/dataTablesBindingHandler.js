@@ -22,7 +22,7 @@
         options.aaData = tableData;
         $(element).dataTable(options);
         $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
-        $("#DataTables_Table_0_filter input").attr("placeholder", "Library Search");
+        $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
       } else {
         var table = $(element).dataTable();
         table.fnClearTable();
