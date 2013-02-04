@@ -21,6 +21,12 @@
     self.currentSong = ko.observable(model.currentSong);
     self.recentlyPlayed = ko.observableArray([]);    
     self.songChange = function (roomData) {
+
+      // if user is DJing, updated playlist
+      if (roomData.metadata.current_dj === self.tt.user.id) {
+        self.library.updateActiveList(roomData.metadata.current_song);
+      }
+
       self.recentlyPlayed.push(self.currentSong());
       self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
       

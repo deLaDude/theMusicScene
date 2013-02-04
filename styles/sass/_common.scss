@@ -322,3 +322,25 @@
     }
   }
 }
+
+%play-icon {
+  div { 
+    width: 2em;
+    height: 2em;
+    border-radius:50%;
+    position:relative;
+    border: 0.3em solid $contentColor;
+
+    &::before {
+    position: absolute;
+    content: "";
+    top: 0.25em;
+    left: 0.75em;
+    width: 0em;
+    height: 0em;
+    border-top: 0.8em solid rgba(44, 44, 44, 0);
+    border-bottom: 0.8em solid transparent;
+    border-left: 0.8em solid $contentColor;
+    }
+  }
+}

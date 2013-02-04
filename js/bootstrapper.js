@@ -33,13 +33,15 @@
   // generate array of deferred objects for playlist requests
   function compilePlaylistRequests (playlists) {
     var reqs = [];
+
     for(var i in playlists) {
       reqs.push(tms.utils.socket({
         api: "playlist.all",
         playlist_name: playlists[i].name,
         minimal: true
-      }));
+      }));        
     }
+
     return reqs;      
   }
 
@@ -74,8 +76,8 @@
             // column widths
             { "sWidth": "5%", "aTargets": [ 0 ] },
             { "sWidth": "20%", "aTargets": [ 1 ] },
-            { "sWidth": "32%", "aTargets": [ 2 ] },
-            { "sWidth": "15%", "aTargets": [ 3 ] },
+            { "sWidth": "29%", "aTargets": [ 2 ] },
+            { "sWidth": "18%", "aTargets": [ 3 ] },
             { "sWidth": "15%", "aTargets": [ 4 ] },
             { "sWidth": "8%", "aTargets": [ 5 ] },
             //column classes
@@ -95,7 +97,8 @@
         }
       }
     },
-    ttPlaylists;
+    ttPlaylists,
+    activePlaylist;
 
     // get TT room obj
     for (var i in turntable) { 
@@ -118,15 +121,26 @@
     // get room info and user playlists
     try {
       $.when(tms.utils.socket(roomReq), tms.utils.socket(playlistReq))
-        .then($.proxy(function(roomInfo, playlists) {
+        .then(function(roomInfo, playlists) {
           models.tmsModel.roomInfo = roomInfo;
-
-          ttPlaylists = playlists.list;
+          ttPlaylists = [];
+        
+          // active playlist needs to be the last so it is last requested
+          //  because the TT api auto-activates playlists upon request
+          for (var i in playlists.list) {
+            // console.log(playlists.list[i].name + " " + playlists.list[i].active);
+            if (playlists.list[i].active) {
+              activePlaylist = playlists.list[i];
+            } else {
+              ttPlaylists.push(playlists.list[i]);
+            }
+          }
+          
           // compile requests and return $.when()
           var loadLists = compilePlaylistRequests(ttPlaylists);
           return $.when.apply($, loadLists);
-        }), $.proxy(function(err){ console.log(err); }))  
-        .done($.proxy(function() {
+        }, function(err){ console.log(err); })  
+        .then(function() {
           // compile playlist data 
           for (var i in arguments) {
             // only if the argument is a playlist
@@ -139,9 +153,24 @@
             }
           }
 
+          // get active playlist last
+          return tms.utils.socket({
+            api: "playlist.all",
+            playlist_name: activePlaylist.name,
+            minimal: true
+          });
+        }, function(err){ console.log(err); })
+        .done(function (playlist){
+          // add active list to model data
+          models.libraryModel.playlistData.push({
+            list: playlist.list,
+            name: activePlaylist.name,
+            active: activePlaylist.active
+          });
+
           init(models); 
-        }))
-        .fail($.proxy(function(err){ console.log(err); }));
+        })
+        .fail(function(err){ console.log(err); });
     } catch (e) {
       console.log("API Exception!");
       console.log(e);

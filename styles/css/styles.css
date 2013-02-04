@@ -317,6 +317,27 @@
   transition: all 0.2s ease-in-out;
 }
 
+/* line 327, ../sass/_common.scss */
+#tmsContent section li .playBtn div {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  position: relative;
+  border: 0.3em solid #333333;
+}
+/* line 334, ../sass/_common.scss */
+#tmsContent section li .playBtn div::before {
+  position: absolute;
+  content: "";
+  top: 0.25em;
+  left: 0.75em;
+  width: 0em;
+  height: 0em;
+  border-top: 0.8em solid rgba(44, 44, 44, 0);
+  border-bottom: 0.8em solid transparent;
+  border-left: 0.8em solid #333333;
+}
+
 /*
  *  File:         demo_table.css
  *  CVS:          $Id$
@@ -938,39 +959,38 @@ div.box {
   font-size: 12px;
   height: 0px;
   border-spacing: 0;
-  margin-right: -8px;
   width: 680px;
   table-layout: fixed;
 }
-/* line 13, ../sass/_songList.scss */
+/* line 12, ../sass/_songList.scss */
 #tmsContent table thead .sorting_asc, #tmsContent table thead .sorting_desc {
   color: #666666;
   text-shadow: 0 1px 0 #eeeeee;
 }
-/* line 19, ../sass/_songList.scss */
+/* line 18, ../sass/_songList.scss */
 #tmsContent table tbody {
   height: 400px;
   overflow: auto;
   color: #333333;
 }
-/* line 25, ../sass/_songList.scss */
+/* line 24, ../sass/_songList.scss */
 #tmsContent table tbody tr:hover td {
   background: #baebfe;
 }
-/* line 29, ../sass/_songList.scss */
+/* line 28, ../sass/_songList.scss */
 #tmsContent table th {
   cursor: pointer;
   padding: 0 2px;
 }
-/* line 34, ../sass/_songList.scss */
+/* line 33, ../sass/_songList.scss */
 #tmsContent table tr {
   cursor: pointer;
 }
-/* line 39, ../sass/_songList.scss */
+/* line 38, ../sass/_songList.scss */
 #tmsContent table tr .length, #tmsContent table tr .genre, #tmsContent table tr .pos {
   text-align: center;
 }
-/* line 44, ../sass/_songList.scss */
+/* line 43, ../sass/_songList.scss */
 #tmsContent table td {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -986,7 +1006,7 @@ div.box {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 58, ../sass/_songList.scss */
+/* line 57, ../sass/_songList.scss */
 #tmsContent .songListHead {
   padding: 5px;
   height: 30px;
@@ -997,18 +1017,18 @@ div.box {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 66, ../sass/_songList.scss */
+/* line 65, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_info {
   text-align: left;
 }
-/* line 70, ../sass/_songList.scss */
+/* line 69, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_filter {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 25%;
 }
-/* line 76, ../sass/_songList.scss */
+/* line 75, ../sass/_songList.scss */
 #tmsContent .songListHead .dataTables_filter input {
   padding: 2px 5px;
   border: 0;
@@ -1018,7 +1038,7 @@ div.box {
   box-shadow: inset 0 0 0 1px #888888, 0 1px 0 0 white;
   outline: none;
 }
-/* line 88, ../sass/_songList.scss */
+/* line 87, ../sass/_songList.scss */
 #tmsContent .dataTables_wrapper {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1026,17 +1046,17 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 92, ../sass/_songList.scss */
+/* line 91, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollHead {
   width: 700px !important;
   height: 18px;
 }
-/* line 98, ../sass/_songList.scss */
+/* line 97, ../sass/_songList.scss */
 #tmsContent .dataTables_scrollBody {
   width: 700px !important;
 }
 
-/* line 104, ../sass/_songList.scss */
+/* line 103, ../sass/_songList.scss */
 #tmsContent section {
   position: absolute;
   right: 10px;
@@ -1059,11 +1079,11 @@ div.box {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 118, ../sass/_songList.scss */
+/* line 117, ../sass/_songList.scss */
 #tmsContent section.open {
   height: 220px;
 }
-/* line 126, ../sass/_songList.scss */
+/* line 125, ../sass/_songList.scss */
 #tmsContent section h2 {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
@@ -1071,22 +1091,19 @@ div.box {
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
-  -webkit-transition: opacity 0.4s ease-in-out;
-  -moz-transition: opacity 0.4s ease-in-out;
-  -o-transition: opacity 0.4s ease-in-out;
-  transition: opacity 0.4s ease-in-out;
   height: 20px;
   padding-top: 5px;
   cursor: pointer;
 }
-/* line 141, ../sass/_songList.scss */
+/* line 134, ../sass/_songList.scss */
 #tmsContent section ul {
   list-style-type: none;
   height: 193px;
   overflow: auto;
 }
-/* line 147, ../sass/_songList.scss */
+/* line 140, ../sass/_songList.scss */
 #tmsContent section li {
+  position: relative;
   padding: 2px;
   cursor: pointer;
   -webkit-transition: background-color 0.3s ease-in-out;
@@ -1094,28 +1111,52 @@ div.box {
   -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
-/* line 152, ../sass/_songList.scss */
+/* line 146, ../sass/_songList.scss */
 #tmsContent section li.active::before {
   content: '♫';
   font-size: 14px;
   margin-right: 3px;
   text-shadow: 0 0 7px #d8a126, 0 0 8px #d8a126, 0 0 9px #d8a126, 0 0 10px #d8a126;
 }
-/* line 163, ../sass/_songList.scss */
+/* line 156, ../sass/_songList.scss */
+#tmsContent section li .playBtn {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  font-size: 7px;
+  border-radius: 50%;
+  opacity: 0.0;
+  -webkit-transition: opacity 0.3s ease-in-out;
+  -moz-transition: opacity 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+/* line 167, ../sass/_songList.scss */
+#tmsContent section li .playBtn:hover {
+  opacity: 0.9;
+  -webkit-box-shadow: 0 0 8px #d8a126, 0 0 9px #d8a126, inset 0 0 8px #d8a126, inset 0 0 9px #d8a126;
+}
+/* line 177, ../sass/_songList.scss */
 #tmsContent section li:nth-child(even) {
   background-color: white;
 }
-/* line 167, ../sass/_songList.scss */
+/* line 181, ../sass/_songList.scss */
 #tmsContent section li:nth-child(odd) {
   background-color: #eeeeee;
 }
-/* line 171, ../sass/_songList.scss */
+/* line 185, ../sass/_songList.scss */
 #tmsContent section li.viewing {
-  background-color: rgba(186, 235, 254, 0.5);
+  color: #4d4d4d;
+  text-shadow: 0 0 2px #d8a126;
+  background-color: #ddf5ff;
 }
-/* line 175, ../sass/_songList.scss */
+/* line 191, ../sass/_songList.scss */
 #tmsContent section li:hover {
   background-color: #baebfe;
+}
+/* line 194, ../sass/_songList.scss */
+#tmsContent section li:hover .playBtn {
+  opacity: 0.5;
 }
 
 /**
@@ -1318,7 +1359,7 @@ body {
   height: 60px;
   margin-right: -350px;
   overflow: hidden;
-  z-index: 25009;
+  z-index: 9;
   opacity: .95;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   -webkit-border-radius: 5px;
@@ -1353,7 +1394,7 @@ body {
 #tmsPanel header > hgroup {
   width: 15%;
   height: 43px;
-  padding-top: 17px;
+  padding-top: 20px;
 }
 /* line 79, ../sass/styles.scss */
 #tmsPanel header > hgroup a {
@@ -1361,19 +1402,22 @@ body {
 }
 /* line 83, ../sass/styles.scss */
 #tmsPanel header > hgroup h1, #tmsPanel header > hgroup h2 {
-  -webkit-transform: rotate(-20deg) translate3d(0, 0, 0);
+  -webkit-transform: rotate(-25deg) translate3d(0, 0, 0);
   text-align: center;
 }
 /* line 88, ../sass/styles.scss */
 #tmsPanel header > hgroup h1 {
+  color: #d8a126;
+  margin-right: 8px;
   font-size: 12px;
-  opacity: .75;
 }
 /* line 95, ../sass/styles.scss */
 #tmsPanel header > hgroup h2 {
   font-size: 10px;
+  margin-top: -3px;
+  margin-left: 10px;
 }
-/* line 102, ../sass/styles.scss */
+/* line 104, ../sass/styles.scss */
 #tmsPanel.open header {
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;
@@ -1382,61 +1426,61 @@ body {
   -webkit-border-top-right-radius: 0;
   border-top-right-radius: 0;
 }
-/* line 106, ../sass/styles.scss */
+/* line 108, ../sass/styles.scss */
 #tmsPanel hgroup, #tmsPanel #hud, #tmsPanel nav {
   float: left;
 }
-/* line 110, ../sass/styles.scss */
+/* line 112, ../sass/styles.scss */
 #tmsPanel #hud {
   width: 40%;
   height: 50px;
   padding: 5px;
 }
-/* line 116, ../sass/styles.scss */
+/* line 118, ../sass/styles.scss */
 #tmsPanel #hud hgroup {
   margin-top: -3px;
   margin-bottom: 8px;
 }
-/* line 120, ../sass/styles.scss */
+/* line 122, ../sass/styles.scss */
 #tmsPanel #hud hgroup h1, #tmsPanel #hud hgroup h2 {
   display: inline-block;
 }
-/* line 124, ../sass/styles.scss */
+/* line 126, ../sass/styles.scss */
 #tmsPanel #hud hgroup h1 {
   font-size: 13px;
   color: white;
 }
-/* line 129, ../sass/styles.scss */
+/* line 131, ../sass/styles.scss */
 #tmsPanel #hud hgroup h2 {
   font-size: 11px;
   color: #999999;
 }
-/* line 135, ../sass/styles.scss */
+/* line 137, ../sass/styles.scss */
 #tmsPanel #hud section > div {
   width: 100%;
   padding: 5px;
   margin: -5px;
   background-color: rgba(204, 204, 204, 0.05);
 }
-/* line 142, ../sass/styles.scss */
+/* line 144, ../sass/styles.scss */
 #tmsPanel #hud div {
   float: left;
 }
-/* line 144, ../sass/styles.scss */
+/* line 146, ../sass/styles.scss */
 #tmsPanel #hud img {
   width: 25px;
   height: 25px;
 }
-/* line 149, ../sass/styles.scss */
+/* line 151, ../sass/styles.scss */
 #tmsPanel #hud label {
   margin-top: -2px;
   color: #999999;
 }
-/* line 154, ../sass/styles.scss */
+/* line 156, ../sass/styles.scss */
 #tmsPanel #hud span {
   color: #cccccc;
 }
-/* line 158, ../sass/styles.scss */
+/* line 160, ../sass/styles.scss */
 #tmsPanel #hud label, #tmsPanel #hud span {
   margin-left: 5px;
   font-size: 11px;
@@ -1445,12 +1489,12 @@ body {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-/* line 168, ../sass/styles.scss */
+/* line 170, ../sass/styles.scss */
 #tmsPanel nav {
   position: relative;
   width: 40%;
 }
-/* line 176, ../sass/styles.scss */
+/* line 178, ../sass/styles.scss */
 #tmsPanel .toggleBtn,
 #tmsPanel .bopBtn,
 #tmsPanel .listBtn,
@@ -1468,70 +1512,70 @@ body {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-/* line 187, ../sass/styles.scss */
+/* line 189, ../sass/styles.scss */
 #tmsPanel .toggleBtn:hover,
 #tmsPanel .bopBtn:hover,
 #tmsPanel .listBtn:hover,
 #tmsPanel .heartBtn:hover {
   -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.9);
 }
-/* line 197, ../sass/styles.scss */
+/* line 199, ../sass/styles.scss */
 #tmsPanel .toggleBtn > div {
   margin-top: 24px;
 }
-/* line 201, ../sass/styles.scss */
+/* line 203, ../sass/styles.scss */
 #tmsPanel .toggleBtn.open {
   -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.7);
 }
-/* line 204, ../sass/styles.scss */
+/* line 206, ../sass/styles.scss */
 #tmsPanel .toggleBtn.open > div > div {
   background: #d8a126;
 }
-/* line 207, ../sass/styles.scss */
+/* line 209, ../sass/styles.scss */
 #tmsPanel .toggleBtn.open > div > div::before {
   border-right-color: #d8a126;
 }
-/* line 211, ../sass/styles.scss */
+/* line 213, ../sass/styles.scss */
 #tmsPanel .toggleBtn.open > div > div::after {
   border-right-color: #d8a126;
   border-left-color: #d8a126;
   border-bottom-color: #d8a126;
 }
-/* line 224, ../sass/styles.scss */
+/* line 226, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div {
   -webkit-box-shadow: 0 0 4px #d8a126;
 }
-/* line 227, ../sass/styles.scss */
+/* line 229, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div::before {
   background: #d8a126;
 }
-/* line 231, ../sass/styles.scss */
+/* line 233, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div::after {
   border-color: #d8a126;
 }
-/* line 245, ../sass/styles.scss */
+/* line 247, ../sass/styles.scss */
 #tmsPanel .bopBtn > div {
   margin-top: 6px;
   margin-left: 2px;
 }
-/* line 250, ../sass/styles.scss */
+/* line 252, ../sass/styles.scss */
 #tmsPanel .bopBtn.active {
   -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.7);
 }
-/* line 253, ../sass/styles.scss */
+/* line 255, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div {
   border-color: #d8a126;
 }
-/* line 256, ../sass/styles.scss */
+/* line 258, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div::before {
   background: #d8a126;
 }
-/* line 260, ../sass/styles.scss */
+/* line 262, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div::after {
   background: #d8a126;
 }
 
-/* line 268, ../sass/styles.scss */
+/* line 270, ../sass/styles.scss */
 #tmsContent {
   position: relative;
   width: 700px;
@@ -1551,24 +1595,24 @@ body {
   -o-transition: height 0.4s ease-in-out;
   transition: height 0.4s ease-in-out;
 }
-/* line 281, ../sass/styles.scss */
+/* line 283, ../sass/styles.scss */
 .open #tmsContent {
   height: 400px;
   margin-bottom: 0;
 }
 
-/* line 287, ../sass/styles.scss */
+/* line 289, ../sass/styles.scss */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #FFFFFF;
 }
 
-/* line 292, ../sass/styles.scss */
+/* line 294, ../sass/styles.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* line 296, ../sass/styles.scss */
+/* line 298, ../sass/styles.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);

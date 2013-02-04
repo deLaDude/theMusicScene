@@ -27,12 +27,13 @@
 
     // create song viewmodels from cached data
     // NOTE: need to loop in correct direction to account for song order
-    for(var i = model.songIds.length; i >= 0; i--) {
+    // for(var i = model.songIds.length; i >= 0; i--) {
+    for (var i in model.songIds) {
       var song = ttPlaylist.cache.getItem(model.songIds[i]);
       if (!song || !song.metadata) {
         console.log("no meta data found for songId: " + model.songIds[i]);
       } else {
-        song.queuePosition = i+1;
+        song.queuePosition = parseInt(i, 10) + 1;
         model.songs.push(new tms.viewmodels.SongViewModel(song)); 
       }
     }

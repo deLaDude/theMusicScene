@@ -3,7 +3,6 @@
 		font-size: 12px;
 		height: 0px;
 		border-spacing: 0;
-		margin-right: -8px;
 		width: 680px;
 		table-layout: fixed;
 
@@ -124,18 +123,12 @@
 	}
 
 	h2 {
-		@include border-top-radius($border-radius);
-		@include transition(opacity $panelSpeed ease-in-out);
 		@extend %ttPanelHeader;
+		@include border-top-radius($border-radius);
 
 		height: 20px;
 		padding-top: 5px;
 		cursor: pointer;
-		// opacity: .6;
-
-		&:hover {
-			// opacity: 1;
-		}
 	}
 
 	ul {
@@ -145,6 +138,7 @@
 	}
 
 	li {
+		position: relative;
 		padding: 2px;
 		cursor: pointer;
 		@include transition(background-color 0.3s ease-in-out);
@@ -159,6 +153,26 @@
 										0 0 10px $buttonActive;
 		}
 
+		.playBtn {
+			@extend %play-icon;
+
+			position: absolute;
+			right: 3px;
+			top: 3px;
+			font-size: 7px;
+			border-radius: 50%;
+			opacity: 0.0;
+			@include transition(opacity 0.3s ease-in-out);
+
+			&:hover {
+				opacity: 0.9;
+				-webkit-box-shadow: 0 0 8px $buttonActive,
+														0 0 9px $buttonActive,
+														inset 0 0 8px $buttonActive,
+														inset 0 0 9px $buttonActive;
+			}
+		}
+
 
 		&:nth-child(even) {
 			background-color: $stripesEven;
@@ -169,11 +183,17 @@
 		}
 
 		&.viewing {
-			background-color: transparentize($stripesHighlight, .5);
+			color: lighten($contentColor, 10%);
+			text-shadow: 0 0 2px $buttonActive;
+			background-color: lighten($stripesHighlight, 7%);
 		}
 
 		&:hover {
 			background-color: $stripesHighlight;
+
+			.playBtn {
+				opacity: 0.5;
+			}
 		}
 
 	}

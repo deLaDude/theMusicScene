@@ -1,32 +1,22 @@
-// Datatables binding handles tailored for TMS
+// Datatables (jquery plugin) binding handler
 (function($){
   ko.bindingHandlers.dataTable = {
     update: function(element, valueAccessor){
-      var songs = valueAccessor().data(),
-          options = valueAccessor().options,
-          tableData = [];
+      var options = valueAccessor().options,
+          data = valueAccessor().data();
 
-      // transfer songs into a dataTables-consumable format
-      for (var i in songs) {
-        tableData.push([
-          songs[i].queuePosition,
-          songs[i].artist(),
-          songs[i].song(),
-          songs[i].album(),
-          songs[i].genre(),
-          songs[i].formatedLength()
-        ]);
-      }
-      
+      // create new datatable if needed. otherwise replace contents
       if (!$.fn.DataTable.fnIsDataTable(element) ) {
-        options.aaData = tableData;
+        options.aaData = data;
         $(element).dataTable(options);
+
+        // TMS specific post-processing
         $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
         $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
       } else {
         var table = $(element).dataTable();
         table.fnClearTable();
-        table.fnAddData(tableData);
+        table.fnAddData(data);
       }
     }
   };

@@ -19847,6 +19847,7 @@ turntable.playlist = {
         });
         return a;
     },
+    // c: playlistdata, b: event target
     setActivePlaylist: function(c, b) {
         var a = this.activePlaylist = c;
         this.loadPlaylistsDeferred.done(function() {
