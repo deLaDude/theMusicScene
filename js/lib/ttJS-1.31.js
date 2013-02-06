@@ -19801,6 +19801,8 @@ turntable.playlist = {
         turntable.playlist.currentPreviewid = b;
         turntable.playlist.$currentPreview = a;
     },
+
+    // TODO: comback for this! tracking progress will be a must
     previewCallback: function(c, b) {
         if (c == "progress") {
             var a = turntable.playlist.$currentPreview;
@@ -20178,7 +20180,10 @@ var SongList = TTNode.extend({
         this.renderedItems = {};
         this.reset();
         this.$viewport.on("scroll", util.rateLimit(this, this.scroll, 250));
-        this.$songs.on("click", ".playSample", turntable.playlist.previewPlay).on("click", ".pauseSample", turntable.playlist.previewStop).on("click", ".buy", turntable.playlist.buySong);
+
+        // NOTE: song previews
+        this.$songs.on("click", ".playSample", turntable.playlist.previewPlay)
+                    .on("click", ".pauseSample", turntable.playlist.previewStop).on("click", ".buy", turntable.playlist.buySong);
     },
     scroll: function(b) {
         var a = this.$viewport.scrollTop();

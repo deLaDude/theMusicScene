@@ -74,12 +74,13 @@
             { "sTitle": "Genre", "aTargets": [ 4 ] },
             { "sTitle": "Length", "aTargets": [ 5 ] },
             // column widths
-            { "sWidth": "5%", "aTargets": [ 0 ] },
-            { "sWidth": "20%", "aTargets": [ 1 ] },
-            { "sWidth": "29%", "aTargets": [ 2 ] },
+            { "sWidth": "3%", "aTargets": [ 0 ] },
+            { "sWidth": "18%", "aTargets": [ 1 ] },
+            { "sWidth": "27%", "aTargets": [ 2 ] },
             { "sWidth": "18%", "aTargets": [ 3 ] },
-            { "sWidth": "15%", "aTargets": [ 4 ] },
-            { "sWidth": "8%", "aTargets": [ 5 ] },
+            { "sWidth": "16%", "aTargets": [ 4 ] },
+            { "sWidth": "6%", "aTargets": [ 5 ] },
+            { "sWidth": "10%", "aTargets": [ 6 ] },
             //column classes
             { "sClass": "pos", "aTargets": [ 0 ] },
             { "sClass": "artist", "aTargets": [ 1 ] },
@@ -87,11 +88,13 @@
             { "sClass": "album", "aTargets": [ 3 ] },
             { "sClass": "genre", "aTargets": [ 4 ] },
             { "sClass": "length", "aTargets": [ 5 ] },
+            { "sClass": "actions", "aTargets": [ 6 ] },
             // sort and filter options
             { "aDataSort": [ 1, 3 ], "aTargets": [ 1 ] }, // when sorting artist, secondary sort is on album
             { "aDataSort": [ 5, 1 ], "aTargets": [ 5 ] }, // when sorting genre, secondary sort is on artist
             { "bSearchable": false, "aTargets": [ 0 ] },  // prevent filtering on # column
-            { "sType": "numeric", "aTargets": [ 0 ] }     // enabled numeric sort on # column
+            { "sType": "numeric", "aTargets": [ 0 ] },    // enabled numeric sort on # column
+            { "sType": "html", "aTargets": [ 6 ] }        // render buttons as html
           ],
           "bAutoWidth" : false
         }

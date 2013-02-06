@@ -21,7 +21,9 @@
 			color: $contentColor;
 			
 			tr {
-				&:hover td { background: $stripesHighlight; }
+				&:hover td { 
+					background: $stripesHighlight; 
+				}
 			}
 		}
 
@@ -32,11 +34,25 @@
 
 		tr { 
 			cursor: pointer; 
+
+			&.previewActive td {
+				-webkit-animation-name: pulsate;
+				-webkit-animation-duration: 1.2s;
+				-webkit-animation-iteration-count: infinite;
+
+				.playPause {
+					opacity: 0.8 !important;
+				}
+			}
 			
 			& .length, 
 			& .genre, 
 			& .pos { 
 				text-align:center; 
+			}
+
+			& td.pos {
+				font-size: 8px;
 			}
 		}
 
@@ -97,6 +113,66 @@
 	.dataTables_scrollBody {
 		width: $panelWidth !important;
 	}
+
+	// song actions
+	 tr:hover .toTop, tr:hover .toBottom, tr:hover .playPause {
+		opacity: 0.5;
+	}
+
+	.toTop,
+	.toBottom,
+	.playPause {
+		position: relative;
+		float: left;
+		width: 16px;	
+		height: 16px;
+		margin: -2px 5px -2px 0;
+		border-radius: 50%;
+
+		div {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		opacity: 0.0;
+		@include transition(opacity 0.3s ease-in-out);
+
+		&:hover {
+			background-color: $buttonActive;
+			-webkit-box-shadow: 0 0 9px $buttonActive,
+													0 0 10px $buttonActive;
+		}
+	}
+
+	.moreInfo:hover div::before{
+		border-color: $buttonActive;
+	}
+
+	.toTop div, 
+	.toBottom div {
+		font-size: 6px;
+	}
+
+	.toTop {
+		@extend %upArrow-icon;
+		margin-top: 1px;
+	}
+
+	.toBottom {
+		@extend %downArrow-icon;
+		margin-top: 1px;
+
+		& div {
+			margin-top: 2px;
+		}
+	}
+
+	.playPause {
+		@extend %play-icon;
+		font-size: 7px;
+		margin-right: 0;
+		margin-top: -2px;
+	}
 }
 
 // playlist menu
@@ -116,10 +192,6 @@
 
 	&.open {
 		height: 220px;
-
-		h2 {
-			// opacity: 1;
-		}
 	}
 
 	h2 {
@@ -166,13 +238,12 @@
 
 			&:hover {
 				opacity: 0.9;
-				-webkit-box-shadow: 0 0 8px $buttonActive,
-														0 0 9px $buttonActive,
-														inset 0 0 8px $buttonActive,
-														inset 0 0 9px $buttonActive;
+				-webkit-box-shadow: 0 0 9px $buttonActive,
+														0 0 10px $buttonActive,
+														inset 0 0 9px $buttonActive,
+														inset 0 0 10px $buttonActive;
 			}
 		}
-
 
 		&:nth-child(even) {
 			background-color: $stripesEven;

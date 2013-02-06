@@ -17,28 +17,21 @@
       self.playListsOpen(self.playListsOpen() ? false : true); 
     };
 
-    // what is displayed in the data table
-    self.songListTitle = ko.observable(model.activeList.name());
-    self.songList = ko.observableArray(model.activeList.songs());
-
-    // songsList converted to dataTables-consumable format
-    self.tableData = ko.computed(function (){
-      var data = [],
-          songs = self.songList();
+    // find song in viewingPlaylist by its posistion
+    self.findSongByPosition = function (position) {
+      var songs = self.viewingPlayList().songs(),
+          match;
 
       for (var i in songs) {
-        data.push([
-          songs[i].queuePosition(),
-          songs[i].artist(),
-          songs[i].song(),
-          songs[i].album(),
-          songs[i].genre(),
-          songs[i].formatedLength()
-        ]);
+        if (songs[i].queuePosition() == position) {
+          console.log(songs[i].queuePosition() + " : " + position);
+          match = songs[i];
+          break;
+        }
       }
 
-      return data;
-    });
+      return match;
+    };
 
     // the playlist that will be used while DJing
     self.activePlayList = ko.observable(model.activeList);
@@ -55,14 +48,29 @@
       return top;
     }); 
 
-    self.activePlayList().songs.subscribe(function(){
-      console.log("list change");
+    self.viewingPlayList = ko.observable(model.activeList);
+    // songsList converted to dataTables-consumable format
+    self.tableData = ko.computed(function (){
+      var data = [],
+          songs = self.viewingPlayList().songs();
+
+      for (var i in songs) {
+        data.push([
+          songs[i].queuePosition(),
+          songs[i].artist(),
+          songs[i].song(),
+          songs[i].album(),
+          songs[i].genre(),
+          songs[i].formatedLength()
+        ]);
+      }
+
+      return data;
     });
 
     // change the songs in the data table
     self.changeSongList = function(playlist) {
-      self.songList(playlist.songs());
-      self.songListTitle(playlist.name());
+      self.viewingPlayList(playlist);
     };
 
     // change the active playlist. also switch to this list in data table
@@ -75,7 +83,7 @@
           playlist.active(true);
           self.activePlayList().active(false);
           self.activePlayList(playlist);
-          self.songList(playlist.songs());
+          self.viewingPlayList(playlist);
       });
     };
 
@@ -96,8 +104,9 @@
           self.activePlayList().songs()[i].queuePosition(parseInt(i, 10) + 1);
         }
 
-        if (self.activePlayList().name() === self.songListTitle()) {
-          self.songsList(self.activePlayList().songs());
+        // update the song list (table) if viewing active list
+        if (self.activePlayList().name() === self.viewingPlayList().name()) {
+          self.viewingPlayList(self.activePlayList());
         }
 
         // dont need to update because its dont automatically
@@ -108,21 +117,29 @@
       });
     };
 
+    // send to top user action from song list
+    self.sendSongToTop = function (songPosition) {
+      var song = self.findSongByPosition(songPosition);
+      self.updatePlayList(self.viewingPlayList, { _id: song.queueId() }, 0);
+    };
+
+    // send to bottom user action from song list
+    self.sendSongToBottom = function (songPosition) {
+      var song = self.findSongByPosition(songPosition);
+      self.updatePlayList(self.viewingPlayList, { _id: song.queueId() }, self.viewingPlayList().songs().length-1);  
+    };
+
     // updates a playlist bassed on passed params
     self.updatePlayList = function (playlist, songData, targetPos) {
-      var location,
-          songs = playlist().songs();
+      var location;
 
       // determine location
-      for (var i in songs) {
-        if (songs[i].queueId() === songData._id) {
-          console.log(songs[i]);
+      for (var i in playlist().songs()) {
+        if (playlist().songs()[i].queueId() === songData._id) {
           location = parseInt(i, 10);
           break;
         }
       }
-
-      console.log(location + " : " + targetPos);
 
       // re-order
       tms.utils.socket({
@@ -131,13 +148,59 @@
         index_from: location,
         index_to: targetPos
       })
-      .done(function(data) {
-        console.log(data);
+      .done(function(data) {     
+        var target = playlist().songs().splice(location, 1);
+       
         // move in playlist
-        var target = playlist.splice(location, 1);
-        playlist.push(target);    
+        if (targetPos > location) {
+          playlist().songs.push(target[0]);
+        } else {
+          playlist().songs.reverse();
+          playlist().songs.push(target[0]);
+          playlist().songs.reverse();
+        }
+
+        // update queue positions 
+        for (var i in playlist().songs()) {
+          playlist().songs()[i].queuePosition(parseInt(i, 10) + 1);
+        }    
       })
       .fail(function (err) { console.log(err); });
+    };
+
+    var previewSong;
+    var previewStartedCallback;
+    var previewEndedCallback;
+    function updatePreviewProgress (data) {
+      if (data === "progress" && !self.playingPreview()) {
+        self.playingPreview(true);
+        previewStartedCallback(previewSong.queuePosition());
+      } else if (data === "stop") {
+        previewEndedCallback(previewSong.queuePosition());
+      }
+    }
+
+    self.playingPreview = ko.observable(false);
+    self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
+      var song = self.findSongByPosition(songPosition);
+
+      if (!self.playingPreview()) {
+        previewSong = song;
+        turntablePlayer.samplePlay(song.queueId(), updatePreviewProgress);
+        previewStartedCallback = startedCallback;
+        previewEndedCallback = endedCallback;
+      } else {
+        turntablePlayer.sampleStop();
+        self.playingPreview(false);
+        
+        // if stopping preview to start another
+        if (previewSong.queueId() !== song.queueId()) {
+          previewSong = song;
+          turntablePlayer.samplePlay(song.queueId(), updatePreviewProgress);
+          previewStartedCallback = startedCallback;
+          previewEndedCallback = endedCallback;
+        }
+      }
     };
   };
 
