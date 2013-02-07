@@ -24,7 +24,6 @@
 
       for (var i in songs) {
         if (songs[i].queuePosition() == position) {
-          console.log(songs[i].queuePosition() + " : " + position);
           match = songs[i];
           break;
         }
@@ -87,6 +86,7 @@
       });
     };
 
+    // updates the active list after a song is played from it
     self.updateActiveList = function (songData) {
       // reset active playlist 
       //  because if you changed it via TMS it will 
@@ -167,6 +167,42 @@
       .fail(function (err) { console.log(err); });
     };
 
+    self.addSongsToPlaylist = function (songs, playlist, updateViewing) {
+      var songIds = $.map(songs, function (song, i) { return { fileid: song.queueId() }; }),
+          playlistLength = playlist().songs().length;
+
+      tms.utils.socket({
+        api: "playlist.add",
+        playlist_name: playlist().name(),
+        index: playlistLength,
+        song_dict: songIds
+      }).done(function (data) {
+        console.log(data);
+
+        // update queue positions of new songs
+        $.each(songs, function (i, song) {
+          var qPos = playlistLength + (1 + parseInt(i, 10));
+
+          // if its a currentSongViewModel we need to convert
+          if (song.upvotes()) {
+            var songModel = song.model.metadata.current_song;
+            songModel.queuePosition = qPos;
+            song = new tms.viewmodels.SongViewModel(songModel);
+          } else {
+            song.queuePosition(qPos);
+          }
+
+          playlist().songs.push(song);
+        });
+
+        // if the active list was passed in we need to update viewing as well
+        if (updateViewing) {
+          self.viewingPlayList(playlist());
+        }
+      })
+      .fail(function (err) { console.log(err); });
+    };
+
     /********************** 
      *   Song Previews    *
      *********************/
@@ -185,7 +221,7 @@
       }
     }
 
-    function playPreview (song) {
+    function playPreview (song, startedCallback, endedCallback) {
       previewSong = song;
       previewStartedCallback = startedCallback;
       previewEndedCallback = endedCallback;
@@ -197,14 +233,14 @@
       var song = self.findSongByPosition(songPosition);     
 
       if (!self.playingPreview()) {
-        playingPreview(song);
+        playPreview(song, startedCallback, endedCallback);
       } else {
         turntablePlayer.sampleStop();
         self.playingPreview(false);
         
         // if stopping preview to start another
         if (previewSong.queueId() !== song.queueId()) {
-          playingPreview(song);
+          playPreview(song, startedCallback, endedCallback);
         }
       }
     };

@@ -27,6 +27,7 @@ $buttonActive: #d8a126;
 @import "common";
 @import "dataTables";
 @import "songList";
+@import "playlistMenu";
 @import "songBoard";
 @import "checkbox";
 
@@ -169,7 +170,7 @@ body {
 
 	nav {
 		position: relative;
-		width: 40%;
+		width: 43%;
 	}
 
 	.toggleBtn,
@@ -181,7 +182,7 @@ body {
 		width: 50px;
 		margin: 5px;
 		cursor: pointer;
-		float: right;
+		float: left;
 
 		border-radius: 25px;
 		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
@@ -239,10 +240,12 @@ body {
 
 	.heartBtn {
 		@extend %heart-icon;
+		margin-left: 10px;
 	}
 
 	.bopBtn {
 		@extend %headphones-icon;
+		float: right;
 
 		& > div {
 			margin-top: 6px;			

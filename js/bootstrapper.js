@@ -189,8 +189,8 @@
     models.tmsModel.library = tms.factories.libraryFactory(models.libraryModel);
 
     // create library and bind to view
-    tms.app.tmsViewModel = tms.factories.tmsFactory(models.tmsModel);   
-    ko.applyBindings(tms.app.tmsViewModel);
+    tms.app = tms.factories.tmsFactory(models.tmsModel);   
+    ko.applyBindings(tms.app);
     
     console.log("tms ready");   
   }

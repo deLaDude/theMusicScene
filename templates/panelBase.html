@@ -24,29 +24,22 @@
 			</section>
 		</div>
 		<nav>
-			<div class='listBtn' data-bind='click: toggleOpen, css: { open: isContentOpen }, attr: { title: isContentOpen() ? "Close Library." : "Open Library." }'>
+			<div class='heartBtn' data-bind='click: snagSong, css: { active: songSnagged }, attr: { title: songSnagged() ? "Song snagged." : "Snag song."}'>
 				<div><div></div></div>
 			</div>
-					
+
+			<div class='listBtn' data-bind='click: toggleOpen, css: { open: isContentOpen }, attr: { title: isContentOpen() ? "Close Library." : "Open Library." }'>
+				<div><div></div></div>
+			</div>	
+
 			<div class='bopBtn' data-bind='click: toggleAutoBop, css: { active: autoBopOn }, attr: { title: autoBopOn() ? "Turn off auto-bop." : "Turn on auto-bop." }'>
 				<div><div></div></div>
 			</div>
-
-		 <!-- data-bind='click: openPlaylists, css: { active: playlistsOpen }' -->
-			<!-- <div class='listBtn'>
-				<div><div></div></div>
-			</div> -->
-
-			<div class='heartBtn' title='under construction <3'>
-				<div><div></div></div>
-			</div>
-
 		</nav>
 	</header>
 
 	<div id="tmsContent">
 		<!-- Song List -->
 		<div data-bind='template: { name: "songList-template", data: library }'></div>
-
 	</div>
 </article>

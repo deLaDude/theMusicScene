@@ -19457,6 +19457,7 @@ turntable.playlist = {
     removeSongs: function(b) {
         this.lockQueueEdits();
         var a = this;
+        // NOTE: remove
         return turntable.hYkveeiflds({
             api: "playlist.remove",
             playlist_name: a.activePlaylist,
@@ -21932,9 +21933,27 @@ var Room = Class.extend(function() {
             }
             var b = i ? i.djid: this.roomData.metadata.currentDj;
             var g = (i == this.currentSong) ? "board": "songlog";
-            this.sendSnag(turntable.user.id, this.roomId, this.section, b, f, e, g, (c ? "true": "false"), d);
+            this.sendSnag(
+                          turntable.user.id, // h
+                          this.roomId, // 
+                          this.section, // m
+                          b, // c
+                          f, // g
+                          e, // b
+                          g, // l
+                          (c ? "true": "false"), // d
+                          d); // j
         },
-        sendSnag: function(h, e, m, c, g, b, l, d, j) {
+        sendSnag: function(
+                           h, 
+                           e, 
+                           m, 
+                           c, // b 
+                           g, // f
+                           b, // e
+                           l, // g
+                           d, // "true" / "false"
+                           j) { // d
             if (c) {
                 var i = $.sha1(Math.random() + "");
                 var n = $.sha1(Math.random() + "");
@@ -21943,10 +21962,10 @@ var Room = Class.extend(function() {
                 var f = $.sha1(k.join("/"));
                 turntable.hYkveeiflds({
                     api: "snag.add",
-                    djid: c,
-                    songid: g,
-                    roomid: e,
-                    section: m,
+                    djid: c,   //
+                    songid: g, //
+                    roomid: e, //
+                    section: m,//
                     site: b,
                     location: l,
                     in_queue: d,

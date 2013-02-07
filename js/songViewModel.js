@@ -4,12 +4,13 @@
 	 * @param {object} model [tt song model]
 	 */
 	tms.viewmodels.SongViewModel = function (model) {
-		model = model || {};
+    console.log(model);
+    model = model || {};
 		var self = this;
     
     // queueId maps to the songIds in playlist viewmodel to determine position in playlist(queue)
     //  its also used to access local storage data
-    self.queueId = ko.observable(model.fileId);
+    self.queueId = ko.observable(model.fileId || model._id);
     self.queuePosition = ko.observable(model.queuePosition);
 
 		if (model.metadata) {
