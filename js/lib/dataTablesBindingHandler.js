@@ -2,8 +2,7 @@
 (function($){
   ko.bindingHandlers.dataTable = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-      var $table,
-      previewActive = false;
+      var previewActive = false;
 
       // activate song preview
       function previewStarted (position) {
@@ -46,10 +45,9 @@
         viewModel.toggleSongPreview(position, previewStarted, previewEnded);
       }
 
-      $table = $(element)
-        .find(".toTop").live("click", upBtnClick).end()
-        .find(".toBottom").live("click", downBtnClick).end()
-        .find(".playPause").live("click", playPauseBtnClick).end();
+      $(element).find(".toTop").live("click", upBtnClick).end()
+                .find(".toBottom").live("click", downBtnClick).end()
+                .find(".playPause").live("click", playPauseBtnClick).end();
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
       var options = valueAccessor().options,
@@ -61,38 +59,6 @@
         songPosition = data[i][0];
         data[i].push("<div data-pos='" + songPosition + "'><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='playPause' title='Play song preview.'><div></div></div></div>");           
       }
-
-      // options.fnRowCallback = function(nRow, aData, iDisplayIndex, iDisplayIndexFull ) { 
-      //   $(".toTop", nRow).click(function () {
-          
-      //   });
-
-      //   $(".toBottom", nRow).click(function () {
-          
-      //   });
-
-      //   // set preview to active
-      //   var previewStarted = function () {
-          
-      //   };
-
-        // decativate preview
-        // var previewEnded = function () {
-        //   if ($(nRow).hasClass("previewActive")) {
-        //     $(nRow).removeClass("previewActive").find(".playPause").attr("title", "Play song preview.");
-        //   }
-        //   previewActive = false;
-        // };
-
-        // // preview button event
-        // $(".playPause", nRow).click(function () {
-        //   if (!previewActive) {
-        //     $(this).attr("title", "Loading preview...");  
-        //   }
-
-        //   viewModel.toggleSongPreview(viewModel.viewingPlayList().songs()[aData[0]-1], previewStarted,previewEnded);
-        // });
-      // };
 
       // create new datatable if needed. otherwise replace contents
       if (!$.fn.DataTable.fnIsDataTable(element) ) {

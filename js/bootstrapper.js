@@ -3,7 +3,7 @@
  */
 (function () {
   /**
-   * Scraps page for templates loaded by content script and reloads them to privide acess in the TT sandbox
+   * Scrapes page for templates loaded by content script and reloads them to privide acess in the TT sandbox
    * @return {[type]} [description]
    */
   function getTemplates () {
@@ -123,6 +123,7 @@
 
     // get room info and user playlists
     try {
+      // request room info and playlists
       $.when(tms.utils.socket(roomReq), tms.utils.socket(playlistReq))
         .then(function(roomInfo, playlists) {
           models.tmsModel.roomInfo = roomInfo;
@@ -131,7 +132,6 @@
           // active playlist needs to be the last so it is last requested
           //  because the TT api auto-activates playlists upon request
           for (var i in playlists.list) {
-            // console.log(playlists.list[i].name + " " + playlists.list[i].active);
             if (playlists.list[i].active) {
               activePlaylist = playlists.list[i];
             } else {

@@ -88,8 +88,10 @@
     };
 
     self.updateActiveList = function (songData) {
-      // reset active playlist
-      // TODO: find a better solution here
+      // reset active playlist 
+      //  because if you changed it via TMS it will 
+      //  revert to what the TT panels thinks is active. 
+      // TODO: find a better solution to this..
       tms.utils.socket({
           api: "playlist.switch",
           playlist_name: self.activePlayList().name()
@@ -108,9 +110,6 @@
         if (self.activePlayList().name() === self.viewingPlayList().name()) {
           self.viewingPlayList(self.activePlayList());
         }
-
-        // dont need to update because its dont automatically
-        // self.updatePlayList(self.activePlayList, songData, self.activePlayList().songs().length-1);
       })
       .fail(function (data) {
         console.log(data);
@@ -168,9 +167,15 @@
       .fail(function (err) { console.log(err); });
     };
 
+    /********************** 
+     *   Song Previews    *
+     *********************/
+
     var previewSong;
     var previewStartedCallback;
     var previewEndedCallback;
+
+    // calls bindingHandler callbacks to start and stop preview visuals
     function updatePreviewProgress (data) {
       if (data === "progress" && !self.playingPreview()) {
         self.playingPreview(true);
@@ -180,25 +185,26 @@
       }
     }
 
+    function playPreview (song) {
+      previewSong = song;
+      previewStartedCallback = startedCallback;
+      previewEndedCallback = endedCallback;
+      turntablePlayer.samplePlay(song.queueId(), updatePreviewProgress);
+    }
+
     self.playingPreview = ko.observable(false);
     self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
-      var song = self.findSongByPosition(songPosition);
+      var song = self.findSongByPosition(songPosition);     
 
       if (!self.playingPreview()) {
-        previewSong = song;
-        turntablePlayer.samplePlay(song.queueId(), updatePreviewProgress);
-        previewStartedCallback = startedCallback;
-        previewEndedCallback = endedCallback;
+        playingPreview(song);
       } else {
         turntablePlayer.sampleStop();
         self.playingPreview(false);
         
         // if stopping preview to start another
         if (previewSong.queueId() !== song.queueId()) {
-          previewSong = song;
-          turntablePlayer.samplePlay(song.queueId(), updatePreviewProgress);
-          previewStartedCallback = startedCallback;
-          previewEndedCallback = endedCallback;
+          playingPreview(song);
         }
       }
     };
