@@ -3,7 +3,7 @@ This extension will provide integrated enhancements for Turntable power users an
 
 Latest Update & Screenshots: http://bit.ly/14I4xt7
 
-Checkout a the development roadmap here: http://bit.ly/114rmCS
+Checkout the development roadmap here: http://bit.ly/114rmCS
 
 And add your voice by joining the discussion: http://bit.ly/tmsCommunity
 
