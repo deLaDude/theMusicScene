@@ -48,28 +48,14 @@
     }); 
 
     self.viewingPlayList = ko.observable(model.activeList);
-    // songsList converted to dataTables-consumable format
-    self.tableData = ko.computed(function (){
-      var data = [],
-          songs = self.viewingPlayList().songs();
 
-      for (var i in songs) {
-        data.push([
-          songs[i].queuePosition(),
-          songs[i].artist(),
-          songs[i].song(),
-          songs[i].album(),
-          songs[i].genre(),
-          songs[i].formatedLength()
-        ]);
-      }
-
-      return data;
-    });
-
+    // track songlist separately for better control over table updates
+    self.songList = ko.observableArray(self.viewingPlayList().songs());
+ 
     // change the songs in the data table
     self.changeSongList = function(playlist) {
       self.viewingPlayList(playlist);
+      self.songList(playlist.songs());
     };
 
     // change the active playlist. also switch to this list in data table
@@ -83,6 +69,7 @@
           self.activePlayList().active(false);
           self.activePlayList(playlist);
           self.viewingPlayList(playlist);
+          self.songList(playlist.songs());
       });
     };
 
@@ -109,6 +96,7 @@
         // update the song list (table) if viewing active list
         if (self.activePlayList().name() === self.viewingPlayList().name()) {
           self.viewingPlayList(self.activePlayList());
+          self.songList(self.activePlayList().songs());
         }
       })
       .fail(function (data) {
@@ -132,6 +120,9 @@
     self.updatePlayList = function (playlist, songData, targetPos) {
       var location;
 
+      // indicate to binding handler not to updated table
+      self.songList(["paused"]);
+
       // determine location
       for (var i in playlist().songs()) {
         if (playlist().songs()[i].queueId() === songData._id) {
@@ -152,17 +143,20 @@
        
         // move in playlist
         if (targetPos > location) {
-          playlist().songs.push(target[0]);
+          playlist().songs().push(target[0]);
         } else {
-          playlist().songs.reverse();
-          playlist().songs.push(target[0]);
-          playlist().songs.reverse();
+          playlist().songs().reverse();
+          playlist().songs().push(target[0]);
+          playlist().songs().reverse();
         }
 
         // update queue positions 
         for (var i in playlist().songs()) {
           playlist().songs()[i].queuePosition(parseInt(i, 10) + 1);
         }    
+
+        // update songs
+        self.songList(playlist().songs());
       })
       .fail(function (err) { console.log(err); });
     };
@@ -182,11 +176,11 @@
         // update queue positions of new songs
         $.each(songs, function (i, song) {
           var qPos = playlistLength + (1 + parseInt(i, 10));
-
           // if its a currentSongViewModel we need to convert
           if (song.upvotes()) {
             var songModel = song.model.metadata.current_song;
             songModel.queuePosition = qPos;
+            console.log(songModel);
             song = new tms.viewmodels.SongViewModel(songModel);
           } else {
             song.queuePosition(qPos);
@@ -198,6 +192,7 @@
         // if the active list was passed in we need to update viewing as well
         if (updateViewing) {
           self.viewingPlayList(playlist());
+          self.songList(playlist().songs());
         }
       })
       .fail(function (err) { console.log(err); });

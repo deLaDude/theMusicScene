@@ -51,27 +51,42 @@
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
       var options = valueAccessor().options,
-          data = valueAccessor().data();
+          data = valueAccessor().data(),
+          tableData = [];
 
-      // add action buttons to dataset
-      var songPosition;
-      for (var i in data) {
-        songPosition = data[i][0];
-        data[i].push("<div data-pos='" + songPosition + "'><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='playPause' title='Play song preview.'><div></div></div></div>");           
-      }
+      if (data[0] !== "paused") {
+        // format data for data tables 
+        for (var i in data) {
+          tableData.push([
+            data[i].queuePosition(),
+            data[i].artist(),
+            data[i].song(),
+            data[i].album(),
+            data[i].genre(),
+            data[i].formatedLength()
+          ]);
+        }
 
-      // create new datatable if needed. otherwise replace contents
-      if (!$.fn.DataTable.fnIsDataTable(element) ) {
-        options.aaData = data;
-        $(element).dataTable(options);
+        // add action buttons to dataset
+        var songPosition;
+        for (var x in tableData) {
+          songPosition = tableData[x][0];
+          tableData[x].push("<div data-pos='" + songPosition + "'><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='playPause' title='Play song preview.'><div></div></div></div>");           
+        }
 
-        // TMS specific post-processing
-        $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
-        $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
-      } else {
-        var table = $(element).dataTable();
-        table.fnClearTable();
-        table.fnAddData(data);
+        // create new datatable if needed. otherwise replace contents
+        if (!$.fn.DataTable.fnIsDataTable(element) ) {
+          options.aaData = tableData;
+          $(element).dataTable(options);
+
+          // TMS specific post-processing
+          $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
+          $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
+        } else {
+          var table = $(element).dataTable();
+          table.fnClearTable();
+          table.fnAddData(tableData);
+        }
       }
     }
   };

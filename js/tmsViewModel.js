@@ -11,7 +11,7 @@
     self.library = model.library;
 
     // handle opening/closing the content panel
-    self.isContentOpen = ko.observable(false);
+    self.isContentOpen = ko.observable(true);
     self.toggleOpen = function () {
       self.isContentOpen(self.isContentOpen() ? false : true); 
     };

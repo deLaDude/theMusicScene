@@ -19,7 +19,7 @@
 }
 
 /* line 16, ../sass/_common.scss */
-#tmsPanel #hud {
+#hud {
   height: 60px;
   color: #FFFFFF;
   background: #333333;
@@ -237,84 +237,6 @@
   transform: rotate(45deg);
   -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
-}
-
-/* line 255, ../sass/_common.scss */
-#tmsPanel .toggleBtn {
-  text-align: center;
-}
-/* line 258, ../sass/_common.scss */
-#tmsPanel .toggleBtn > div {
-  display: inline-block;
-  vertical-align: middle;
-}
-/* line 263, ../sass/_common.scss */
-#tmsPanel .toggleBtn:hover div div {
-  background: #d8a126;
-}
-/* line 266, ../sass/_common.scss */
-#tmsPanel .toggleBtn:hover div div::before {
-  border-right-color: #d8a126;
-}
-/* line 270, ../sass/_common.scss */
-#tmsPanel .toggleBtn:hover div div::after {
-  border-right-color: #d8a126;
-  border-left-color: #d8a126;
-  border-bottom-color: #d8a126;
-}
-/* line 277, ../sass/_common.scss */
-#tmsPanel .toggleBtn div > div {
-  font-size: 13px;
-  margin-top: -1.5em;
-  border-radius: 1em;
-  background: #333333;
-  width: 0.4em;
-  height: 1.2em;
-  position: relative;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-/* line 288, ../sass/_common.scss */
-#tmsPanel .toggleBtn div > div::before {
-  right: -1.2em;
-  -webkit-transform: rotate(-25deg);
-  transform: rotate(-25deg);
-  border-top: 0.4em solid rgba(44, 44, 44, 0);
-  top: 0.2em;
-  position: absolute;
-  content: '';
-  height: 2em;
-  width: 2em;
-  border-radius: 100%;
-  border-right: 0.4em solid #333333;
-  border-bottom: 0.4em solid rgba(44, 44, 44, 0);
-  border-left: 0.4em solid rgba(44, 44, 44, 0);
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
-}
-/* line 306, ../sass/_common.scss */
-#tmsPanel .toggleBtn div > div::after {
-  right: -1.2em;
-  -webkit-transform: rotate(25deg);
-  transform: rotate(25deg);
-  border-top: 0.4em solid rgba(44, 44, 44, 0);
-  top: 0.2em;
-  position: absolute;
-  content: '';
-  height: 2em;
-  width: 2em;
-  border-radius: 100%;
-  border-right: 0.4em solid #333333;
-  border-bottom: 0.4em solid #333333;
-  border-left: 0.4em solid #333333;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
 }
 
 /* line 326, ../sass/_common.scss */
@@ -1562,70 +1484,11 @@ body {
   float: left;
 }
 /* line 113, ../sass/styles.scss */
-#tmsPanel #hud {
-  width: 40%;
-  height: 50px;
-  padding: 5px;
-}
-/* line 119, ../sass/styles.scss */
-#tmsPanel #hud hgroup {
-  margin-top: -3px;
-  margin-bottom: 8px;
-}
-/* line 123, ../sass/styles.scss */
-#tmsPanel #hud hgroup h1, #tmsPanel #hud hgroup h2 {
-  display: inline-block;
-}
-/* line 127, ../sass/styles.scss */
-#tmsPanel #hud hgroup h1 {
-  font-size: 13px;
-  color: white;
-}
-/* line 132, ../sass/styles.scss */
-#tmsPanel #hud hgroup h2 {
-  font-size: 11px;
-  color: #999999;
-}
-/* line 138, ../sass/styles.scss */
-#tmsPanel #hud section > div {
-  width: 100%;
-  padding: 5px;
-  margin: -5px;
-  background-color: rgba(204, 204, 204, 0.05);
-}
-/* line 145, ../sass/styles.scss */
-#tmsPanel #hud div {
-  float: left;
-}
-/* line 147, ../sass/styles.scss */
-#tmsPanel #hud img {
-  width: 25px;
-  height: 25px;
-}
-/* line 152, ../sass/styles.scss */
-#tmsPanel #hud label {
-  margin-top: -2px;
-  color: #999999;
-}
-/* line 157, ../sass/styles.scss */
-#tmsPanel #hud span {
-  color: #cccccc;
-}
-/* line 161, ../sass/styles.scss */
-#tmsPanel #hud label, #tmsPanel #hud span {
-  margin-left: 5px;
-  font-size: 11px;
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-/* line 171, ../sass/styles.scss */
 #tmsPanel nav {
   position: relative;
   width: 43%;
 }
-/* line 179, ../sass/styles.scss */
+/* line 121, ../sass/styles.scss */
 #tmsPanel .toggleBtn,
 #tmsPanel .bopBtn,
 #tmsPanel .listBtn,
@@ -1643,78 +1506,116 @@ body {
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-/* line 190, ../sass/styles.scss */
+/* line 132, ../sass/styles.scss */
 #tmsPanel .toggleBtn:hover,
 #tmsPanel .bopBtn:hover,
 #tmsPanel .listBtn:hover,
 #tmsPanel .heartBtn:hover {
   -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.9);
 }
-/* line 200, ../sass/styles.scss */
-#tmsPanel .toggleBtn > div {
-  margin-top: 24px;
+/* line 139, ../sass/styles.scss */
+#tmsPanel .listBtn {
+  margin-left: 10px;
 }
-/* line 204, ../sass/styles.scss */
-#tmsPanel .toggleBtn.open {
-  -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.7);
-}
-/* line 207, ../sass/styles.scss */
-#tmsPanel .toggleBtn.open > div > div {
-  background: #d8a126;
-}
-/* line 210, ../sass/styles.scss */
-#tmsPanel .toggleBtn.open > div > div::before {
-  border-right-color: #d8a126;
-}
-/* line 214, ../sass/styles.scss */
-#tmsPanel .toggleBtn.open > div > div::after {
-  border-right-color: #d8a126;
-  border-left-color: #d8a126;
-  border-bottom-color: #d8a126;
-}
-/* line 227, ../sass/styles.scss */
+/* line 144, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div {
   -webkit-box-shadow: 0 0 4px #d8a126;
 }
-/* line 230, ../sass/styles.scss */
+/* line 147, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div::before {
   background: #d8a126;
 }
-/* line 234, ../sass/styles.scss */
+/* line 151, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div::after {
   border-color: #d8a126;
 }
-/* line 241, ../sass/styles.scss */
-#tmsPanel .heartBtn {
-  margin-left: 10px;
-}
-/* line 246, ../sass/styles.scss */
+/* line 162, ../sass/styles.scss */
 #tmsPanel .bopBtn {
   float: right;
 }
-/* line 250, ../sass/styles.scss */
+/* line 166, ../sass/styles.scss */
 #tmsPanel .bopBtn > div {
   margin-top: 6px;
   margin-left: 2px;
 }
-/* line 255, ../sass/styles.scss */
+/* line 171, ../sass/styles.scss */
 #tmsPanel .bopBtn.active {
   -webkit-box-shadow: inset 0 0 9px rgba(0, 0, 0, 0.7);
 }
-/* line 258, ../sass/styles.scss */
+/* line 174, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div {
   border-color: #d8a126;
 }
-/* line 261, ../sass/styles.scss */
+/* line 177, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div::before {
   background: #d8a126;
 }
-/* line 265, ../sass/styles.scss */
+/* line 181, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div::after {
   background: #d8a126;
 }
 
-/* line 273, ../sass/styles.scss */
+/* line 189, ../sass/styles.scss */
+#hud {
+  width: 40%;
+  height: 50px;
+  padding: 5px;
+}
+/* line 195, ../sass/styles.scss */
+#hud hgroup {
+  margin-top: -3px;
+  margin-bottom: 8px;
+}
+/* line 199, ../sass/styles.scss */
+#hud hgroup h1, #hud hgroup h2 {
+  display: inline-block;
+}
+/* line 203, ../sass/styles.scss */
+#hud hgroup h1 {
+  font-size: 13px;
+  color: white;
+}
+/* line 208, ../sass/styles.scss */
+#hud hgroup h2 {
+  font-size: 11px;
+  color: #999999;
+}
+/* line 214, ../sass/styles.scss */
+#hud section > div {
+  width: 100%;
+  padding: 5px;
+  margin: -5px;
+  background-color: rgba(204, 204, 204, 0.05);
+}
+/* line 221, ../sass/styles.scss */
+#hud div {
+  float: left;
+}
+/* line 223, ../sass/styles.scss */
+#hud img {
+  width: 25px;
+  height: 25px;
+}
+/* line 228, ../sass/styles.scss */
+#hud label {
+  margin-top: -2px;
+  color: #999999;
+}
+/* line 233, ../sass/styles.scss */
+#hud span {
+  color: #cccccc;
+}
+/* line 237, ../sass/styles.scss */
+#hud label, #hud span {
+  margin-left: 5px;
+  font-size: 11px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* line 247, ../sass/styles.scss */
 #tmsContent {
   position: relative;
   width: 700px;
@@ -1734,24 +1635,24 @@ body {
   -o-transition: height 0.4s ease-in-out;
   transition: height 0.4s ease-in-out;
 }
-/* line 286, ../sass/styles.scss */
+/* line 260, ../sass/styles.scss */
 .open #tmsContent {
   height: 400px;
   margin-bottom: 0;
 }
 
-/* line 292, ../sass/styles.scss */
+/* line 266, ../sass/styles.scss */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #FFFFFF;
 }
 
-/* line 297, ../sass/styles.scss */
+/* line 271, ../sass/styles.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* line 301, ../sass/styles.scss */
+/* line 275, ../sass/styles.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);

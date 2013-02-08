@@ -110,64 +110,6 @@ body {
 		float: left;
 	}
 
-	#hud {
-		@extend %ttHeaderInsert;
-		width: 40%;
-		height: 50px;
-		padding: 5px;
-
-		hgroup {
-			margin-top: -3px;
-			margin-bottom: 8px;
-
-			h1, h2 {
-				display: inline-block;
-			}
-
-			h1 {
-				font-size: 13px;
-				color: $headingColor1;
-			}			
-
-			h2 {
-				font-size: 11px;
-				color: $headingColor2;
-			}
-		}
-
-		& section > div {
-			width: 100%;
-			padding: 5px;
-			margin: -5px;
-			background-color: transparentize($contentBgColor, .95);
-		}
-
-		div { float: left; }
-
-		img {
-			width: 25px;
-			height: 25px;
-		}
-
-		label {
-			margin-top: -2px;
-			color: $headingColor2;
-		}
-
-		span {
-			color: $contentBgColor;
-		}
-
-		label, span {
-			margin-left: 5px;
-			font-size: 11px;
-			display: block;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
-		}
-	}
-
 	nav {
 		position: relative;
 		width: 43%;
@@ -194,34 +136,9 @@ body {
 		@include transition(all 0.2s ease-in-out);
 	}	
 
-	.toggleBtn {
-		@extend %power-icon;
-
-		& > div {
-			margin-top: 24px;			
-		}
-
-		&.open {
-			-webkit-box-shadow: inset 0 0 9px rgba(0,0,0,0.7);
-
-			& > div > div {
-        background: $buttonActive;
-
-	      &::before {
-					border-right-color: $buttonActive;
-	      }
-
-	      &::after {
-	        border-right-color: $buttonActive;
-	        border-left-color: $buttonActive;
-	        border-bottom-color: $buttonActive;
-	      }				
-			}
-		}
-	}
-
 	.listBtn {
 		@extend %playlist-icon;
+		margin-left: 10px;
 
 		&.open {
 			div div {
@@ -240,7 +157,6 @@ body {
 
 	.heartBtn {
 		@extend %heart-icon;
-		margin-left: 10px;
 	}
 
 	.bopBtn {
@@ -267,6 +183,64 @@ body {
 	      }				
 			}
 		}
+	}
+}
+
+#hud {
+	@extend %ttHeaderInsert;
+	width: 40%;
+	height: 50px;
+	padding: 5px;
+
+	hgroup {
+		margin-top: -3px;
+		margin-bottom: 8px;
+
+		h1, h2 {
+			display: inline-block;
+		}
+
+		h1 {
+			font-size: 13px;
+			color: $headingColor1;
+		}			
+
+		h2 {
+			font-size: 11px;
+			color: $headingColor2;
+		}
+	}
+
+	& section > div {
+		width: 100%;
+		padding: 5px;
+		margin: -5px;
+		background-color: transparentize($contentBgColor, .95);
+	}
+
+	div { float: left; }
+
+	img {
+		width: 25px;
+		height: 25px;
+	}
+
+	label {
+		margin-top: -2px;
+		color: $headingColor2;
+	}
+
+	span {
+		color: $contentBgColor;
+	}
+
+	label, span {
+		margin-left: 5px;
+		font-size: 11px;
+		display: block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 }
 

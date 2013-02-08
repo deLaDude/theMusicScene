@@ -4,7 +4,6 @@
 	 * @param {object} model [tt song model]
 	 */
 	tms.viewmodels.SongViewModel = function (model) {
-    console.log(model);
     model = model || {};
 		var self = this;
     
