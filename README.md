@@ -8,7 +8,10 @@ Checkout a the development roadmap here: http://bit.ly/114rmCS
 And add your voice by joining the discussion: http://bit.ly/tmsCommunity
 
 # IMPORTANT NOTE: 
-This extensions is currently in Alpha development. Bugs and odd behavior is to be expected. Help us make it better by providing your constuctive critisims, features requests and bug reports here: http://bit.ly/tmsFeedback 
+The playlist features do not sync with the turntable queue panel so you should only use one or the other. 
+
+This extensions is currently in Alpha development. Bugs and odd behavior is to be expected.
+
 
 # Installation
 You will need to install the extension manually until it is published to the Chrome Store (sometime after Beta development begins)
