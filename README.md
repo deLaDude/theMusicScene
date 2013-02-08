@@ -10,7 +10,7 @@ And add your voice by joining the discussion: http://bit.ly/tmsCommunity
 # IMPORTANT NOTE: 
 The playlist features do not sync with the turntable queue panel so you should only use one or the other. 
 
-This extensions is currently in Alpha development. Bugs and odd behavior is to be expected.
+This extension is currently in Alpha development. Bugs and odd behavior is to be expected.
 
 
 # Installation
