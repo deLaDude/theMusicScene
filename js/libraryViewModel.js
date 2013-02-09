@@ -84,6 +84,9 @@
           playlist_name: self.activePlayList().name()
       })
       .done(function() {
+        // indicate to binding handler not to updated table
+        self.songList(["paused"]);
+
         // send to bottom
         var target = self.activePlayList().songs.splice(0, 1);
         self.activePlayList().songs.push(target[0]);

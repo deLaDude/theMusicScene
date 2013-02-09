@@ -52,7 +52,13 @@
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
       var options = valueAccessor().options,
           data = valueAccessor().data(),
-          tableData = [];
+          tableData = [],
+          table = $(element),
+          songPosition;
+
+      // set scroll stat params
+      table.data("scrollPos", table.parents(".dataTables_scrollBody").scrollTop());
+      table.data("resetScrollPos", true);
 
       if (data[0] !== "paused") {
         // format data for data tables 
@@ -68,24 +74,40 @@
         }
 
         // add action buttons to dataset
-        var songPosition;
         for (var x in tableData) {
           songPosition = tableData[x][0];
           tableData[x].push("<div data-pos='" + songPosition + "'><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='playPause' title='Play song preview.'><div></div></div></div>");           
         }
 
         // create new datatable if needed. otherwise replace contents
-        if (!$.fn.DataTable.fnIsDataTable(element) ) {
+        if (!$.fn.DataTable.fnIsDataTable(element) ) { 
+          // add data to options
           options.aaData = tableData;
-          $(element).dataTable(options);
 
-          // TMS specific post-processing
+          // in order to reset the scroll position after updating we have to 
+          //  do some funky things as a result of using the Scroller addon for performance
+          options.fnDrawCallback = function( oSettings ) {
+            // if we don't set our own flag we will interfere with Scroller
+            if (table.data("resetScrollPos")) {
+              table.data("resetScrollPos", false);               
+              // if we don't add a delay it won't set the scroll position
+              setTimeout(function () {
+                table.parents(".dataTables_scrollBody").scrollTop(table.data("scrollPos"));          
+              }, 1);
+            } 
+          };
+  
+           // draw table
+          table.dataTable(options);
+
+          // custom header adjustments
           $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
           $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
         } else {
-          var table = $(element).dataTable();
-          table.fnClearTable();
-          table.fnAddData(tableData);
+          // re-draw table
+          var dt = table.dataTable();
+          dt.fnClearTable();
+          dt.fnAddData(tableData);     
         }
       }
     }

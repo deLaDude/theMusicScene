@@ -4,11 +4,12 @@
 (function () {
 	// scripts
 	var scripts = [
-		"/js/tms.js",
 		"/js/lib/knockout.js",
-		"/js/lib/jquery.liveQuery.js",
 		"/js/lib/jquery.dataTables.min.js",
+		"/js/tms.js",
+		"/js/lib/jquery.liveQuery.js",
 		"/js/lib/dataTablesBindingHandler.js",
+		"/js/lib/jquery.dataTables.scroller.min.js",
 		"/js/socketUtility.js",
 		"/js/currentSongViewModel.js",
 		"/js/songViewModel.js",

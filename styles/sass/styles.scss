@@ -161,7 +161,6 @@ body {
 
 	.bopBtn {
 		@extend %headphones-icon;
-		float: right;
 
 		& > div {
 			margin-top: 6px;			
@@ -206,8 +205,11 @@ body {
 		}			
 
 		h2 {
-			font-size: 11px;
+			font-size: 12px;
 			color: $headingColor2;
+			width: 180px;
+			text-align: right;
+			@extend %ellipsis;	
 		}
 	}
 
@@ -238,9 +240,9 @@ body {
 		margin-left: 5px;
 		font-size: 11px;
 		display: block;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		width: 245px;
+
+		@extend %ellipsis;
 	}
 }
 

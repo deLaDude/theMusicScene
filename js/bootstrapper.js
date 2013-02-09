@@ -64,7 +64,7 @@
           "bScrollCollapse": true,
           "bPaginate": false,
           "iTabIndex": 1, // keybaord navigation for column sorting (tab > enter)
-          "sDom": '<"songListHead"if>t',
+          "sDom": '<"songListHead"if>tS',
           "aoColumnDefs": [
             // column names
             { "sTitle": "#", "aTargets": [ 0 ] },

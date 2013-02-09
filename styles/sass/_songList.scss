@@ -1,4 +1,21 @@
-#tmsContent {
+#songList {
+	hgroup {
+		position: absolute;
+		margin-top: 2px;
+		margin-left: 10px;
+		width: 400px;
+		z-index: 2;
+
+		h2 {
+			margin: 0;
+			font-size: 18px;
+			font-weight: bold;
+		  text-shadow: 0 1px 0 #FFF;
+			color: $headingColor2;
+			@extend %ellipsis;
+		}
+	}
+
 	table {
 		font-size: 12px;
 		height: 0px;
@@ -62,9 +79,7 @@
 			height: 12px;
 			line-height: 12px;
 			padding: 5px 3px;
-			overflow: hidden;
-			white-space: nowrap;
-			text-overflow: ellipsis;
+			@extend %ellipsis;
 			@include transition(all $panelSpeed ease-in-out);
 		}
 
@@ -79,6 +94,10 @@
 		@include border-top-radius($border-radius);	
 
 		.dataTables_info {
+			position: absolute;
+			top: 22px;
+			left: 20px;
+			width: 400px;
 			text-align: left;
 		}
 

@@ -9,8 +9,8 @@
 		<div id="hud">
 			<section>
 				<hgroup>
-					<h1>Top of Playlist</h1>
-					<h2 data-bind="text: library.activePlayList().name"></h2>
+					<h1>Top of Queue</h1>
+					<h2 data-bind="text: library.activePlayList().name" title="Active playlist."></h2>
 				</hgroup>
 				<div data-bind="with: library.topOfQueue()">
 					<div>
@@ -28,11 +28,11 @@
 				<div><div></div></div>
 			</div>	
 
-			<div class='heartBtn' data-bind='click: snagSong, css: { active: songSnagged }, attr: { title: songSnagged() ? "Song snagged." : "Snag song."}'>
+			<div class='bopBtn' data-bind='click: toggleAutoBop, css: { active: autoBopOn }, attr: { title: autoBopOn() ? "Turn off auto-bop." : "Turn on auto-bop." }'>
 				<div><div></div></div>
 			</div>
 
-			<div class='bopBtn' data-bind='click: toggleAutoBop, css: { active: autoBopOn }, attr: { title: autoBopOn() ? "Turn off auto-bop." : "Turn on auto-bop." }'>
+			<div class='heartBtn' data-bind='click: snagSong, css: { active: songSnagged }, attr: { title: songSnagged() ? "Song snagged." : "Snag song."}'>
 				<div><div></div></div>
 			</div>
 		</nav>
@@ -40,6 +40,6 @@
 
 	<div id="tmsContent">
 		<!-- Song List -->
-		<div data-bind='template: { name: "songList-template", data: library }'></div>
+		<div id="songList" data-bind='template: { name: "songList-template", data: library }'></div>
 	</div>
 </article>
