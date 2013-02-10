@@ -2,7 +2,15 @@
   <h2 data-bind="text: 'Viewing: ' + viewingPlayList().name()"></h2>
 </hgroup>
 
+<!-- ko if: selectedSongs().length > 0 -->
+<section>
+  <h3 data-bind="text: selectedSongs().length + ' songs selected'"></h3>
+  <button class="deselect" title="Deselect songs." data-bind="click: deselectAll">deselect all</button>
+  <button class="remove" title="Remove selected songs.">remove all</button>
+</section>
+<!-- /ko -->
+
 <table data-bind="dataTable: { data: songList, options: tableOptions }">
 </table>
 
-<section data-bind='template: { name: "playlists-template", data: $data }, css: { open: playListsOpen }'></section>
+<menu data-bind='template: { name: "playlists-template", data: $data }, css: { open: playListsOpen }'></menu>

@@ -75,7 +75,7 @@
            self.roomView.showHeart(self.tt.user.id);
 
           // update playlist
-          self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList, true);
+          self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
 
           // maintain turntable GA event tracking
           _gaq.push(["_trackEvent", "song", "snag", site, (self.currentSong().snaggable() ? 0: 1)]);
@@ -164,7 +164,7 @@
             app.currentSong().updateSnags();
             break;
           default:
-            console.log("no actions for: " + data.command);
+            // console.log("no actions for: " + data.command);
             break;
         }
       }

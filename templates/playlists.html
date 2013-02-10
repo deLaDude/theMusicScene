@@ -2,10 +2,17 @@
 <ul data-bind="foreach: playLists">
   <li data-bind="click: $parent.changeSongList, css: { active: active, viewing: name() === $root.library.viewingPlayList().name() }">
     <label data-bind="text: name"></label>
-    <!-- ko ifnot: active -->
+    <div>
+      <!-- ko if: $parent.selectedSongs().length > 0 -->
+      <div class='addBtn' data-bind="click: $parent.addSelectedSongs, attr: { title: 'Add selected songs to playlist' }">
+        <span>Add Songs</span>
+      </div>
+      <!-- /ko -->
+      <!-- ko ifnot: active -->
       <div class='playBtn' data-bind="click: $parent.changeActiveList, attr: { title: 'Set ' + name() + ' as active.' }">
         <div></div>
       </div>
-    <!-- /ko -->
+      <!-- /ko -->
+    </div>
   </li>
 </ul>

@@ -1,5 +1,5 @@
 // playlist menu
-#tmsContent section { 
+#tmsContent menu { 
   position: absolute;
   right: 118px;
   bottom: 0px;
@@ -8,7 +8,7 @@
   background-color: $stripesOdd;
   opacity: .91;
 
-  @include box-shadow(#333 0px 0px 5px);
+  @include box-shadow($contentColor 0px 0px 5px);
 
   @include transition(height $panelSpeed ease-in-out);
   @include border-top-radius($border-radius);
@@ -48,23 +48,47 @@
                     0 0 10px $buttonActive;
     }
 
-    .playBtn {
-      @extend %play-icon;
-
+    & > div {
       position: absolute;
       right: 3px;
       top: 3px;
+      width: 80px; 
+    }
+
+    .playBtn, .addBtn {
+      float: right;
+      margin-left: 2px;
+      @include transition(opacity 0.3s ease-in-out);
+    }
+
+    .playBtn {
+      @extend %play-icon;
+
       font-size: 7px;
       border-radius: 50%;
       opacity: 0.0;
-      @include transition(opacity 0.3s ease-in-out);
 
       &:hover {
-        opacity: 0.9;
+        background-color: $buttonActive;
         -webkit-box-shadow: 0 0 9px $buttonActive,
-                            0 0 10px $buttonActive,
-                            inset 0 0 9px $buttonActive,
-                            inset 0 0 10px $buttonActive;
+                            0 0 10px $buttonActive;
+      }
+    }
+
+    .addBtn {
+      background-color: $contentColor;
+      color: $contentBgColor;
+      padding: 2px 4px;
+      margin-top: 1px;
+      margin-left: 4px;
+      font-size: 9px;
+      @include border-radius($border-radius);
+      opacity: 0;
+
+      &:hover {
+        -webkit-box-shadow: 0 0 9px $buttonActive,
+                          0 0 10px $buttonActive;
+        color: $buttonActive;
       }
     }
 
@@ -85,8 +109,8 @@
     &:hover {
       background-color: $stripesHighlight;
 
-      .playBtn {
-        opacity: 0.5;
+      .playBtn, .addBtn {
+        opacity: 0.8;
       }
     }
 

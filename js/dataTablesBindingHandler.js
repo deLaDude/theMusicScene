@@ -6,37 +6,69 @@
 
       // activate song preview
       function previewStarted (position) {
-        var $btn = $("div[data-pos=" + position + "]");
-        if ($btn.size() > 0) {
-          $btn.parents("tr").addClass("previewActive").find(".playPause").attr("title", "Stop song preview.");
+        var $btnBar = $("#songList div[data-pos=" + position + "]");
+        if ($btnBar.size() > 0) {
+          $btnBar.addClass("previewActive").find(".playPause").attr("title", "Stop song preview.");
         }
         previewActive = true;
       }
 
       // deactivate song preview
       function previewEnded (position) {
-        var $btn = $("div[data-pos=" + position + "]");
-        if ($btn.size() > 0) {
-          if ($btn.parents("tr").hasClass("previewActive")) {
-            $btn.parents("tr").removeClass("previewActive").find(".playPause").attr("title", "Play song preview.");
+        var $btnBar = $("#songList div[data-pos=" + position + "]");
+        if ($btnBar.size() > 0) {
+          if ($btnBar.hasClass("previewActive")) {
+            $btnBar.removeClass("previewActive").find(".playPause").attr("title", "Play song preview.");
           }
         }
         previewActive = false;
       }
 
+      /* selecting song rows */
+
+      function selectToggle (event) {
+        var $row = $(event.target).parents("tr"),
+            position = $row.find("[data-pos]").attr("data-pos");
+
+        if ($row.hasClass("selected")) {
+          $row.removeClass("selected");
+          viewModel.rowSelectionToggle(position, false);
+        } else {
+          $row.addClass("selected");
+          viewModel.rowSelectionToggle(position, true);
+        }
+      }
+
+      viewModel.clearSelectCallback = function () {
+        $("#songList .select").removeClass("selected");  
+      };
+      
       /* button events */
 
+      function removeClick (event) {
+        event.stopPropagation();
+        
+        var position = $(event.target).parents("[data-pos]").attr("data-pos");
+        viewModel.removeSongFromPlaylist(position);
+      }
+
       function upBtnClick (event) {
+        event.stopPropagation();
+
         var position = $(event.target).parents("[data-pos]").attr("data-pos");
         viewModel.sendSongToTop(position);
       }
 
       function downBtnClick (event) {
+        event.stopPropagation();
+
         var position = $(event.target).parents("[data-pos]").attr("data-pos");
         viewModel.sendSongToBottom(position);
       }
 
       function playPauseBtnClick (event) {
+        event.stopPropagation();
+
         var position = $(event.target).parents("[data-pos]").attr("data-pos");
         if (!previewActive) {
           $(this).attr("title", "Loading preview...");  
@@ -47,7 +79,9 @@
 
       $(element).find(".toTop").live("click", upBtnClick).end()
                 .find(".toBottom").live("click", downBtnClick).end()
-                .find(".playPause").live("click", playPauseBtnClick).end();
+                .find(".playPause").live("click", playPauseBtnClick).end()
+                .find(".remove").live("click", removeClick).end()
+                .find("tr").live("click", selectToggle);
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
       var options = valueAccessor().options,
@@ -73,10 +107,9 @@
           ]);
         }
 
-        // add action buttons to dataset
+        // add action buttons to dataset with some metadata to support the events
         for (var x in tableData) {
-          songPosition = tableData[x][0];
-          tableData[x].push("<div data-pos='" + songPosition + "'><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='playPause' title='Play song preview.'><div></div></div></div>");           
+          tableData[x].push("<div data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
         }
 
         // create new datatable if needed. otherwise replace contents

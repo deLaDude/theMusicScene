@@ -30,7 +30,7 @@
 }
 
 /* line 59, ../sass/_common.scss */
-#songList table thead, #songList .songListHead, #tmsContent section h2 {
+#songList table thead, #songList .songListHead, #tmsContent menu h2 {
   height: 36px;
   color: #999999;
   font-size: 13px;
@@ -247,7 +247,7 @@
 }
 
 /* line 332, ../sass/_common.scss */
-#songList .playPause div, #tmsContent section li .playBtn div {
+#songList .playPause div, #tmsContent menu li .playBtn div {
   width: 2em;
   height: 2em;
   border-radius: 50%;
@@ -255,7 +255,7 @@
   border: 0.3em solid #333333;
 }
 /* line 339, ../sass/_common.scss */
-#songList .playPause div::before, #tmsContent section li .playBtn div::before {
+#songList .playPause div::before, #tmsContent menu li .playBtn div::before {
   position: absolute;
   content: "";
   top: 0.25em;
@@ -306,20 +306,52 @@
   content: "";
 }
 
-@-webkit-keyframes pulsate {
-  /* line 416, ../sass/_common.scss */
+/* line 413, ../sass/_common.scss */
+#songList td .remove > div {
+  position: relative;
+  width: 0.2em;
+  height: 0.7em;
+  background: #333333;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  font-size: 22px;
+}
+/* line 422, ../sass/_common.scss */
+#songList td .remove > div:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.2em;
+  height: 0.7em;
+  background: #333333;
+  -webkit-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+@-webkit-keyframes highlight {
+  /* line 437, ../sass/_common.scss */
   0% {
-    background-color: rgba(216, 161, 38, 0.75);
+    background-color: #d8a126;
+    -webkit-box-shadow: 0 0 5px #d8a126, 0 0 10px #d8a126, 0 0 15px #d8a126;
   }
 
-  /* line 417, ../sass/_common.scss */
-  50% {
-    background-color: rgba(216, 161, 38, 0.35);
-  }
-
-  /* line 418, ../sass/_common.scss */
+  /* line 438, ../sass/_common.scss */
   100% {
-    background-color: rgba(216, 161, 38, 0.75);
+    background-color: rgba(216, 161, 38, 0.8);
+    -webkit-box-shadow: 0 0 0 transparent;
+  }
+}
+
+@-webkit-keyframes ticker {
+  /* line 443, ../sass/_common.scss */
+  0% {
+    width: 0%;
+  }
+
+  /* line 444, ../sass/_common.scss */
+  100% {
+    width: 100%;
   }
 }
 
@@ -940,22 +972,76 @@ div.box {
 }
 
 /* line 2, ../sass/_songList.scss */
-#songList hgroup {
+#songList hgroup, #songList section {
   position: absolute;
-  margin-top: 2px;
-  margin-left: 10px;
-  width: 400px;
   z-index: 2;
 }
-/* line 9, ../sass/_songList.scss */
-#songList hgroup h2 {
+/* line 6, ../sass/_songList.scss */
+#songList hgroup h2, #songList hgroup h3, #songList section h2, #songList section h3 {
   margin: 0;
-  font-size: 18px;
   font-weight: bold;
   text-shadow: 0 1px 0 white;
+}
+/* line 13, ../sass/_songList.scss */
+#songList hgroup {
+  top: 2px;
+  padding-left: 10px;
+  width: 350px;
+}
+/* line 18, ../sass/_songList.scss */
+#songList hgroup h2 {
+  font-size: 18px;
   color: #999999;
 }
-/* line 19, ../sass/_songList.scss */
+/* line 25, ../sass/_songList.scss */
+#songList section {
+  top: 0px;
+  padding-top: 2px;
+  left: 350px;
+  width: 160px;
+  height: 40px;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+/* line 34, ../sass/_songList.scss */
+#songList section h3 {
+  color: #999999;
+  font-size: 16px;
+  text-align: center;
+}
+/* line 40, ../sass/_songList.scss */
+#songList section button {
+  position: relative;
+  top: 2px;
+  background-color: #baebfe;
+  color: #333333;
+  padding: 1px 4px;
+  margin: 0 6px;
+  font-size: 10px;
+  border: none;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 52, ../sass/_songList.scss */
+#songList section button.deselect {
+  float: left;
+}
+/* line 56, ../sass/_songList.scss */
+#songList section button.remove {
+  float: right;
+}
+/* line 60, ../sass/_songList.scss */
+#songList section button:hover {
+  background-color: #baebfe;
+  -webkit-box-shadow: inset 0 0 5px #333333;
+}
+/* line 68, ../sass/_songList.scss */
 #songList table {
   font-size: 12px;
   height: 0px;
@@ -963,49 +1049,46 @@ div.box {
   width: 680px;
   table-layout: fixed;
 }
-/* line 29, ../sass/_songList.scss */
+/* line 78, ../sass/_songList.scss */
 #songList table thead .sorting_asc, #songList table thead .sorting_desc {
   color: #666666;
   text-shadow: 0 1px 0 #eeeeee;
 }
-/* line 35, ../sass/_songList.scss */
+/* line 84, ../sass/_songList.scss */
 #songList table tbody {
   height: 400px;
   overflow: auto;
   color: #333333;
 }
-/* line 41, ../sass/_songList.scss */
+/* line 90, ../sass/_songList.scss */
 #songList table tbody tr:hover td {
   background: #baebfe;
 }
-/* line 47, ../sass/_songList.scss */
+/* line 94, ../sass/_songList.scss */
+#songList table tbody tr.selected td {
+  background: rgba(216, 161, 38, 0.8);
+  -webkit-animation-name: highlight;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: 1;
+}
+/* line 103, ../sass/_songList.scss */
 #songList table th {
   cursor: pointer;
   padding: 0 2px;
 }
-/* line 52, ../sass/_songList.scss */
+/* line 108, ../sass/_songList.scss */
 #songList table tr {
   cursor: pointer;
 }
-/* line 55, ../sass/_songList.scss */
-#songList table tr.previewActive td {
-  -webkit-animation-name: pulsate;
-  -webkit-animation-duration: 1.2s;
-  -webkit-animation-iteration-count: infinite;
-}
-/* line 60, ../sass/_songList.scss */
-#songList table tr.previewActive td .playPause {
-  opacity: 0.8 !important;
-}
-/* line 67, ../sass/_songList.scss */
+/* line 113, ../sass/_songList.scss */
 #songList table tr .length, #songList table tr .genre, #songList table tr .pos {
   text-align: center;
 }
-/* line 71, ../sass/_songList.scss */
+/* line 117, ../sass/_songList.scss */
 #songList table tr td.pos {
   font-size: 8px;
 }
-/* line 76, ../sass/_songList.scss */
+/* line 122, ../sass/_songList.scss */
 #songList table td {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -1018,7 +1101,7 @@ div.box {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 88, ../sass/_songList.scss */
+/* line 134, ../sass/_songList.scss */
 #songList .songListHead {
   padding: 5px;
   height: 30px;
@@ -1029,7 +1112,7 @@ div.box {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 96, ../sass/_songList.scss */
+/* line 142, ../sass/_songList.scss */
 #songList .songListHead .dataTables_info {
   position: absolute;
   top: 22px;
@@ -1037,14 +1120,14 @@ div.box {
   width: 400px;
   text-align: left;
 }
-/* line 104, ../sass/_songList.scss */
+/* line 150, ../sass/_songList.scss */
 #songList .songListHead .dataTables_filter {
   position: absolute;
   top: 5px;
   right: 5px;
   width: 25%;
 }
-/* line 110, ../sass/_songList.scss */
+/* line 156, ../sass/_songList.scss */
 #songList .songListHead .dataTables_filter input {
   padding: 2px 5px;
   border: 0;
@@ -1054,7 +1137,7 @@ div.box {
   box-shadow: inset 0 0 0 1px #888888, 0 1px 0 0 white;
   outline: none;
 }
-/* line 122, ../sass/_songList.scss */
+/* line 168, ../sass/_songList.scss */
 #songList .dataTables_wrapper {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1062,79 +1145,159 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 126, ../sass/_songList.scss */
+/* line 172, ../sass/_songList.scss */
 #songList .dataTables_scrollHead {
   width: 700px !important;
   height: 18px;
 }
-/* line 132, ../sass/_songList.scss */
+/* line 178, ../sass/_songList.scss */
 #songList .dataTables_scrollBody {
   width: 700px !important;
 }
-/* line 137, ../sass/_songList.scss */
-#songList tr:hover .toTop, #songList tr:hover .toBottom, #songList tr:hover .playPause {
+/* line 186, ../sass/_songList.scss */
+#songList tr:hover .toTop,
+#songList tr:hover .toBottom,
+#songList tr:hover .playPause,
+#songList tr:hover .remove {
   opacity: 0.5;
 }
-/* line 143, ../sass/_songList.scss */
+/* line 190, ../sass/_songList.scss */
+#songList .actions {
+  position: relative;
+  overflow: visible;
+}
+/* line 194, ../sass/_songList.scss */
+#songList .actions > div {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 25px;
+  height: 22px;
+  overflow: hidden;
+  z-index: 9;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+/* line 205, ../sass/_songList.scss */
+#songList .actions > div:hover {
+  width: 90px;
+  background-color: #baebfe;
+  -webkit-box-shadow: #333333 0px 0px 5px;
+  -moz-box-shadow: #333333 0px 0px 5px;
+  box-shadow: #333333 0px 0px 5px;
+}
+/* line 216, ../sass/_songList.scss */
 #songList .toTop,
 #songList .toBottom,
-#songList .playPause {
+#songList .playPause,
+#songList td .remove {
   position: relative;
-  float: left;
-  width: 16px;
-  height: 16px;
-  margin: -2px 5px -2px 0;
+  float: right;
+  width: 20px;
+  height: 20px;
+  margin: 1px 1px 0 1px;
   border-radius: 50%;
+  z-index: 99;
   opacity: 0.0;
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 151, ../sass/_songList.scss */
+/* line 225, ../sass/_songList.scss */
 #songList .toTop div,
 #songList .toBottom div,
-#songList .playPause div {
+#songList .playPause div,
+#songList td .remove div {
   margin-left: auto;
   margin-right: auto;
 }
-/* line 159, ../sass/_songList.scss */
+/* line 233, ../sass/_songList.scss */
 #songList .toTop:hover,
 #songList .toBottom:hover,
-#songList .playPause:hover {
-  background-color: #d8a126;
-  -webkit-box-shadow: 0 0 9px #d8a126, 0 0 10px #d8a126;
+#songList .playPause:hover,
+#songList td .remove:hover {
+  background-color: rgba(216, 161, 38, 0.8);
+  -webkit-box-shadow: 0 0 2px #d8a126;
 }
-/* line 166, ../sass/_songList.scss */
-#songList .moreInfo:hover div::before {
-  border-color: #d8a126;
+/* line 239, ../sass/_songList.scss */
+#songList .ticker {
+  position: absolute;
+  width: 0%;
+  height: 100%;
 }
-/* line 171, ../sass/_songList.scss */
+/* line 246, ../sass/_songList.scss */
+#songList .previewActive .ticker {
+  background-color: rgba(216, 161, 38, 0.9);
+  -webkit-animation-name: ticker;
+  -webkit-animation-duration: 30s;
+  -webkit-animation-iteration-count: infinite;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+/* line 258, ../sass/_songList.scss */
+#songList .previewActive .toTop:hover,
+#songList .previewActive .toBottom:hover,
+#songList .previewActive .playPause:hover,
+#songList .previewActive td .remove:hover:hover {
+  background-color: #baebfe;
+  -webkit-box-shadow: 0 0 2px #baebfe;
+  opacity: 0.8;
+}
+/* line 264, ../sass/_songList.scss */
+#songList .previewActive .playPause {
+  opacity: 0.8;
+}
+/* line 270, ../sass/_songList.scss */
+#songList tr.selected .previewActive .ticker {
+  background-color: rgba(186, 235, 254, 0.9);
+}
+/* line 274, ../sass/_songList.scss */
+#songList tr.selected .previewActive:hover .ticker {
+  background-color: rgba(216, 161, 38, 0.9);
+}
+/* line 279, ../sass/_songList.scss */
+#songList .toTop div {
+  top: 3px;
+}
+/* line 283, ../sass/_songList.scss */
+#songList .toBottom div {
+  top: 5px;
+}
+/* line 288, ../sass/_songList.scss */
 #songList .toTop div,
 #songList .toBottom div {
   font-size: 6px;
 }
-/* line 175, ../sass/_songList.scss */
-#songList .toTop {
-  margin-top: 1px;
-}
-/* line 180, ../sass/_songList.scss */
-#songList .toBottom {
-  margin-top: 1px;
-}
-/* line 184, ../sass/_songList.scss */
-#songList .toBottom div {
-  margin-top: 2px;
-}
-/* line 189, ../sass/_songList.scss */
+/* line 300, ../sass/_songList.scss */
 #songList .playPause {
   font-size: 7px;
-  margin-right: 0;
-  margin-top: -2px;
+  margin-top: 2px;
+  margin-right: 2px;
+}
+/* line 307, ../sass/_songList.scss */
+#songList td .remove {
+  font-size: 8px;
+}
+/* line 311, ../sass/_songList.scss */
+#songList td .remove div {
+  margin-top: 3px;
 }
 
 /* line 2, ../sass/_playlistMenu.scss */
-#tmsContent section {
+#tmsContent menu {
   position: absolute;
   right: 118px;
   bottom: 0px;
@@ -1157,11 +1320,11 @@ div.box {
   border-top-right-radius: 5px;
 }
 /* line 16, ../sass/_playlistMenu.scss */
-#tmsContent section.open {
+#tmsContent menu.open {
   height: 220px;
 }
 /* line 20, ../sass/_playlistMenu.scss */
-#tmsContent section h2 {
+#tmsContent menu h2 {
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -1173,13 +1336,13 @@ div.box {
   cursor: pointer;
 }
 /* line 29, ../sass/_playlistMenu.scss */
-#tmsContent section ul {
+#tmsContent menu ul {
   list-style-type: none;
   height: 193px;
   overflow: auto;
 }
 /* line 35, ../sass/_playlistMenu.scss */
-#tmsContent section li {
+#tmsContent menu li {
   position: relative;
   padding: 2px;
   cursor: pointer;
@@ -1189,51 +1352,80 @@ div.box {
   transition: background-color 0.3s ease-in-out;
 }
 /* line 41, ../sass/_playlistMenu.scss */
-#tmsContent section li.active::before {
+#tmsContent menu li.active::before {
   content: '♫';
   font-size: 14px;
   margin-right: 3px;
   text-shadow: 0 0 7px #d8a126, 0 0 8px #d8a126, 0 0 9px #d8a126, 0 0 10px #d8a126;
 }
 /* line 51, ../sass/_playlistMenu.scss */
-#tmsContent section li .playBtn {
+#tmsContent menu li > div {
   position: absolute;
   right: 3px;
   top: 3px;
-  font-size: 7px;
-  border-radius: 50%;
-  opacity: 0.0;
+  width: 80px;
+}
+/* line 58, ../sass/_playlistMenu.scss */
+#tmsContent menu li .playBtn, #tmsContent menu li .addBtn {
+  float: right;
+  margin-left: 2px;
   -webkit-transition: opacity 0.3s ease-in-out;
   -moz-transition: opacity 0.3s ease-in-out;
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 62, ../sass/_playlistMenu.scss */
-#tmsContent section li .playBtn:hover {
-  opacity: 0.9;
-  -webkit-box-shadow: 0 0 9px #d8a126, 0 0 10px #d8a126, inset 0 0 9px #d8a126, inset 0 0 10px #d8a126;
+/* line 64, ../sass/_playlistMenu.scss */
+#tmsContent menu li .playBtn {
+  font-size: 7px;
+  border-radius: 50%;
+  opacity: 0.0;
 }
 /* line 71, ../sass/_playlistMenu.scss */
-#tmsContent section li:nth-child(even) {
+#tmsContent menu li .playBtn:hover {
+  background-color: #d8a126;
+  -webkit-box-shadow: 0 0 9px #d8a126, 0 0 10px #d8a126;
+}
+/* line 78, ../sass/_playlistMenu.scss */
+#tmsContent menu li .addBtn {
+  background-color: #333333;
+  color: #cccccc;
+  padding: 2px 4px;
+  margin-top: 1px;
+  margin-left: 4px;
+  font-size: 9px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  opacity: 0;
+}
+/* line 88, ../sass/_playlistMenu.scss */
+#tmsContent menu li .addBtn:hover {
+  -webkit-box-shadow: 0 0 9px #d8a126, 0 0 10px #d8a126;
+  color: #d8a126;
+}
+/* line 95, ../sass/_playlistMenu.scss */
+#tmsContent menu li:nth-child(even) {
   background-color: white;
 }
-/* line 75, ../sass/_playlistMenu.scss */
-#tmsContent section li:nth-child(odd) {
+/* line 99, ../sass/_playlistMenu.scss */
+#tmsContent menu li:nth-child(odd) {
   background-color: #eeeeee;
 }
-/* line 79, ../sass/_playlistMenu.scss */
-#tmsContent section li.viewing {
+/* line 103, ../sass/_playlistMenu.scss */
+#tmsContent menu li.viewing {
   color: #4d4d4d;
   text-shadow: 0 0 2px #d8a126;
   background-color: #ddf5ff;
 }
-/* line 85, ../sass/_playlistMenu.scss */
-#tmsContent section li:hover {
+/* line 109, ../sass/_playlistMenu.scss */
+#tmsContent menu li:hover {
   background-color: #baebfe;
 }
-/* line 88, ../sass/_playlistMenu.scss */
-#tmsContent section li:hover .playBtn {
-  opacity: 0.5;
+/* line 112, ../sass/_playlistMenu.scss */
+#tmsContent menu li:hover .playBtn, #tmsContent menu li:hover .addBtn {
+  opacity: 0.8;
 }
 
 /**

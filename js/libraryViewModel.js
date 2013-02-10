@@ -17,21 +17,6 @@
       self.playListsOpen(self.playListsOpen() ? false : true); 
     };
 
-    // find song in viewingPlaylist by its posistion
-    self.findSongByPosition = function (position) {
-      var songs = self.viewingPlayList().songs(),
-          match;
-
-      for (var i in songs) {
-        if (songs[i].queuePosition() == position) {
-          match = songs[i];
-          break;
-        }
-      }
-
-      return match;
-    };
-
     // the playlist that will be used while DJing
     self.activePlayList = ko.observable(model.activeList);
     self.topOfQueue = ko.computed(function(){
@@ -47,75 +32,63 @@
       return top;
     }); 
 
+    /********************** 
+     *  Viewing Playlist  *
+     *********************/
+
     self.viewingPlayList = ko.observable(model.activeList);
 
     // track songlist separately for better control over table updates
     self.songList = ko.observableArray(self.viewingPlayList().songs());
- 
+  
+    self.selectedSongs = ko.observableArray([]);
+
+    // finds index of song in selected song by queueId
+    function findSongIndex (position) {
+      var match;
+
+      for (var i in self.selectedSongs()) {
+        if (self.selectedSongs()[i].queuePosition() === self.viewingPlayList().songs()[position - 1].queuePosition()) {
+          match = parseInt(i, 10);
+          break;
+        }
+      }
+      return match;
+    }
+
+    // add or remove song from selected list
+    self.rowSelectionToggle = function (songPosition, add) {
+      if (add) {
+        self.selectedSongs.push(self.viewingPlayList().songs()[parseInt(songPosition, 10) - 1]);
+      } else {
+        self.selectedSongs.splice(findSongIndex(songPosition), 1);
+      }
+    };
+
+    self.deselectAll = function () {};
+
+    // add songs in selected list to playlist and clear selected list
+    self.addSelectedSongsToPlaylist = function (playlist) {
+      self.addSongsToPlaylist(self.selectedSongs(), playlist, false)
+          .done(self.clearSelectCallback);
+    };
+
     // change the songs in the data table
     self.changeSongList = function(playlist) {
+      self.selectedSongs([]);
       self.viewingPlayList(playlist);
       self.songList(playlist.songs());
     };
 
-    // change the active playlist. also switch to this list in data table
-    self.changeActiveList = function (playlist) {      
-      tms.utils.socket({
-          api: "playlist.switch",
-          playlist_name: playlist.name()
-      })
-      .done(function(data) {
-          playlist.active(true);
-          self.activePlayList().active(false);
-          self.activePlayList(playlist);
-          self.viewingPlayList(playlist);
-          self.songList(playlist.songs());
-      });
-    };
-
-    // updates the active list after a song is played from it
-    self.updateActiveList = function (songData) {
-      // reset active playlist 
-      //  because if you changed it via TMS it will 
-      //  revert to what the TT panels thinks is active. 
-      // TODO: find a better solution to this..
-      tms.utils.socket({
-          api: "playlist.switch",
-          playlist_name: self.activePlayList().name()
-      })
-      .done(function() {
-        // indicate to binding handler not to updated table
-        self.songList(["paused"]);
-
-        // send to bottom
-        var target = self.activePlayList().songs.splice(0, 1);
-        self.activePlayList().songs.push(target[0]);
-
-        // update queue position 
-        for (var i in self.activePlayList().songs()) {
-          self.activePlayList().songs()[i].queuePosition(parseInt(i, 10) + 1);
-        }
-
-        // update the song list (table) if viewing active list
-        if (self.activePlayList().name() === self.viewingPlayList().name()) {
-          self.viewingPlayList(self.activePlayList());
-          self.songList(self.activePlayList().songs());
-        }
-      })
-      .fail(function (data) {
-        console.log(data);
-      });
-    };
-
     // send to top user action from song list
     self.sendSongToTop = function (songPosition) {
-      var song = self.findSongByPosition(songPosition);
+      var song = self.viewingPlayList().songs()[parseInt(songPosition, 10) - 1];
       self.updatePlayList(self.viewingPlayList, { _id: song.queueId() }, 0);
     };
 
     // send to bottom user action from song list
     self.sendSongToBottom = function (songPosition) {
-      var song = self.findSongByPosition(songPosition);
+      var song = self.viewingPlayList().songs()[parseInt(songPosition, 10) - 1];
       self.updatePlayList(self.viewingPlayList, { _id: song.queueId() }, self.viewingPlayList().songs().length-1);  
     };
 
@@ -168,9 +141,9 @@
       var songIds = $.map(songs, function (song, i) { return { fileid: song.queueId() }; }),
           playlistLength = playlist().songs().length;
 
-      tms.utils.socket({
+      return tms.utils.socket({
         api: "playlist.add",
-        playlist_name: playlist().name(),
+        playlist_name: playlist.name(),
         index: playlistLength,
         song_dict: songIds
       }).done(function (data) {
@@ -189,16 +162,99 @@
             song.queuePosition(qPos);
           }
 
-          playlist().songs.push(song);
+          playlist.songs.push(song);
         });
 
         // if the active list was passed in we need to update viewing as well
         if (updateViewing) {
-          self.viewingPlayList(playlist());
-          self.songList(playlist().songs());
+          self.viewingPlayList(playlist);
+          self.songList(playlist.songs());
         }
       })
       .fail(function (err) { console.log(err); });
+    };
+
+    // always assumes we want to remove from viewing list
+    self.removeSongFromPlaylist = function (songPosition) {
+      var location = songPosition - 1;
+      
+      tms.utils.socket({
+        api: "playlist.remove",
+        playlist_name: self.viewingPlayList().name(),
+        index: [location]
+      }).done(function (data) {
+        // indicate to binding handler not to updated table
+        self.songList(["paused"]);
+
+        // remove song from playlist
+        self.viewingPlayList().songs.splice(location, 1);  
+
+        // update queue positions 
+        for (var i in self.viewingPlayList().songs()) {
+          self.viewingPlayList().songs()[i].queuePosition(parseInt(i, 10) + 1);
+        }    
+
+        // re-draw table
+        self.songList(self.viewingPlayList().songs());
+      })
+      .fail(function (err) { console.log(err); });
+    };
+
+    // TODO: use this to recover accidentally deleted songs
+    self.recentlyRemoved = ko.observableArray([]);
+
+
+    /********************** 
+     *    Active List     *
+     *********************/
+
+    // change the active playlist. also switch to this list in data table
+    self.changeActiveList = function (playlist) {      
+      tms.utils.socket({
+          api: "playlist.switch",
+          playlist_name: playlist.name()
+      })
+      .done(function(data) {
+          playlist.active(true);
+          self.activePlayList().active(false);
+          self.activePlayList(playlist);
+          self.viewingPlayList(playlist);
+          self.songList(playlist.songs());
+      });
+    };
+
+    // updates the active list after a song is played from it
+    self.updateActiveList = function (songData) {
+      // reset active playlist 
+      //  because if you changed it via TMS it will 
+      //  revert to what the TT panels thinks is active. 
+      // TODO: find a better solution to this..
+      tms.utils.socket({
+          api: "playlist.switch",
+          playlist_name: self.activePlayList().name()
+      })
+      .done(function() {
+        // indicate to binding handler not to updated table
+        self.songList(["paused"]);
+
+        // send to bottom
+        var target = self.activePlayList().songs.splice(0, 1);
+        self.activePlayList().songs.push(target[0]);
+
+        // update queue position 
+        for (var i in self.activePlayList().songs()) {
+          self.activePlayList().songs()[i].queuePosition(parseInt(i, 10) + 1);
+        }
+
+        // update the song list (table) if viewing active list
+        if (self.activePlayList().name() === self.viewingPlayList().name()) {
+          self.viewingPlayList(self.activePlayList());
+          self.songList(self.activePlayList().songs());
+        }
+      })
+      .fail(function (data) {
+        console.log(data);
+      });
     };
 
     /********************** 
@@ -210,11 +266,11 @@
     var previewEndedCallback;
 
     // calls bindingHandler callbacks to start and stop preview visuals
-    function updatePreviewProgress (data) {
-      if (data === "progress" && !self.playingPreview()) {
+    function updatePreviewProgress (status, progress) {
+      if (status === "progress" && !self.playingPreview()) {
         self.playingPreview(true);
         previewStartedCallback(previewSong.queuePosition());
-      } else if (data === "stop") {
+      } else if (status === "stop") {
         previewEndedCallback(previewSong.queuePosition());
       }
     }
@@ -228,7 +284,7 @@
 
     self.playingPreview = ko.observable(false);
     self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
-      var song = self.findSongByPosition(songPosition);     
+      var song = self.viewingPlayList().songs()[parseInt(songPosition, 10) - 1];     
 
       if (!self.playingPreview()) {
         playPreview(song, startedCallback, endedCallback);

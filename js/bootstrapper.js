@@ -75,12 +75,12 @@
             { "sTitle": "Length", "aTargets": [ 5 ] },
             // column widths
             { "sWidth": "3%", "aTargets": [ 0 ] },
-            { "sWidth": "18%", "aTargets": [ 1 ] },
-            { "sWidth": "27%", "aTargets": [ 2 ] },
-            { "sWidth": "18%", "aTargets": [ 3 ] },
-            { "sWidth": "16%", "aTargets": [ 4 ] },
+            { "sWidth": "19%", "aTargets": [ 1 ] },
+            { "sWidth": "28%", "aTargets": [ 2 ] },
+            { "sWidth": "20%", "aTargets": [ 3 ] },
+            { "sWidth": "19%", "aTargets": [ 4 ] },
             { "sWidth": "6%", "aTargets": [ 5 ] },
-            { "sWidth": "10%", "aTargets": [ 6 ] },
+            { "sWidth": "3%", "aTargets": [ 6 ] },
             //column classes
             { "sClass": "pos", "aTargets": [ 0 ] },
             { "sClass": "artist", "aTargets": [ 1 ] },

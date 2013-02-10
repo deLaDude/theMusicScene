@@ -410,10 +410,36 @@
   }
 }
 
+%x-icon > div {
+  position:relative;
+  width: 0.2em;
+  height: 0.7em;
+  background: $contentColor;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  font-size: 22px;
+
+  &:after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.2em;
+    height: 0.7em;
+    background: $contentColor;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+  }
+}
+
+
+@-webkit-keyframes highlight { 
+  0%  { background-color: $buttonActive; -webkit-box-shadow: 0 0 5px $buttonActive, 0 0 10px $buttonActive, 0 0 15px $buttonActive; }
+  100%  { background-color: transparentize($buttonActive, 0.2); -webkit-box-shadow: 0 0 0 transparent; } 
+}
 
 // song preview animation
-@-webkit-keyframes pulsate {
-  0%  { background-color: transparentize($buttonActive, 0.25); }
-  50%  { background-color: transparentize($buttonActive, 0.65); }
-  100%  { background-color: transparentize($buttonActive, 0.25); }
+@-webkit-keyframes ticker {
+  0%  { width: 0%; }
+  100%  { width: 100%; }
 }
