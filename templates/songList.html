@@ -5,7 +5,9 @@
 <section data-bind="css: { active: selectedSongs().length > 0 }">
   <h3 data-bind="text: selectedSongs().length + ' songs selected'"></h3>
   <button class="deselect" title="Deselect songs." data-bind="click: removeAllSelected">deselect all</button>
+  <!-- ko if: viewingPlayList().searchplaylist === undefined -->
   <button class="remove" title="Remove selected songs." data-bind="click: removeSelectedSongsFromPlaylist">remove all</button>
+  <!-- /ko -->
 </section>
 
 <div class="searchToggle switch">

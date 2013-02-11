@@ -12,6 +12,7 @@
 
     // handle opening/closing the content panel
     self.isContentOpen = ko.observable(true);
+    self.isContentIdle = ko.observable(false);
     self.toggleOpen = function () {
       self.isContentOpen(self.isContentOpen() ? false : true); 
     };

@@ -533,3 +533,9 @@
   0%  { width: 0%; }
   100%  { width: 100%; }
 }
+
+// fade out animation
+@-webkit-keyframes fade {
+  0%  { opacity: 0.93; }
+  100%  { opacity: 0.05; }
+}
