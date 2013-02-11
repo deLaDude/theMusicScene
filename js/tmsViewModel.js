@@ -14,7 +14,12 @@
     self.isContentOpen = ko.observable(true);
     self.isContentIdle = ko.observable(false);
     self.toggleOpen = function () {
-      self.isContentOpen(self.isContentOpen() ? false : true); 
+      if (self.isContentOpen()) {
+        self.isContentOpen(false);
+      } else {
+        self.isContentIdle(false); 
+        self.isContentOpen(true); 
+      }
     };
 
     /********************** 
