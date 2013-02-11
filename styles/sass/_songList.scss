@@ -11,9 +11,9 @@
 	}
 
 	hgroup {
-		top: 2px;
+		top: 5px;
 		padding-left: 10px;	
-		width: 350px;
+		width: 345px;
 
 		h2 {
 			font-size: 18px;
@@ -24,12 +24,16 @@
 
 	section	{
 		top: 0px;
-		padding-top: 2px;
+		padding-top: 3px;
 		left: 350px;
 		width: 160px;
-		height: 40px;
+		opacity: 0.0;
 
 		@include transition(all $panelSpeed ease-in-out);
+
+		&.active {
+			opacity: 1;
+		}
 
 		h3 {
 			color: $headingColor2;
@@ -51,17 +55,57 @@
 
       &.deselect {
       	float: left;
+      	
+      	&:hover {
+	        background-color: $stripesHighlight;
+	        -webkit-box-shadow: inset 0 0 5px $contentColor;
+	      }
       }
 
       &.remove {
       	float: right;
+      	
+      	&:hover {
+	        color: $stripesHighlight;
+	        background-color: $warningColor;
+	      }
       }
+		}
+	}
 
-      &:hover {
-        // color: $buttonActive;
-        background-color: $stripesHighlight;
-        -webkit-box-shadow: inset 0 0 5px $contentColor;
-      }
+	.switch {
+		position: absolute;
+		top: 24px;
+		right: 2px;
+		height: 18px;
+		width: 159px;
+		background-color: $headingColor2;
+		box-shadow: inset 0 0 0 1px $headingColor2;
+		z-index: 9;
+		@include border-bottom-radius($border-radius);
+		
+		label {
+			height: 18px;
+			font-size: 11px;
+			margin-top: -4px;
+			width: 48%;
+		}
+
+		span {
+			@include transition(all $panelSpeed ease-in-out);
+			margin-top: -1px;
+			width: 49%;
+		}
+
+		.searchInput {
+			position: absolute;
+			top: -20px;
+			left: 0px;
+			display: none;
+
+			&.active {
+				display: block;
+			}
 		}
 	}
 
@@ -135,13 +179,13 @@
 		@extend %ttPanelHeader;
 		
 		padding: 5px;
-		height: 30px;
+		height: 35px;
 
 		@include border-top-radius($border-radius);	
 
 		.dataTables_info {
 			position: absolute;
-			top: 22px;
+			top: 25px;
 			left: 20px;
 			width: 400px;
 			text-align: left;
@@ -149,20 +193,26 @@
 
 		.dataTables_filter {
 			position: absolute;
-			top: 5px;
+			top: 3px;
 			right: 5px;
 			width: 25%;
 
 			input {
-				padding: 2px 5px;
-				border: 0;
-			  outline: 0;
-			  background: #FFF;
-			  border-radius: 14px;
-			  box-shadow: inset 0 0 0 1px #888,0 1px 0 0 #FFF;
-				outline: none;
+				margin-top: 1px;
+				margin-right: -3px;
 			}
 		}
+	}
+
+	.searchInput,
+	.dataTables_filter input {
+		padding: 2px 5px;
+		border: 0;
+	  outline: 0;
+	  background: #FFF;
+	  @include border-top-radius($border-radius);	
+	  box-shadow: inset 0 0 0 1px $headingColor2;
+		outline: none;
 	}
 
 	.dataTables_wrapper {
@@ -197,6 +247,9 @@
 			right: 0px;
 			width: 25px;
 			height: 22px;
+		}
+		
+		.songFlyout {
 			overflow: hidden;
 			z-index: 9;
 			@include transition(all 0.3s ease-in-out);
@@ -249,13 +302,11 @@
 			-webkit-animation-duration: 30s;
 			-webkit-animation-iteration-count: infinite;
 			@include border-left-radius($border-radius);
-
 		}
 		
 		.toTop:hover,
 		.toBottom:hover,
-		.playPause:hover,
-		td .remove:hover:hover {
+		.playPause:hover {
 			background-color: $stripesHighlight;
 			-webkit-box-shadow: 0 0 2px $stripesHighlight;
 			opacity: 0.8;
@@ -265,6 +316,17 @@
 			opacity: 0.8;
 		}
 	}
+
+	tr .remove:hover {
+		opacity: 0.8;	
+		background-color:	$warningColor;
+
+		div,
+		div::after {
+			background-color: $headingColor2; 
+		}
+	}
+
 
 	tr.selected .previewActive {
 		.ticker {

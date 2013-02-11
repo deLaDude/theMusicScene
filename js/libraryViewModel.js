@@ -32,18 +32,118 @@
       return top;
     }); 
 
-    /********************** 
-     *  Viewing Playlist  *
-     *********************/
+    /************************* 
+     *  Search  *
+     *************************/    
+    var loadMoreTimer = null,
+        initTimer = null,
+        moreLoading = false,
+        pageCount = 1;
+    
+    self.searchPlayList = ko.observable(model.searchPlaylist);
+
+    // used to replace TT results when switching back to playlist search
+    self.lastViewedPlayList = ko.observable();
+
+    self.searchQuery = ko.observable("");
+    self.searchQuery.subscribe(function (query) {
+      if (self.listSource() === "turntablesearch") {
+        if (initTimer) clearTimeout(initTimer);
+        if (loadMoreTimer) clearTimeout(loadMoreTimer);
+
+        initTimer = setTimeout(self.initialSearch, 1000);
+      } 
+    });
+
+    self.initialSearch = function () {
+      if (loadMoreTimer) clearTimeout(loadMoreTimer);
+      pageCount = 1;
+      
+      if (moreLoading) {
+        moreLoading = false;
+        loadMoreTimer = null;
+      } else {
+        loadMoreTimer = setTimeout(loadMore, 1000);
+      }
+      
+      tms.utils.socket({
+        api: "file.search",
+        query: self.searchQuery(),
+        page: pageCount
+      });
+    };
+
+    function loadMore () {
+      if (pageCount < 4) {
+        pageCount++;
+        moreLoading = true;
+               
+        tms.utils.socket({
+          api: "file.search",
+          query: self.searchQuery(),
+          page: pageCount
+        });
+        
+        setTimeout(loadMore, 1000);
+      } else {
+        moreLoading = false;
+        loadMoreTimer = null;
+      }
+    }
+
+    self.handleSearchResults = function (data) {
+      console.log(data);
+      if (moreLoading && data.query === self.searchQuery()) {
+        // add
+        self.songList(["paused"]);
+        var currentSize = self.searchPlayList().songs().length;
+        $.map(data.docs, function(model, i) {
+          model.queuePosition = currentSize + parseInt(i, 10) + 1;
+          self.searchPlayList().songs.push(new tms.viewmodels.SongViewModel(model));
+        });
+      } else {
+        // replace
+        var songs = $.map(data.docs, function(model, i) {
+          model.queuePosition = parseInt(i, 10) + 1;
+          return new tms.viewmodels.SongViewModel(model);
+        });
+
+        self.searchPlayList().songs(songs);
+      }         
+
+      self.searchPlayList().name("results for '" + self.searchQuery() + "'");
+      
+      // update viewing
+      self.viewingPlayList(self.searchPlayList());
+      self.songList(self.searchPlayList().songs());
+    };
+
+    /************************* 
+     *  Playlist Management  *
+     *************************/
 
     self.viewingPlayList = ko.observable(model.activeList);
 
     // track songlist separately for better control over table updates
     self.songList = ko.observableArray(self.viewingPlayList().songs());
   
+    self.listSource = ko.observable("playlistsearch");
+    self.listSource.subscribe(function (source) {
+      if (source === "turntablesearch") {
+        self.lastViewedPlayList(self.viewingPlayList());
+        self.selectedSongs([]);    
+        self.viewingPlayList(self.searchPlayList());
+        self.songList(self.searchPlayList().songs());  
+      } else if (self.lastViewedPlayList) {
+        self.selectedSongs([]);
+        self.viewingPlayList(self.lastViewedPlayList());
+        self.songList(self.viewingPlayList().songs());
+      }
+    });
+
     self.selectedSongs = ko.observableArray([]);
 
-    // finds index of song in selected song by queueId
+    // finds index of song in selected songs by queueId
     function findSongIndex (position) {
       var match;
 
@@ -65,16 +165,35 @@
       }
     };
 
-    self.deselectAll = function () {};
+    // this is being set by the binding handler. Currently not in the best way.
+    self.clearSelectedCallback = function() { };
+
+    // clear array and unhighlight
+    self.removeAllSelected = function () {
+      self.clearSelectedCallback();
+      self.selectedSongs([]);
+    };
 
     // add songs in selected list to playlist and clear selected list
     self.addSelectedSongsToPlaylist = function (playlist) {
       self.addSongsToPlaylist(self.selectedSongs(), playlist, false)
-          .done(self.clearSelectCallback);
+          .done(self.removeAllSelected);
+    };
+
+    self.removeSelectedSongsFromPlaylist = function () {
+      var indices = $.map(self.selectedSongs(), function (song, i) { 
+        var index = parseInt(song.queuePosition(), 10)-1;
+        return index; 
+      });
+      self.removeSongsFromPlaylist(indices);
     };
 
     // change the songs in the data table
     self.changeSongList = function(playlist) {
+      if (self.viewingPlayList().searchplaylist) {
+        self.listSource("playlistsearch");
+      }
+
       self.selectedSongs([]);
       self.viewingPlayList(playlist);
       self.songList(playlist.songs());
@@ -131,7 +250,7 @@
           playlist().songs()[i].queuePosition(parseInt(i, 10) + 1);
         }    
 
-        // update songs
+        // update song list
         self.songList(playlist().songs());
       })
       .fail(function (err) { console.log(err); });
@@ -139,7 +258,7 @@
 
     self.addSongsToPlaylist = function (songs, playlist, updateViewing) {
       var songIds = $.map(songs, function (song, i) { return { fileid: song.queueId() }; }),
-          playlistLength = playlist().songs().length;
+          playlistLength = playlist.songs().length;
 
       return tms.utils.socket({
         api: "playlist.add",
@@ -147,16 +266,14 @@
         index: playlistLength,
         song_dict: songIds
       }).done(function (data) {
-        console.log(data);
-
         // update queue positions of new songs
+        var qPos;
         $.each(songs, function (i, song) {
-          var qPos = playlistLength + (1 + parseInt(i, 10));
+          qPos = playlistLength + (1 + parseInt(i, 10));
           // if its a currentSongViewModel we need to convert
-          if (song.upvotes()) {
+          if (song.upvotes) {
             var songModel = song.model.metadata.current_song;
             songModel.queuePosition = qPos;
-            console.log(songModel);
             song = new tms.viewmodels.SongViewModel(songModel);
           } else {
             song.queuePosition(qPos);
@@ -175,23 +292,28 @@
     };
 
     // always assumes we want to remove from viewing list
-    self.removeSongFromPlaylist = function (songPosition) {
-      var location = songPosition - 1;
+    self.removeSongsFromPlaylist = function (songIndices) {
+      // if its a single id we need to make it an array
+      if (!$.isArray(songIndices)) {
+        songIndices = [songIndices];
+      }
       
       tms.utils.socket({
         api: "playlist.remove",
         playlist_name: self.viewingPlayList().name(),
-        index: [location]
+        index: songIndices
       }).done(function (data) {
         // indicate to binding handler not to updated table
         self.songList(["paused"]);
 
         // remove song from playlist
-        self.viewingPlayList().songs.splice(location, 1);  
+        for (var i in songIndices) {
+          self.viewingPlayList().songs.splice(songIndices[i], 1);  
+        }
 
         // update queue positions 
-        for (var i in self.viewingPlayList().songs()) {
-          self.viewingPlayList().songs()[i].queuePosition(parseInt(i, 10) + 1);
+        for (var x in self.viewingPlayList().songs()) {
+          self.viewingPlayList().songs()[x].queuePosition(parseInt(x, 10) + 1);
         }    
 
         // re-draw table
@@ -215,11 +337,17 @@
           playlist_name: playlist.name()
       })
       .done(function(data) {
-          playlist.active(true);
-          self.activePlayList().active(false);
-          self.activePlayList(playlist);
+        if (self.viewingPlayList().searchplaylist) {
+          self.listSource("playlistsearch");
+        }
+
+        playlist.active(true);
+        self.activePlayList().active(false);
+        self.activePlayList(playlist);
+        if (self.activePlayList().name() !== self.viewingPlayList().name()) {
           self.viewingPlayList(playlist);
           self.songList(playlist.songs());
+        }
       });
     };
 
@@ -306,6 +434,15 @@
    */
   tms.factories.libraryFactory = function (model) {
     model.playlists = [];
+
+    var searchPlaylistModel = {
+      name: "Search",
+      active: false,
+      songIds: [],
+      songs: []
+    };
+    model.searchPlaylist = new tms.viewmodels.PlaylistViewModel(searchPlaylistModel);
+    model.searchPlaylist.searchplaylist = true;
 
     // create playlist for each entry
     for (var i in model.playlistData) {    

@@ -10,7 +10,7 @@
     // queueId maps to the songIds in playlist viewmodel to determine position in playlist(queue)
     //  its also used to access local storage data
     self.queueId = ko.observable(model.fileId || model._id);
-    self.queuePosition = ko.observable(model.queuePosition);
+    self.queuePosition = ko.observable(model.queuePosition || 0);
 
 		if (model.metadata) {
       // TODO: add releasedate and label properties

@@ -163,6 +163,12 @@
           case on.songSnag:
             app.currentSong().updateSnags();
             break;
+          case on.searchCompleted:
+            app.library.handleSearchResults(data);
+            break;
+          case on.searchFailed:
+            console.log(data);
+            break;
           default:
             // console.log("no actions for: " + data.command);
             break;

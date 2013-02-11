@@ -18,7 +18,10 @@ var tms = {
 				chatMessage: "speak",
 
 				userEnter: "registered",
-				userLeave: "deregistered"
+				userLeave: "deregistered",
+
+				searchCompleted: "search_complete",
+				searchFailed: "search_failed"
 			}
 		},
 		ttErrors: {

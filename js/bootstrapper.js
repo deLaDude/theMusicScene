@@ -60,7 +60,7 @@
         ttPlaylist: turntable.playlist,
         playlistData: [],
         tableOptions: {
-          "sScrollY": "341px",
+          "sScrollY": "336px",
           "bScrollCollapse": true,
           "bPaginate": false,
           "iTabIndex": 1, // keybaord navigation for column sorting (tab > enter)

@@ -4,12 +4,12 @@
     <label data-bind="text: name"></label>
     <div>
       <!-- ko if: $parent.selectedSongs().length > 0 -->
-      <div class='addBtn' data-bind="click: $parent.addSelectedSongs, attr: { title: 'Add selected songs to playlist' }">
+      <div class='addBtn' data-bind="click: $parent.addSelectedSongsToPlaylist, clickBubble: false, attr: { title: 'Add selected songs to playlist' }">
         <span>Add Songs</span>
       </div>
       <!-- /ko -->
       <!-- ko ifnot: active -->
-      <div class='playBtn' data-bind="click: $parent.changeActiveList, attr: { title: 'Set ' + name() + ' as active.' }">
+      <div class='playBtn' data-bind="click: $parent.changeActiveList, clickBubble: false, attr: { title: 'Set ' + name() + ' as active.' }">
         <div></div>
       </div>
       <!-- /ko -->

@@ -39,8 +39,8 @@
         }
       }
 
-      viewModel.clearSelectCallback = function () {
-        $("#songList .select").removeClass("selected");  
+      viewModel.clearSelectedCallback = function () {
+        $("#songList .selected").removeClass("selected");  
       };
       
       /* button events */
@@ -49,7 +49,7 @@
         event.stopPropagation();
         
         var position = $(event.target).parents("[data-pos]").attr("data-pos");
-        viewModel.removeSongFromPlaylist(position);
+        viewModel.removeSongsFromPlaylist(position-1);
       }
 
       function upBtnClick (event) {
@@ -75,6 +75,11 @@
         }
 
         viewModel.toggleSongPreview(position, previewStarted, previewEnded);
+      }
+
+      function ttSearch (event) {
+        console.log(event);
+        viewModel.getResults();
       }
 
       $(element).find(".toTop").live("click", upBtnClick).end()
@@ -109,7 +114,11 @@
 
         // add action buttons to dataset with some metadata to support the events
         for (var x in tableData) {
-          tableData[x].push("<div data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
+          if (viewModel.listSource() === "turntablesearch") {
+            tableData[x].push("<div data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='ticker'></div></div>");
+          } else {
+            tableData[x].push("<div class='songFlyout' data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
+          }
         }
 
         // create new datatable if needed. otherwise replace contents
@@ -135,7 +144,7 @@
 
           // custom header adjustments
           $("#DataTables_Table_0_filter label").replaceWith($("#DataTables_Table_0_filter label input"));
-          $("#DataTables_Table_0_filter input").attr("placeholder", "Search");
+          $("#DataTables_Table_0_filter input").attr("placeholder", "Search Playlist");
         } else {
           // re-draw table
           var dt = table.dataTable();
