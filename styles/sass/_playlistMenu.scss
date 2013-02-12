@@ -8,9 +8,8 @@
   background-color: $stripesOdd;
   opacity: .91;
 
-  @include box-shadow($contentColor 0px 0px 5px);
-
   @include transition(height $panelSpeed ease-in-out);
+  @include box-shadow($contentColor 0px 0px 5px);
   @include border-top-radius($border-radius);
 
   &.open {
@@ -18,12 +17,25 @@
   }
 
   h2 {
-    @extend %ttPanelHeader;
+    @extend %greyBtn;
+    color: $headingColor2;
+    text-shadow: 0 1px 0 $headingColor1;
+    height: 36px;
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
     @include border-top-radius($border-radius);
 
     height: 20px;
     padding-top: 5px;
     cursor: pointer;
+    @include transition(all $panelSpeed ease-in-out);
+
+    &.addActive {
+      @extend %blueBtn;
+      color: $contentColor;
+      text-shadow: 0 1px 0 $headingColor2;
+    }
   }
 
   ul {
@@ -69,27 +81,19 @@
       opacity: 0.0;
 
       &:hover {
-        background-color: $buttonActive;
-        -webkit-box-shadow: 0 0 9px $buttonActive,
-                            0 0 10px $buttonActive;
+        @extend %orangeBtn;
       }
     }
 
     .addBtn {
-      background-color: $contentColor;
-      color: $contentBgColor;
+      @extend %greenBtn;
+      color: $headingColor1;
       padding: 2px 4px;
       margin-top: 1px;
       margin-left: 4px;
       font-size: 9px;
       @include border-radius($border-radius);
       opacity: 0;
-
-      &:hover {
-        -webkit-box-shadow: 0 0 9px $buttonActive,
-                          0 0 10px $buttonActive;
-        color: $buttonActive;
-      }
     }
 
     &:nth-child(even) {
@@ -111,6 +115,10 @@
 
       .playBtn, .addBtn {
         opacity: 0.8;
+      
+        &:hover {
+          opacity: 1;
+        }
       }
     }
 

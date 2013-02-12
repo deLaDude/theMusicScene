@@ -1,4 +1,4 @@
-<h2 data-bind='click: toggleOpen, attr: { title: playListsOpen() ? "View Playlists." : "Hide Playlists." }'>Playlists</h2>
+<h2 data-bind='click: toggleOpen, text: playListMenuTitle, css: { addActive: selectedSongs().length > 0 }, attr: { title: playListsOpen() ? "Hide Playlists." : "View Playlists." }'></h2>
 <ul data-bind="foreach: playLists">
   <li data-bind="click: $parent.changeSongList, css: { active: active, viewing: name() === $root.library.viewingPlayList().name() }">
     <label data-bind="text: name"></label>

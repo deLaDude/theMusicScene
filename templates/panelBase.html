@@ -38,7 +38,7 @@
 		</nav>
 	</header>
 
-	<div id="tmsContent" data-bind="idleTimer: { isIdle: isContentIdle, isOpen: isContentOpen }, css: { idle: isContentIdle() === true }">
+	<div id="tmsContent" data-bind="idleTimer: { isIdle: isContentIdle, isOpen: isContentOpen, timeout: 60 }, css: { idle: isContentIdle }">
 		<!-- Song List -->
 		<div id="songList" data-bind='template: { name: "songList-template", data: library }'></div>
 	</div>

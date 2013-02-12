@@ -4,33 +4,10 @@
    * @param {object} model [song list model]
    */
   tms.viewmodels.LibraryViewModel = function (model) {
-    model = model || {};
     var self = this;
-
     self.model = self.model;
     self.ttPlaylist = model.ttPlaylist;
     self.tableOptions = model.tableOptions;
-
-    self.playLists = model.playlists;
-    self.playListsOpen = ko.observable(false);
-    self.toggleOpen = function () {
-      self.playListsOpen(self.playListsOpen() ? false : true); 
-    };
-
-    // the playlist that will be used while DJing
-    self.activePlayList = ko.observable(model.activeList);
-    self.topOfQueue = ko.computed(function(){
-      var activeSongs = self.activePlayList().songs(),
-          top;
- 
-       for (var i in activeSongs) {
-        if (activeSongs[i].queuePosition() === 1) {
-          top = activeSongs[i];
-          break;
-        }
-      }
-      return top;
-    }); 
 
     /************************* 
      *  Search  *
@@ -39,6 +16,24 @@
         initTimer = null,
         moreLoading = false,
         pageCount = 1;
+
+    function loadMore () {
+      if (pageCount < 4) {
+        pageCount++;
+        moreLoading = true;
+               
+        tms.utils.socket({
+          api: "file.search",
+          query: self.searchQuery(),
+          page: pageCount
+        });
+        
+        setTimeout(loadMore, 1000);
+      } else {
+        moreLoading = false;
+        loadMoreTimer = null;
+      }
+    }
     
     self.searchPlayList = ko.observable(model.searchPlaylist);
 
@@ -73,24 +68,6 @@
       });
     };
 
-    function loadMore () {
-      if (pageCount < 4) {
-        pageCount++;
-        moreLoading = true;
-               
-        tms.utils.socket({
-          api: "file.search",
-          query: self.searchQuery(),
-          page: pageCount
-        });
-        
-        setTimeout(loadMore, 1000);
-      } else {
-        moreLoading = false;
-        loadMoreTimer = null;
-      }
-    }
-
     self.handleSearchResults = function (data) {
       console.log(data);
       if (moreLoading && data.query === self.searchQuery()) {
@@ -122,27 +99,6 @@
      *  Playlist Management  *
      *************************/
 
-    self.viewingPlayList = ko.observable(model.activeList);
-
-    // track songlist separately for better control over table updates
-    self.songList = ko.observableArray(self.viewingPlayList().songs());
-  
-    self.listSource = ko.observable("playlistsearch");
-    self.listSource.subscribe(function (source) {
-      if (source === "turntablesearch") {
-        self.lastViewedPlayList(self.viewingPlayList());
-        self.selectedSongs([]);    
-        self.viewingPlayList(self.searchPlayList());
-        self.songList(self.searchPlayList().songs());  
-      } else if (self.lastViewedPlayList) {
-        self.selectedSongs([]);
-        self.viewingPlayList(self.lastViewedPlayList());
-        self.songList(self.viewingPlayList().songs());
-      }
-    });
-
-    self.selectedSongs = ko.observableArray([]);
-
     // finds index of song in selected songs by queueId
     function findSongIndex (position) {
       var match;
@@ -156,6 +112,60 @@
       return match;
     }
 
+    self.playLists = model.playlists;
+    self.playListsOpen = ko.observable(false);
+
+    self.activePlayList = ko.observable(model.activeList);
+    self.viewingPlayList = ko.observable(model.activeList);
+
+    // track songlist separately for better control over table updates
+    self.songList = ko.observableArray(self.viewingPlayList().songs());
+    self.listSource = ko.observable("playlistsearch");
+    self.selectedSongs = ko.observableArray([]);
+
+    // TODO: use this to recover accidentally deleted songs
+    self.recentlyRemoved = ko.observableArray([]);
+
+    // the playlist that will be used while DJing
+    self.topOfQueue = ko.computed(function(){
+      var activeSongs = self.activePlayList().songs(),
+          top;
+ 
+       for (var i in activeSongs) {
+        if (activeSongs[i].queuePosition() === 1) {
+          top = activeSongs[i];
+          break;
+        }
+      }
+      return top;
+    }); 
+
+    // change playlist menu title when songs are selected to draw user
+    self.playListMenuTitle = ko.computed(function () {
+      if (self.selectedSongs().length > 0) {
+        return "Add selected songs to a Playlist";
+      } else {
+        return "Playlists";
+      }
+    });
+
+    self.listSource.subscribe(function (source) {
+      if (source === "turntablesearch") {
+        self.lastViewedPlayList(self.viewingPlayList());
+        self.selectedSongs([]);    
+        self.viewingPlayList(self.searchPlayList());
+        self.songList(self.searchPlayList().songs());  
+      } else if (self.lastViewedPlayList) {
+        self.selectedSongs([]);
+        self.viewingPlayList(self.lastViewedPlayList());
+        self.songList(self.viewingPlayList().songs());
+      }
+    });
+
+    self.toggleOpen = function () {
+      self.playListsOpen(self.playListsOpen() ? false : true); 
+    };
+  
     // add or remove song from selected list
     self.rowSelectionToggle = function (songPosition, add) {
       if (add) {
@@ -321,14 +331,6 @@
       })
       .fail(function (err) { console.log(err); });
     };
-
-    // TODO: use this to recover accidentally deleted songs
-    self.recentlyRemoved = ko.observableArray([]);
-
-
-    /********************** 
-     *    Active List     *
-     *********************/
 
     // change the active playlist. also switch to this list in data table
     self.changeActiveList = function (playlist) {      

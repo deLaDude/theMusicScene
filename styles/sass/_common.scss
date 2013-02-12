@@ -84,6 +84,49 @@
  * Custom Common Styles
  */
 
+%sexyBtn {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
+  opacity: 0.75;
+  @include transition(all 0.4s ease-in-out);
+
+  &:hover, &.active {
+    opacity: 1;
+  }
+}
+
+%greyBtn {
+  @extend %sexyBtn;
+  background: #eee;
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#eee),color-stop(100%,#ccc));
+  background: -webkit-linear-gradient(top,#eee 0,#ccc 50%);
+  background: linear-gradient(to bottom,#eee 0,#ccc 50%);
+}
+
+%blueBtn {
+  @extend %sexyBtn;
+  background-image: -webkit-linear-gradient(top, #4fc9ee, #3aa2d0);
+  background-image: linear-gradient(to bottom, #4fc9ee, #3aa2d0); 
+}
+
+%greenBtn {
+  @extend %sexyBtn;
+  background-image: -webkit-linear-gradient(top, lighten($happyColor, 20%), $happyColor);
+  background-image: linear-gradient(to bottom, lighten($happyColor, 20%), $happyColor);
+}
+
+%redBtn {
+  @extend %sexyBtn;
+  background-image: -webkit-linear-gradient(top, lighten($warningColor, 20%), $warningColor);
+  background-image: linear-gradient(to bottom, lighten($warningColor, 20%), $warningColor);
+}
+
+ %orangeBtn {
+  @extend %sexyBtn;
+  background-image: -webkit-linear-gradient(top, lighten($buttonActive, 20%), $buttonActive);
+  background-image: linear-gradient(to bottom, lighten($buttonActive, 20%), $buttonActive);
+ }
+
 %headingOne {
 	color: $headingColor1;
 	text-shadow: 0 1px 1px #000;
@@ -109,14 +152,14 @@
 	}
 
   &:hover div div {
-    border-color: $buttonActive;
+    border-color: lighten($buttonActive, 10%);
 
     &::before {
-      background: $buttonActive;
+      background: lighten($buttonActive, 10%);
     }
 
     &::after {
-      background: $buttonActive;
+      background: lighten($buttonActive, 10%);
     }
   }
   
@@ -166,14 +209,14 @@
   }
 
   &:hover div div {
-    -webkit-box-shadow: 0 0 4px $buttonActive;
+    -webkit-box-shadow: 0 0 4px lighten($buttonActive, 10%);
 
     &::before {
-      background: $buttonActive;
+      background: lighten($buttonActive, 10%);
     }
 
     &::after {
-      border-color: $buttonActive;
+      border-color: lighten($buttonActive, 10%);
     }
   }
   
@@ -195,7 +238,7 @@
       width: 1.4em;
       height: 0.9em;
       margin: 0.2em auto;
-      background: darken($contentColor, 10%);
+      background: lighten($contentColor, 10%);
       box-shadow: inset 0.1em -0.1em 0.1em rgba(0,0,0,0.2),inset 0.1em 0.1em 0.1em rgba(0,0,0,0.2),inset -0.1em 0.1em 0.1em rgba(0,0,0,0.2);
     }
 
@@ -205,7 +248,7 @@
       width: 0.3em;
       height: 0.3em;
       margin: 0.6em auto;
-      border: solid 0.2em darken($contentColor, 10%);;
+      border: solid 0.2em lighten($contentColor, 10%);;
       border-radius: 50%;
     }
   }
@@ -221,7 +264,7 @@
 
   &:hover div div {
     &::before, &::after {
-      background: $buttonActive;
+      background: lighten($buttonActive, 10%);
     }
   }
   
@@ -267,16 +310,16 @@
   }
 
   &:hover div div {
-      background: $buttonActive;
+      background: lighten($buttonActive, 10%);
 
       &::before {
-        border-right-color: $buttonActive;
+        border-right-color: lighten($buttonActive, 10%);
       }
 
       &::after {
-        border-right-color: $buttonActive;
-        border-left-color: $buttonActive;
-        border-bottom-color: $buttonActive;
+        border-right-color: lighten($buttonActive, 10%);
+        border-left-color: lighten($buttonActive, 10%);
+        border-bottom-color: lighten($buttonActive, 10%);
       }
     }
 
@@ -493,7 +536,6 @@
 }
 
 .switch-selection {
-  background: $stripesHighlight;
   display: block;
   position: absolute;
   z-index: 1;
@@ -503,6 +545,7 @@
   height: 16px;
   background: #65bd63;
   border-radius: 3px;
+  background: $stripesHighlight;
   background-image: -webkit-linear-gradient(top, #9dd993, #65bd63);
   background-image: linear-gradient(to bottom, #9dd993, #65bd63);
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
