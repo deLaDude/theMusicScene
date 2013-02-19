@@ -1,11 +1,9 @@
 # the Music Scene: Chrome Extension
 This extension will provide integrated enhancements for Turntable power users and noobs alike. The intial focus is on better queue management, but additional features will come in the future. 
 
-Latest Update & Screenshots: http://bit.ly/14I4xt7
+See how development is going: https://trello.com/themusicscene
 
-Checkout the development roadmap here: http://bit.ly/114rmCS
-
-And add your voice by joining the discussion: http://bit.ly/tmsCommunity
+Get the latest updates and join the discussion: http://bit.ly/tmsCommunity
 
 # IMPORTANT NOTE: 
 The playlist features do not sync with the turntable queue panel so you should only use one or the other. 
