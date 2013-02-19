@@ -82,11 +82,12 @@
         viewModel.getResults();
       }
 
-      $(element).find(".toTop").live("click", upBtnClick).end()
-                .find(".toBottom").live("click", downBtnClick).end()
-                .find(".playPause").live("click", playPauseBtnClick).end()
-                .find(".remove").live("click", removeClick).end()
-                .find("tr").live("click", selectToggle);
+      $(element)
+        .on("click", ".toTop", upBtnClick)
+        .on("click", ".toBottom", downBtnClick)
+        .on("click", ".playPause", playPauseBtnClick)
+        .on("click", ".remove", removeClick)
+        .on("click", "tr", selectToggle);
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
       var options = valueAccessor().options,
@@ -103,7 +104,7 @@
         // format data for data tables 
         for (var i in data) {
           tableData.push([
-            data[i].queuePosition(),
+            parseInt(i, 10) + 1,
             data[i].artist(),
             data[i].song(),
             data[i].album(),

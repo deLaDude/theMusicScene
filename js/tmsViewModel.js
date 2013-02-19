@@ -6,8 +6,7 @@
     model = model || {};
     var self = this;
     self.tt = model.tt;
-    self.room = model.room;
-    self.roomView = model.roomView;
+    self.eventBus = model.eventBus;
     self.library = model.library;
 
     // handle opening/closing the content panel
@@ -30,8 +29,8 @@
     self.songChange = function (roomData) {
       self.songSnagged(false);
 
-      // if user is DJing, updated playlist
-      if (roomData.metadata.current_dj === self.tt.user.id) {
+      // if user is DJing, update playlist
+      if (roomData.metadata.current_dj === self.tt.userId) {
         self.library.updateActiveList(roomData.metadata.current_song);
       }
 
@@ -52,10 +51,10 @@
             site = "queue", 
             location = "board",
             soup = [
-              self.tt.user.id, 
+              self.tt.userId, 
               self.currentSong().djId(), 
               self.currentSong().queueId(), 
-              self.room.roomId, 
+              self.tt.roomId, 
               site, 
               location, 
               inPlaylist, 
@@ -66,8 +65,8 @@
                 api: "snag.add",
                 djid: self.currentSong().djId(),
                 songid: self.currentSong().queueId(),
-                roomid: self.room.roomId,
-                section: self.room.section,
+                roomid: self.tt.roomId,
+                section: self.tt.section,
                 site: site,
                 location: location,
                 in_queue: inPlaylist,
@@ -77,20 +76,23 @@
                 fh: thing2
               };
 
-        tms.utils.socket(snagReq).done(function () {
-           self.roomView.showHeart(self.tt.user.id);
+        
+        self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
+          .done(function () {
+            self.eventBus.postMessage(tms.events.tt.showHeart);
 
-          // update playlist
-          self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
-
-          // maintain turntable GA event tracking
-          _gaq.push(["_trackEvent", "song", "snag", site, (self.currentSong().snaggable() ? 0: 1)]);
-        }).fail(function(err){ console.log(err); });        
+            // update playlist
+            self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
+        });        
       } else {
         if (!self.currentSong().snaggable()) {
-          self.roomView.showRoomTip("This song is not snaggable :(", 3);
+          // $("#tmsTrigger")
+          //   .attr("data-action", "showMessage")
+          //   .attr("data-message", "This song is not snaggable :(").click();
         } else {
-          self.roomView.showRoomTip("You already snagged this song!", 3);
+          // $("#tmsTrigger")
+          //   .attr("data-action", "showMessage")
+          //   .attr("data-message", "You already snagged this song!").click();
         }
       }
 
@@ -104,26 +106,25 @@
     
     // sets a random time to bop based on songs length
     function setBopTimer () {
-      bopTimer = setTimeout(bop, Math.floor(Math.random()*model.room.currentSong.metadata.length/4*1000));
+      bopTimer = setTimeout(bop, Math.floor(Math.random() * self.currentSong().length()/4*1000));
     }
 
     // make request and set state upon success
     function bop () {
-      var songId = $.sha1(model.room.roomId + 'up' + model.room.currentSong._id);
+      var request = {
+            api: 'room.vote',
+            roomid: self.tt.roomId,
+            section: self.tt.section,
+            val: 'up',
+            vh: self.currentSong().queueId(),
+            th: null,
+            ph: null
+          };
 
-      tms.utils.socket({
-        api: 'room.vote',
-        roomid: model.room.roomId,
-        section: model.room.section,
-        val: 'up',
-        vh: songId,
-        th: $.sha1(Math.random() + ""),
-        ph: $.sha1(Math.random() + "")
-      })
-      .done($.proxy(function(data) { 
-        btn.addClass("selected");
-      }))
-      .fail(function(err){ console.log(err); });
+      self.eventBus.request(tms.events.tt.api.vote, request, tms.events.ext.api.vote)
+        .done(function(data) { 
+          btn.addClass("selected");
+        });
     }
 
     // ui toggle
@@ -144,47 +145,27 @@
    * @return {viewmodel} [a library view model]
    */
   tms.factories.tmsFactory = function (model) {
-    // get TT room actions obj
-    for (var i in model.room) { 
-      if (model.room[i] && model.room[i].showHeart) { 
-        model.roomView = model.room[i]; 
-        break; 
-      } 
-    }
-    
     var app = new tms.viewmodels.tmsViewModel(model);
 
-    // TT Event Dispatcher
-    turntable.addEventListener("message", function (data) {
-      var on = tms.constants.events.tt;
-
-      if (data.command) {
-        switch (data.command) {
-          case on.songChange:
-            app.songChange(data.room);
-            break;
-          case on.voteUpdate: 
-            app.currentSong().updateVotes(data.room.metadata);
-            break;
-          case on.songSnag:
-            app.currentSong().updateSnags();
-            break;
-          case on.searchCompleted:
-            app.library.handleSearchResults(data);
-            break;
-          case on.searchFailed:
-            console.log(data);
-            break;
-          default:
-            // console.log("no actions for: " + data.command);
-            break;
-        }
+    // add event subscriptions
+    var subscriptions = [
+      {
+        name: tms.events.ext.songChange,
+        callback: app.songChange
+      },
+      {
+        name: tms.events.ext.vote,
+        callback: app.currentSong().updateVotes
+      },
+      {
+        name: tms.events.ext.snag,
+        callback: app.currentSong().updateSnags
       }
+    ];
 
-      if (data.snagid) {
-        app.currentSong().updateSnags();
-      }
-    }); 
+    for (var i in subscriptions) {
+      app.eventBus.subscriptions.push(subscriptions[i]);
+    }
 
     return app;
   };

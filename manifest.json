@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-
   "name": "theMusicScene",
   "description": "Making TT a better place since '13",
   "version": "1.0",
@@ -10,8 +9,24 @@
       "matches": ["http://turntable.fm/*"],
       "css": ["/styles/css/styles.css"],
       "js": [
+        "/js/resourceLoader.js",
         "/js/lib/jquery.js",
-        "/js/extension-init.js"
+        "/js/lib/knockout.js",
+        "/js/lib/jquery.sha1.js",
+        "/js/lib/jquery.dataTables.min.js",
+        "/js/lib/jquery.dataTables.scroller.min.js",
+        "/js/lib/jquery.liveQuery.js",
+        "/js/lib/jquery.idleTimer.js",
+        "/js/ko.idleTimerBindingHandler.js",
+        "/js/ko.dataTablesBindingHandler.js",
+        "/js/tms.js",
+        "/js/eventBus.js",
+        "/js/songViewModel.js",
+        "/js/currentSongViewModel.js",
+        "/js/playlistViewModel.js",
+        "/js/libraryViewModel.js",
+        "/js/tmsViewModel.js",
+        "/js/bootstrapper.js"
       ],
       "run_at": "document_end"
     }

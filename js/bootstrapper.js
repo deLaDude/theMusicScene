@@ -2,6 +2,7 @@
  * Extension's bootstrapper functions
  */
 (function () {
+  var songBoardHtml;
   /**
    * Scrapes page for templates loaded by content script and reloads them to privide acess in the TT sandbox
    * @return {[type]} [description]
@@ -20,7 +21,7 @@
         if (id === "panelBase") {
           $("#turntable .roomView").append(payload);
         } else if (id === "songBoard") {
-          $("#bigboard").append(payload);
+          songBoardHtml = payload;
         } else {
           $("body").append("<script id='" + id + "-template' type='text/html'>" + payload + "</script>");
         }
@@ -35,11 +36,17 @@
     var reqs = [];
 
     for(var i in playlists) {
-      reqs.push(tms.utils.socket({
-        api: "playlist.all",
-        playlist_name: playlists[i].name,
-        minimal: true
-      }));        
+      var returnEvent = tms.events.ext.api.playlist + playlists[i].name.split(' ').join('_');
+
+      reqs.push(eventBus.request(
+        tms.events.tt.api.playlist,
+        {
+          api: "playlist.all",
+          playlist_name: playlists[i].name,
+          minimal: false
+        },
+        returnEvent
+      ));        
     }
 
     return reqs;      
@@ -48,16 +55,17 @@
   /**
    * Initializes the extension in the TT sandbox
    */
-  function buildModels () {
+  function buildModels (data) {
     // build up application models
     var models = {
       tmsModel: {
-        tt: turntable,
+        tt: data,
+        eventBus: eventBus,
         room: null,
         roomInfo: null
       },
       libraryModel: {
-        ttPlaylist: turntable.playlist,
+        eventBus: eventBus,
         playlistData: [],
         tableOptions: {
           "sScrollY": "336px",
@@ -103,32 +111,34 @@
     ttPlaylists,
     activePlaylist;
 
-    // get TT room obj
-    for (var i in turntable) { 
-      if (turntable[i].roomId) { 
-        models.tmsModel.room = turntable[i]; 
-        break; 
-      } 
-    }
-
     // initial requests
     var roomReq = {
           api: "room.info",
-          roomid: models.tmsModel.room.roomId,
-          section: models.tmsModel.room.section,
-          userid: models.tmsModel.tt.user.id,
-          userauth: models.tmsModel.tt.user.auth
+          roomid: data.roomId,
+          section: data.section,
+          userid: data.userId,
+          userauth: data.userAuth
         },
         playlistReq = { api: "playlist.list_all" };
 
     // get room info and user playlists
     try {
       // request room info and playlists
-      $.when(tms.utils.socket(roomReq), tms.utils.socket(playlistReq))
+      $.when(
+          eventBus.request(
+                      tms.events.tt.api.room,
+                      roomReq,
+                      tms.events.ext.api.room
+                      ),
+          eventBus.request(
+                      tms.events.tt.api.playlists,
+                      playlistReq,
+                      tms.events.ext.api.playlists
+        ))
         .then(function(roomInfo, playlists) {
           models.tmsModel.roomInfo = roomInfo;
           ttPlaylists = [];
-        
+
           // active playlist needs to be the last so it is last requested
           //  because the TT api auto-activates playlists upon request
           for (var i in playlists.list) {
@@ -138,7 +148,7 @@
               ttPlaylists.push(playlists.list[i]);
             }
           }
-          
+
           // compile requests and return $.when()
           var loadLists = compilePlaylistRequests(ttPlaylists);
           return $.when.apply($, loadLists);
@@ -146,6 +156,7 @@
         .then(function() {
           // compile playlist data 
           for (var i in arguments) {
+
             // only if the argument is a playlist
             if (arguments[i].list) {
               models.libraryModel.playlistData.push({
@@ -157,13 +168,18 @@
           }
 
           // get active playlist last
-          return tms.utils.socket({
-            api: "playlist.all",
-            playlist_name: activePlaylist.name,
-            minimal: true
-          });
+          return eventBus.request(
+            tms.events.tt.api.playlist,
+            {
+              api: "playlist.all",
+              playlist_name: activePlaylist.name,
+              minimal: false
+            },
+            tms.events.ext.api.playlist + activePlaylist.name.split(' ').join('_')
+          );
         }, function(err){ console.log(err); })
-        .done(function (playlist){
+        .done(function (playlist) {
+
           // add active list to model data
           models.libraryModel.playlistData.push({
             list: playlist.list,
@@ -190,16 +206,25 @@
 
     // create library and bind to view
     tms.app = tms.factories.tmsFactory(models.tmsModel);   
-    ko.applyBindings(tms.app);
+   
+    $("#bigboard").livequery(function () {
+      $(this).append(songBoardHtml);  
     
-    console.log("tms ready");   
+      ko.applyBindings(tms.app);
+      console.log("tms ready");   
+    });
   }
 
-  $(function(){
-    // wait till dynamically generated TT markup is ready
-    $("#bigboard").livequery(function () {
-      $.when.apply(null, getTemplates()).done(buildModels);
-      $("#bigboard").expire();
-    });
-  });
+  function onReady () {
+    eventBus.subscriptions = [];
+
+    $.when.apply(null, getTemplates())
+      .then(function () {
+        return eventBus.request(tms.events.tt.initInfo, {}, tms.events.ext.initInfo);
+      })
+      .done(buildModels);
+  }
+
+  var eventBus = new tms.EventBus([{ name: tms.events.ext.registered, callback: onReady }]);
 }());
+

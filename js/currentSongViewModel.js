@@ -1,4 +1,4 @@
-(function () {
+(function () {  
   /**
    * [CurrentViewModel]
    * @param {object} model [room meta data]
@@ -7,7 +7,7 @@
     model = model || {};
     var self = this;
     self.model = model;
-    
+   
     if (model.metadata && model.metadata.current_song) {
       // dynamic variables
       self.downvotes = ko.observable(model.metadata.downvotes || 0);
@@ -25,7 +25,7 @@
       self.artist = ko.observable(model.metadata.current_song.metadata.artist || "n/a");
       self.album = ko.observable(model.metadata.current_song.metadata.album || "n/a");
       self.genre = ko.observable(model.metadata.current_song.metadata.genre || "n/a");
-      self.art = ko.observable(model.metadata.current_song.metadata.coverart || "n/a");
+      self.art = ko.observable(model.metadata.current_song.metadata.coverart || "https://s3.amazonaws.com/static.turntable.fm/images/playlist/vinyl.png");
       self.length = ko.observable(model.metadata.current_song.metadata.length || "n/a");
       self.snaggable = ko.observable(model.metadata.current_song.snaggable || true);
     } else {
@@ -54,8 +54,4 @@
       self.snags(self.snags() + 1);
     };
   };
-
-  // tms.factories.songFactory = function (roomInfo) {
-  //   return new tms.viewmodels.SongViewmodel(model);
-  // };
 })();
