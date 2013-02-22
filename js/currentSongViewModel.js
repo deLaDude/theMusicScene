@@ -7,7 +7,7 @@
     model = model || {};
     var self = this;
     self.model = model;
-   
+    
     if (model.metadata && model.metadata.current_song) {
       // dynamic variables
       self.downvotes = ko.observable(model.metadata.downvotes || 0);
@@ -19,7 +19,6 @@
       self.djName = ko.observable(model.metadata.current_song.djname  || "n/a");
       
       // song data
-      self.queuePosition = ko.observable(0);
       self.queueId = ko.observable(model.metadata.current_song.fileId || model.metadata.current_song._id);
       self.song = ko.observable(model.metadata.current_song.metadata.song || "n/a");
       self.artist = ko.observable(model.metadata.current_song.metadata.artist || "n/a");

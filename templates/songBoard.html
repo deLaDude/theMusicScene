@@ -1,16 +1,16 @@
-<div id='tmsCurrentSong'>
-	<div data-bind='attr: { title: "Album: " + currentSong().album() + " | Genre: " + currentSong().genre() }'>
+<div id='tmsCurrentSong' data-bind="with: currentSong" >
+	<div data-bind='attr: { title: "Album: " + album() + " | Genre: " + genre() }'>
 		<label>
 			<span class='emoji emoji-thumbsup'></span>
-			<span data-bind='text: currentSong().upvotes'></span>
+			<span data-bind='text: upvotes'></span>
 		</label>
 		<label>
 			<span class='emoji emoji-thumbsdown'></span>
-			<span data-bind='text: currentSong().downvotes'></span>
+			<span data-bind='text: downvotes'></span>
 		</label>
 		<label>
 			<span class='emoji emoji-heart'></span>
-			<span data-bind='text: currentSong().snags'></span>
+			<span data-bind='text: snags'></span>
 		</label>
 	<!-- 				<label>
 			<span class='emoji emoji-score'></span>

@@ -34,13 +34,17 @@
         self.library.updateActiveList(roomData.metadata.current_song);
       }
 
-      self.recentlyPlayed.push(self.currentSong());
+      self.recentlyPlayed.push(self.currentSong()); // currently not in use
       self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
-      
+    
       if (self.autoBopOn()) {
         setBopTimer(roomData.metadata.current_song.metadata.length);
       }
     };
+
+    // helper functions for events
+    self.updateVotes = function (data) { self.currentSong().updateVotes(data); };
+    self.updateSnags = function (data) { self.currentSong().updateSnags(data); };
 
     self.songSnagged = ko.observable(false);
     self.snagSong = function () {
@@ -155,11 +159,11 @@
       },
       {
         name: tms.events.ext.vote,
-        callback: app.currentSong().updateVotes
+        callback: app.updateVotes
       },
       {
         name: tms.events.ext.snag,
-        callback: app.currentSong().updateSnags
+        callback: app.updateSnags
       }
     ];
 

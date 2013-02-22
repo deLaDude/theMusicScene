@@ -201,14 +201,14 @@
    * @param  {object} model    [app model]
    */
   function init (models) {
-    models.tmsModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
     models.tmsModel.library = tms.factories.libraryFactory(models.libraryModel);
-
-    // create library and bind to view
-    tms.app = tms.factories.tmsFactory(models.tmsModel);   
-   
+    models.tmsModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
+    
     $("#bigboard").livequery(function () {
-      $(this).append(songBoardHtml);  
+      $(this).append(songBoardHtml);
+      
+      // create library and bind to view
+      tms.app = tms.factories.tmsFactory(models.tmsModel);   
     
       ko.applyBindings(tms.app);
       console.log("tms ready");   
