@@ -230,9 +230,7 @@
     {
       name: tms.events.tt.api.search,
       callback: function (request) {
-        tms.utils.socket(request).done(function(data) {
-          eventBus.postMessage(tms.events.ext.api.search, data);
-        }).fail(function (err) { console.log(err); });   
+        tms.utils.socket(request).fail(function (err) { console.log(err); });   
       }
     },
 
@@ -319,7 +317,7 @@
           eventBus.postMessage(tms.events.ext.snag);  
           break;
         case on.searchCompleted:
-          eventBus.postMessage(tms.events.ext.search, data);
+          eventBus.postMessage(tms.events.ext.api.search, data);
           break;
         case on.searchFailed:
           console.log(data);

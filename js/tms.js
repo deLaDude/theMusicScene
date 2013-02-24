@@ -39,7 +39,6 @@ var tms = {
     ext: { 
       initInfo: "tms.ext.initInfo",
       registered: "tms.ext.userRegistered",
-      search: "tms.ext.searchResults",
       snag: "tms.ext.snag",
       vote: "tms.ext.vote",
       songChange: "tms.ext.songChange",
