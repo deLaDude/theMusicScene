@@ -21,15 +21,15 @@
     }
     
     var d = JSON.stringify(req);
-    if (turntable.socketVerbose) {
-      // console.log(util.nowStr() + " Preparing message " + d);
-    }
+    // if (turntable.socketVerbose) {
+    //   console.log(util.nowStr() + " Preparing message " + d);
+    // }
 
     var b = $.Deferred();
     turntable.whenSocketConnected(function () {
-      if (turntable.socketVerbose) {
-        // console.log(util.nowStr() + " Sending message " + req.msgid + " to " + turntable.socket.host);
-      }
+      // if (turntable.socketVerbose) {
+      //   console.log(util.nowStr() + " Sending message " + req.msgid + " to " + turntable.socket.host);
+      // }
       if (turntable.socket.transport.type == "websocket") {
         turntable.socketLog(turntable.socket.transport.sockets[0].id + ":<" + req.msgid);
       }

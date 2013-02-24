@@ -9,6 +9,17 @@
     self.eventBus = model.eventBus;
     self.tableOptions = model.tableOptions;
 
+    function getIndexById (songs, songId) {
+      var index;
+      $.each(songs, function (i, song) { 
+        if(song.queueId() === songId) { 
+          index = parseInt(i, 10); 
+          return; 
+        }
+      });
+      return index;
+    }
+
     /************************* 
      *  Search  *
      *************************/    
@@ -387,19 +398,22 @@
      *   Song Previews    *
      *********************/
 
-    var previewSong;
-    var previewStartedCallback;
-    var previewEndedCallback;
-
+    var previewSong,
+        previewStartedCallback,
+        previewEndedCallback;
+        playingPreview = false;
 
     // calls bindingHandler callbacks to start and stop preview visuals
-    self.updatePreviewProgress = function (status, progress) {
-      if (status === "progress" && !self.playingPreview()) {
-        self.playingPreview(true);
-    // TODO: changed from queuePosition to queueId NEED TO TEST  
-        previewStartedCallback(previewSong.queueId());
+    self.updatePreviewProgress = function (status) {
+      var songPosition;
+      if (status === "start" && !playingPreview) {
+        playingPreview = true;
+
+        songPosition = getIndexById(self.viewingPlayList().songs(), previewSong.queueId()) + 1;
+        previewStartedCallback(songPosition);
       } else if (status === "stop") {
-        previewEndedCallback(previewSong.queueId());
+        songPosition = getIndexById(self.viewingPlayList().songs(), previewSong.queueId()) + 1;
+        previewEndedCallback(songPosition);
       }
     };
 
@@ -410,20 +424,18 @@
       self.eventBus.postMessage(tms.events.tt.playSample, song.queueId());
     }
 
-    self.playingPreview = ko.observable(false);
     self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
       var song = self.viewingPlayList().songs()[parseInt(songPosition, 10) - 1];     
 
-      if (!self.playingPreview()) {
+      if (!playingPreview) {
+        playPreview(song, startedCallback, endedCallback);
+      } else if (previewSong.queueId() !== song.queueId()) {
+        self.updatePreviewProgress('stop');
+        playingPreview = false;
         playPreview(song, startedCallback, endedCallback);
       } else {
-        self.eventBus.postMessage(tms.events.tt.plauseSample);     
-        self.playingPreview(false);
-        
-        // if stopping preview to start another
-        if (previewSong.queueId() !== song.queueId()) {
-          playPreview(song, startedCallback, endedCallback);
-        }
+        self.eventBus.postMessage(tms.events.tt.pauseSample);     
+        playingPreview = false;
       }
     };
   };
@@ -462,7 +474,6 @@
               callback: library.handleSearchResults
             }
           ];
-
 
 
     for (var x in subscriptions) {
