@@ -20,7 +20,7 @@
           callbackName =  "callback" + Math.floor(1 + Math.random() * 10000000001);
           
           window[callbackName] = function(event) {  
-            // needed to prevent parse errors from FB events 
+            // needed to prevent parse errors from Facebook events 
             try {  
               var eventData = JSON.parse(event.data);
               if (eventData.type && (eventData.type == returnEventName)) {

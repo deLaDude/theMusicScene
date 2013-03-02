@@ -7,18 +7,18 @@
 			</a>
 		</hgroup>
 		<div id="hud">
-			<section>
+			<section data-bind="if: library.activePlaylist().active !== undefined">
 				<hgroup>
 					<h1>Top of Queue</h1>
-					<h2 data-bind="text: library.activePlayList().name" title="Active playlist."></h2>
+					<h2 data-bind="text: library.activePlaylist().name" title="Active playlist."></h2>
 				</hgroup>
-				<div data-bind="with: library.topOfQueue()">
+				<div data-bind="if: library.topOfActive() !== undefined">
 					<div>
-						<img data-bind="attr: { src: art(), title: album() }" />
+						<img data-bind="attr: { src: library.topOfActive().art(), title: library.topOfActive().album() }" />
 					</div>
 					<div>
-						<label data-bind="text: artist"></label>
-						<span data-bind="text: song"></span>
+						<label data-bind="text: library.topOfActive().artist"></label>
+						<span data-bind="text: library.topOfActive().song"></span>
 					</div>
 				</div>
 			</section>

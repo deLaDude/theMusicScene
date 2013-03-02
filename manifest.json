@@ -17,16 +17,17 @@
         "/js/lib/jquery.dataTables.scroller.min.js",
         "/js/lib/jquery.liveQuery.js",
         "/js/lib/jquery.idleTimer.js",
-        "/js/ko.idleTimerBindingHandler.js",
-        "/js/ko.dataTablesBindingHandler.js",
+        "/js/ko/ko.dataTablesBindingHandler.js",
+        "/js/ko/ko.idleTimerBindingHandler.js",
+        "/js/ko/ko.menuToggleBindingHandler.js",
         "/js/tms.js",
         "/js/eventBus.js",
-        "/js/songViewModel.js",
-        "/js/currentSongViewModel.js",
-        "/js/playlistViewModel.js",
-        "/js/libraryViewModel.js",
-        "/js/tmsViewModel.js",
-        "/js/bootstrapper.js"
+        "/js/contentScripts/songViewModel.js",
+        "/js/contentScripts/currentSongViewModel.js",
+        "/js/contentScripts/playlistViewModel.js",
+        "/js/contentScripts/libraryViewModelNEW.js",
+        "/js/contentScripts/tmsViewModel.js",
+        "/js/contentScripts/bootstrapper.js"
       ],
       "run_at": "document_end"
     }

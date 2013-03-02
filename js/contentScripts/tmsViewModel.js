@@ -31,7 +31,7 @@
 
       // if user is DJing, update playlist
       if (roomData.metadata.current_dj === self.tt.userId) {
-        self.library.updateActiveList(roomData.metadata.current_song);
+        // self.library.updateActiveList(roomData.metadata.current_song);
       }
 
       self.recentlyPlayed.push(self.currentSong()); // currently not in use
@@ -86,7 +86,7 @@
             self.eventBus.postMessage(tms.events.tt.showHeart);
 
             // update playlist
-            self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
+            // self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
         });        
       } else {
         if (!self.currentSong().snaggable()) {

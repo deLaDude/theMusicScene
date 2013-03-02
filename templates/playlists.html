@@ -1,18 +1,14 @@
-<h2 data-bind='click: toggleOpen, text: playListMenuTitle, css: { addActive: selectedSongs().length > 0 }, attr: { title: playListsOpen() ? "Hide Playlists." : "View Playlists." }'></h2>
-<ul data-bind="foreach: playLists">
-  <li data-bind="click: $parent.changeSongList, css: { active: active, viewing: name() === $root.library.viewingPlayList().name() }">
+<h2 data-bind='click: toggleOpen, text: playlistMenuTitle, css: { addActive: selectedSongs().length > 0 }, attr: { title: playlistsOpen() ? "Hide Playlists." : "View Playlists." }'></h2>
+<ul data-bind="foreach: playlists">
+  <li data-bind="click: $parent.changeViewing, css: { active: active, viewing: name() === $root.library.viewingPlaylist().name() }">
     <label data-bind="text: name"></label>
     <div>
-      <!-- ko if: $parent.selectedSongs().length > 0 -->
-      <div class='addBtn' data-bind="click: $parent.addSelectedSongsToPlaylist, clickBubble: false, attr: { title: 'Add selected songs to playlist' }">
+      <div class='addBtn' data-bind="visible: $parent.selectedSongs().length > 0, click: $parent.addSelectedSongsToPlaylist, clickBubble: false, attr: { title: 'Add selected songs to playlist' }">
         <span>Add Songs</span>
       </div>
-      <!-- /ko -->
-      <!-- ko ifnot: active -->
-      <div class='playBtn' data-bind="click: $parent.changeActiveList, clickBubble: false, attr: { title: 'Set ' + name() + ' as active.' }">
+      <div class='playBtn' data-bind="visible: !active(), click: $parent.changeActive, clickBubble: false, attr: { title: 'Set ' + name() + ' as active.' }">
         <div></div>
       </div>
-      <!-- /ko -->
     </div>
   </li>
 </ul>

@@ -11,10 +11,10 @@
 
     function getIndexById (songs, songId) {
       var index;
-      $.each(songs, function (i, song) { 
-        if(song.queueId() === songId) { 
-          index = parseInt(i, 10); 
-          return; 
+      $.each(songs, function (i, song) {
+        if(song.queueId() === songId) {
+          index = parseInt(i, 10);
+          return;
         }
       });
       return index;
@@ -22,7 +22,7 @@
 
     /************************* 
      *  Search  *
-     *************************/    
+     *************************/
     var loadMoreTimer = null,
         initTimer = null,
         moreLoading = false,
@@ -32,7 +32,7 @@
       if (pageCount < 4) {
         pageCount++;
         moreLoading = true;
-               
+
         self.eventBus.request(
           tms.events.tt.api.search,
           {
@@ -42,14 +42,14 @@
           },
           tms.events.ext.api.search
         );
-        
+
         setTimeout(loadMore, 1000);
       } else {
         moreLoading = false;
         loadMoreTimer = null;
       }
     }
-    
+
     self.searchPlayList = ko.observable(model.searchPlaylist);
 
     // used to replace TT results when switching back to playlist search
@@ -62,20 +62,20 @@
         if (loadMoreTimer) clearTimeout(loadMoreTimer);
 
         initTimer = setTimeout(self.initialSearch, 1000);
-      } 
+      }
     });
 
     self.initialSearch = function () {
       if (loadMoreTimer) clearTimeout(loadMoreTimer);
       pageCount = 1;
-      
+
       if (moreLoading) {
         moreLoading = false;
         loadMoreTimer = null;
       } else {
         loadMoreTimer = setTimeout(loadMore, 1000);
       }
-      
+
       self.eventBus.request(
         tms.events.tt.api.search,
         {
@@ -103,10 +103,10 @@
         });
 
         self.searchPlayList().songs(songs);
-      }         
+      }
 
       self.searchPlayList().name("results for '" + self.searchQuery() + "'");
-      
+
       // update viewing
       self.viewingPlayList(self.searchPlayList());
       self.songList(self.searchPlayList().songs());
@@ -308,11 +308,6 @@
 
     // always assumes we want to remove from viewing list
     self.removeSongsFromPlaylist = function (songIndices) {
-      // if its a single id we need to make it an array
-      if (!$.isArray(songIndices)) {
-        songIndices = [songIndices];
-      }
-      
       self.eventBus.request(
         tms.events.tt.playlist.remove,
         {

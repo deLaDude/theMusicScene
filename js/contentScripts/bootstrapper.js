@@ -43,7 +43,7 @@
         {
           api: "playlist.all",
           playlist_name: playlists[i].name,
-          minimal: false
+          minimal: true
         },
         returnEvent
       ));        
@@ -121,9 +121,8 @@
         },
         playlistReq = { api: "playlist.list_all" };
 
-    // get room info and user playlists
     try {
-      // request room info and playlists
+      // get room info and user playlists
       $.when(
           eventBus.request(
                       tms.events.tt.api.room,
@@ -139,14 +138,8 @@
           models.tmsModel.roomInfo = roomInfo;
           ttPlaylists = [];
 
-          // active playlist needs to be the last so it is last requested
-          //  because the TT api auto-activates playlists upon request
           for (var i in playlists.list) {
-            if (playlists.list[i].active) {
-              activePlaylist = playlists.list[i];
-            } else {
-              ttPlaylists.push(playlists.list[i]);
-            }
+            ttPlaylists.push(playlists.list[i]);  
           }
 
           // compile requests and return $.when()
@@ -167,29 +160,8 @@
             }
           }
 
-          // get active playlist last
-          return eventBus.request(
-            tms.events.tt.api.playlist,
-            {
-              api: "playlist.all",
-              playlist_name: activePlaylist.name,
-              minimal: false
-            },
-            tms.events.ext.api.playlist + activePlaylist.name.split(' ').join('_')
-          );
-        }, function(err){ console.log(err); })
-        .done(function (playlist) {
-
-          // add active list to model data
-          models.libraryModel.playlistData.push({
-            list: playlist.list,
-            name: activePlaylist.name,
-            active: activePlaylist.active
-          });
-
-          init(models); 
-        })
-        .fail(function(err){ console.log(err); });
+          init(models);           
+        }, function(err){ console.log(err); });
     } catch (e) {
       console.log("API Exception!");
       console.log(e);
@@ -204,12 +176,12 @@
     models.tmsModel.library = tms.factories.libraryFactory(models.libraryModel);
     models.tmsModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
     
+    // wait til TT dynamic html has been generated
     $("#bigboard").livequery(function () {
       $(this).append(songBoardHtml);
-      
       // create library and bind to view
       tms.app = tms.factories.tmsFactory(models.tmsModel);   
-    
+   
       ko.applyBindings(tms.app);
       console.log("tms ready");   
     });
@@ -225,6 +197,7 @@
       .done(buildModels);
   }
 
+  // initialize TMS when the TT 'registered' event fires.
   var eventBus = new tms.EventBus([{ name: tms.events.ext.registered, callback: onReady }]);
 }());
 
