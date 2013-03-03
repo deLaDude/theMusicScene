@@ -121,51 +121,25 @@
         },
         playlistReq = { api: "playlist.list_all" };
 
-    try {
-      // get room info and user playlists
-      $.when(
-          eventBus.request(
-                      tms.events.tt.api.room,
-                      roomReq,
-                      tms.events.ext.api.room
-                      ),
-          eventBus.request(
-                      tms.events.tt.api.playlists,
-                      playlistReq,
-                      tms.events.ext.api.playlists
-        ))
-        .then(function(roomInfo, playlists) {
-          models.tmsModel.roomInfo = roomInfo;
-          ttPlaylists = [];
-
-          for (var i in playlists.list) {
-            ttPlaylists.push(playlists.list[i]);  
-          }
-
-          // compile requests and return $.when()
-          var loadLists = compilePlaylistRequests(ttPlaylists);
-          return $.when.apply($, loadLists);
-        }, function(err){ console.log(err); })  
-        .then(function() {
-          // compile playlist data 
-          for (var i in arguments) {
-
-            // only if the argument is a playlist
-            if (arguments[i].list) {
-              models.libraryModel.playlistData.push({
-                list: arguments[i].list,
-                name: ttPlaylists[i].name,
-                active: ttPlaylists[i].active
-              });
-            }
-          }
-
-          init(models);           
-        }, function(err){ console.log(err); });
-    } catch (e) {
-      console.log("API Exception!");
-      console.log(e);
-    }        
+    // get room info and user playlists
+    $.when(
+      eventBus.request(
+        tms.events.tt.api.room,
+        roomReq,
+        tms.events.ext.api.room
+      ),
+      eventBus.request(
+        tms.events.tt.api.playlists,
+        playlistReq,
+        tms.events.ext.api.playlists
+      )
+    )
+    .done(function(roomInfo, playlists) {
+      models.tmsModel.roomInfo = roomInfo;
+      models.libraryModel.playlistData = playlists.list;  
+      init(models);           
+    })
+    .fail(function(err){ console.log(err); });
   }
 
   /**
@@ -200,4 +174,3 @@
   // initialize TMS when the TT 'registered' event fires.
   var eventBus = new tms.EventBus([{ name: tms.events.ext.registered, callback: onReady }]);
 }());
-

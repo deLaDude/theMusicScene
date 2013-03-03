@@ -226,7 +226,7 @@
       // this is being set by the binding handler. Currently not in the best way.
       self.clearSelectedCallback = function() { };
 
-      // clear array and unhighlight
+      // clear array and unhighlight songs
       self.clearAllSelected = function () {
         self.selectedSongs([]);
         self.clearSelectedCallback();
@@ -247,7 +247,7 @@
             .done(self.clearAllSelected);
       };
 
-      // remove the selected songs from the viewing playlist
+      // remove the selected songs from the viewing playlist and clear selected list
       self.removeSelectedSongsFromPlaylist = function () {
         var indices = $.map(self.selectedSongs(), function (selectedSong, i) { 
           var position;

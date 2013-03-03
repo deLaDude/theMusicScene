@@ -29,7 +29,7 @@ tms.utils.socket({
   minimal: true
 }).done(function (data) {
   for(var i in data.list) {
-    console.log(data.list[i].name + " " + data.list[i].active);
+    console.log(data.list[i]);
   }
 }).fail(function (data) {
   console.log(data);
