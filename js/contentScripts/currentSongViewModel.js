@@ -19,7 +19,7 @@
       self.djName = ko.observable(model.metadata.current_song.djname  || "n/a");
       
       // song data
-      self.queueId = ko.observable(model.metadata.current_song.fileId || model.metadata.current_song._id);
+      self.fileId = ko.observable(model.metadata.current_song.fileId || model.metadata.current_song._id);
       self.song = ko.observable(model.metadata.current_song.metadata.song || "n/a");
       self.artist = ko.observable(model.metadata.current_song.metadata.artist || "n/a");
       self.album = ko.observable(model.metadata.current_song.metadata.album || "n/a");

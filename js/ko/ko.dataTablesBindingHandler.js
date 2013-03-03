@@ -28,14 +28,14 @@
 
       function selectToggle (event) {
         var $row = $(event.target).parents("tr"),
-            position = $row.find("[data-pos]").attr("data-pos");
+            position = parseInt($row.find("[data-pos]").attr("data-pos"), 10);
 
         if ($row.hasClass("selected")) {
           $row.removeClass("selected");
-          // viewModel.rowSelectionToggle(position, false);
+          viewModel.rowSelectionToggle(position, false);
         } else {
           $row.addClass("selected");
-          // viewModel.rowSelectionToggle(position, true);
+          viewModel.rowSelectionToggle(position, true);
         }
       }
 
@@ -48,28 +48,28 @@
       function removeClick (event) {
         event.stopPropagation();
         
-        var position = $(event.target).parents("[data-pos]").attr("data-pos");
-        viewModel.removeSongsFromPlaylist([position-1]);
+        var position = parseInt($(event.target).parents("[data-pos]").attr("data-pos"), 10);
+        viewModel.removeSongsFromPlaylist([position]);
       }
 
       function upBtnClick (event) {
         event.stopPropagation();
 
-        var position = $(event.target).parents("[data-pos]").attr("data-pos");
+        var position = parseInt($(event.target).parents("[data-pos]").attr("data-pos"), 10);
         viewModel.sendSongToTop(position);
       }
 
       function downBtnClick (event) {
         event.stopPropagation();
 
-        var position = $(event.target).parents("[data-pos]").attr("data-pos");
+        var position = parseInt($(event.target).parents("[data-pos]").attr("data-pos"), 10);
         viewModel.sendSongToBottom(position);
       }
 
       function playPauseBtnClick (event) {
         event.stopPropagation();
 
-        var position = $(event.target).parents("[data-pos]").attr("data-pos");
+        var position = parseInt($(event.target).parents("[data-pos]").attr("data-pos"), 10);
         if (!previewActive) {
           $(this).attr("title", "Loading preview...");  
         }
@@ -86,8 +86,8 @@
         .on("click", ".toTop", upBtnClick)
         .on("click", ".toBottom", downBtnClick)
         .on("click", ".playPause", playPauseBtnClick)
-        .on("click", ".remove", removeClick);
-      //   .on("click", "tr", selectToggle);
+        .on("click", ".remove", removeClick)
+        .on("click", "tr", selectToggle);
     },
     update: function(element, valueAccessor, allBindingsAccessor, viewModel){
 
@@ -117,9 +117,9 @@
         // add action buttons to dataset with some metadata to support the events
         for (var x in tableData) {
           // if (viewModel.listSource() === "turntablesearch") {
-          //   tableData[x].push("<div data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='ticker'></div></div>");
+          //   tableData[x].push("<div data-pos='" + (tableData[x][0] -1) + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='ticker'></div></div>");
           // } else {
-            tableData[x].push("<div class='songFlyout' data-pos='" + tableData[x][0] + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
+            tableData[x].push("<div class='songFlyout' data-pos='" + (tableData[x][0] -1) + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
           // }
         }
 

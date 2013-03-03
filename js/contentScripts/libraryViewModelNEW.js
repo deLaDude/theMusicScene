@@ -9,7 +9,6 @@
           previewEndedCallback;
           playingPreview = false;
 
-
       // initiates a song preview
       function playPreview (song, startedCallback, endedCallback) {
         previewSong = song;
@@ -32,7 +31,7 @@
       }
 
       // changes viewing playlist and can also make it the activeplaylist 
-      function changeviewingPlaylist (playlist, makeActive) {
+      function changeViewingPlaylist (playlist, makeActive) {
         var returnEvent = tms.events.ext.api.playlist + playlist.name().split(' ').join('_');
 
         // get the song data
@@ -54,6 +53,7 @@
           // update viewing 
           self.viewingPlaylist(playlist);
           self.songList(songs);
+          self.clearAllSelected();
 
           if (makeActive) {
             if (self.activePlaylist().active) {
@@ -74,9 +74,8 @@
       }
 
       // reorder songs in the viewing playlist
-      function reorderPlaylist (playlist, songId, targetPos) {
-        var currentPos = playlist.songIds.indexOf(songId),
-            songList = self.songList();
+      function reorderPlaylist (playlist, currentPos, targetPos) {
+        var songList = self.songList();
 
         // re-order
         self.eventBus.request(
@@ -92,19 +91,13 @@
           .done(function(data) {   
             self.songList(["paused"]);
 
-            var id = playlist.songIds.splice(currentPos, 1),
-                song = songList.splice(currentPos, 1);
+            var song = songList.splice(currentPos, 1);
 
 
             // move in playlist and songlist
             if (targetPos > currentPos) {
-              playlist.songIds.push(id[0]);
               songList.push(song[0]);
             } else {
-              playlist.songIds.reverse();
-              playlist.songIds.push(id[0]);
-              playlist.songIds.reverse();
-
               songList.reverse();
               songList.push(song[0]);
               songList.reverse();
@@ -118,8 +111,42 @@
           });
       }
 
-      function addSongsToPlaylist (songs, playlist, updateViewing) {
+      // adds the passed in songs to the passed in playlist. updates songList if updateViewing is true.
+      function addSongsToPlaylist (songs, playlistName, updateViewing, toBottom) {
+        var songIds = $.map(songs, function (song, i) { return { fileid: song.fileId() }; }),
+            targetPos = 0;
 
+        if (updateViewing && toBottom) {
+          targetPos = self.songList().length;
+        }
+
+        return self.eventBus.request(
+          tms.events.tt.playlist.add,
+          {
+            api: "playlist.add",
+            playlist_name: playlistName,
+            index: targetPos,
+            song_dict: songIds
+          },
+          tms.events.ext.playlist.add
+        )
+        .done(function (data) {
+          if (updateViewing) {
+            var songList = self.songList();  
+            self.songList(["paused"]);
+
+            $.each(songs, function (i, song) {
+              // if its a currentSongViewModel we need to convert
+              if (song.upvotes) {
+                var songModel = song.model.metadata.current_song;
+                song = new tms.viewmodels.SongViewModel(songModel);
+              } 
+              songList.push(song);
+            });
+
+            self.songList(songList);
+          }
+        });
       }
     // </private members>
 
@@ -148,7 +175,14 @@
 
       // calls bindingHandler callbacks to start and stop preview visuals
       self.updatePreviewProgress = function (status) {
-        var songPosition = self.viewingPlaylist().songIds.indexOf(previewSong.fileId()) + 1;
+        var songPosition; 
+
+        $.each(self.songList(), function (i, song) {
+            if (song.fileId() === previewSong.fileId()) {
+              songPosition = i;
+              return;
+            }
+        });
 
         if (status === "start" && !playingPreview) {
           playingPreview = true;
@@ -160,7 +194,7 @@
 
       // call from binding handler events to start/stop song previews
       self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
-        var song = self.songList()[parseInt(songPosition, 10) - 1];     
+        var song = self.songList()[songPosition];     
 
         if (!playingPreview) {
           playPreview(song, startedCallback, endedCallback);
@@ -174,10 +208,62 @@
         }
       };
 
+      // add or remove song from selected list
+      self.rowSelectionToggle = function (songPosition, add) {
+        if (add) {
+          self.selectedSongs.push(self.songList()[songPosition]);
+        } else {
+          var songId = self.songList()[songPosition].fileId();         
+          
+          for (var i in self.selectedSongs()) {
+            if (self.selectedSongs()[i].fileId() === songId) {
+              self.selectedSongs.splice(i, 1);    
+            }  
+          }          
+        }
+      };
+
+      // this is being set by the binding handler. Currently not in the best way.
+      self.clearSelectedCallback = function() { };
+
+      // clear array and unhighlight
+      self.clearAllSelected = function () {
+        self.selectedSongs([]);
+        self.clearSelectedCallback();
+      };
+
+      self.addSnagToPlaylist = function (song) {
+        var updateViewing = false;
+        if (self.activePlaylist().name() === self.viewingPlaylist().name()) {
+          updateViewing = true;
+        }
+        
+        addSongsToPlaylist([song], self.activePlaylist().name(), updateViewing, true);
+      };
+
       // add songs in selected list to playlist and clear selected list
       self.addSelectedSongsToPlaylist = function (playlist) {
-        // self.addSongsToPlaylist(self.selectedSongs(), playlist, false)
-        //     .done(self.removeAllSelected);
+        addSongsToPlaylist(self.selectedSongs(), playlist.name(), false, false)
+            .done(self.clearAllSelected);
+      };
+
+      // remove the selected songs from the viewing playlist
+      self.removeSelectedSongsFromPlaylist = function () {
+        var indices = $.map(self.selectedSongs(), function (selectedSong, i) { 
+          var position;
+
+          $.each(self.songList(), function (i, song) {
+            if (song.fileId() === selectedSong.fileId()) {
+              position = i;
+              return;
+            }
+          });
+
+          return position;
+        });
+
+        self.removeSongsFromPlaylist(indices);
+        self.clearAllSelected();
       };
 
       // always assumes we want to remove from viewing list
@@ -195,10 +281,10 @@
           var songList = self.songList();
           self.songList(["paused"]);
 
-          // remove song from playlist and songlist
-          for (var i in songIndices) {
-            songList.splice(songIndices[i], 1); 
-            self.viewingPlaylist().songIds.splice(songIndices[i], 1); 
+          // sort indiceies before slicing and loop in reverse order to avoid errors 
+          songIndices.sort(function(a,b){ return a - b; });
+          for (var i = songIndices.length - 1; i >= 0; i--) {
+            songList.splice(songIndices[i], 1);  
           }
 
           // re-draw table
@@ -209,14 +295,12 @@
 
       // send to top user action from song list
       self.sendSongToTop = function (songPosition) {
-        var song = self.songList()[parseInt(songPosition, 10) - 1];
-        reorderPlaylist(self.viewingPlaylist(), song.fileId(), 0);
+        reorderPlaylist(self.viewingPlaylist(), songPosition, 0);
       };
 
       // send to bottom user action from song list
       self.sendSongToBottom = function (songPosition) {
-        var song = self.songList()[parseInt(songPosition, 10) - 1];
-        reorderPlaylist(self.viewingPlaylist(), song.fileId() , self.songList().length-1);  
+        reorderPlaylist(self.viewingPlaylist(), songPosition, self.songList().length-1);  
       };
 
       // toggle for playlist menu
@@ -226,12 +310,12 @@
 
       // user event to change the viewing playlist
       self.changeViewing = function (playlist) {
-        changeviewingPlaylist(playlist, false);
+        changeViewingPlaylist(playlist, false);
       };
 
       // user event tp change the active playlist
       self.changeActive = function (playlist) {
-        changeviewingPlaylist(playlist, true);
+        changeViewingPlaylist(playlist, true);
       };
     // </public members>
   };

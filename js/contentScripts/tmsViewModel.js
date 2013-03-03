@@ -57,7 +57,7 @@
             soup = [
               self.tt.userId, 
               self.currentSong().djId(), 
-              self.currentSong().queueId(), 
+              self.currentSong().fileId(), 
               self.tt.roomId, 
               site, 
               location, 
@@ -68,7 +68,7 @@
               snagReq = {
                 api: "snag.add",
                 djid: self.currentSong().djId(),
-                songid: self.currentSong().queueId(),
+                songid: self.currentSong().fileId(),
                 roomid: self.tt.roomId,
                 section: self.tt.section,
                 site: site,
@@ -84,9 +84,10 @@
         self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
           .done(function () {
             self.eventBus.postMessage(tms.events.tt.showHeart);
-
+            self.songSnagged(true);
+            
             // update playlist
-            // self.library.addSongsToPlaylist([self.currentSong()], self.library.activePlayList(), true);
+            self.library.addSnagToPlaylist(self.currentSong());
         });        
       } else {
         if (!self.currentSong().snaggable()) {
@@ -120,7 +121,7 @@
             roomid: self.tt.roomId,
             section: self.tt.section,
             val: 'up',
-            vh: self.currentSong().queueId(),
+            vh: self.currentSong().fileId(),
             th: null,
             ph: null
           };
