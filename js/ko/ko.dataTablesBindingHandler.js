@@ -77,11 +77,6 @@
         viewModel.toggleSongPreview(position, previewStarted, previewEnded);
       }
 
-      function ttSearch (event) {
-        console.log(event);
-        // viewModel.getResults();
-      }
-
       $(element)
         .on("click", ".toTop", upBtnClick)
         .on("click", ".toBottom", downBtnClick)
@@ -116,11 +111,11 @@
 
         // add action buttons to dataset with some metadata to support the events
         for (var x in tableData) {
-          // if (viewModel.listSource() === "turntablesearch") {
-          //   tableData[x].push("<div data-pos='" + (tableData[x][0] -1) + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='ticker'></div></div>");
-          // } else {
+          if (viewModel.listSource() === "turntablesearch") {
+            tableData[x].push("<div data-pos='" + (tableData[x][0] -1) + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='ticker'></div></div>");
+          } else {
             tableData[x].push("<div class='songFlyout' data-pos='" + (tableData[x][0] -1) + "'><div class='playPause' title='Play song preview.'><div></div></div><div class='toTop' title='Move to top.'><div></div></div><div class='toBottom' title='Move to bottom.'><div></div></div><div class='remove' title='Remove song.'><div></div></div><div class='ticker'></div></div>");           
-          // }
+          }
         }
 
         // create new datatable if needed. otherwise replace contents

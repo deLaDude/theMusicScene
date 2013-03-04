@@ -136,7 +136,12 @@
     )
     .done(function(roomInfo, playlists) {
       models.tmsModel.roomInfo = roomInfo;
-      models.libraryModel.playlistData = playlists.list;  
+      models.libraryModel.playlistData = playlists.list.sort(function(a,b){
+          if(a.name.toLowerCase()<b.name.toLowerCase()) return -1;
+          if(a.name.toLowerCase()>b.name.toLowerCase()) return 1;
+          return 0;
+      });
+
       init(models);           
     })
     .fail(function(err){ console.log(err); });

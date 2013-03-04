@@ -9,7 +9,6 @@
       "matches": ["http://turntable.fm/*"],
       "css": ["/styles/css/styles.css"],
       "js": [
-        "/js/resourceLoader.js",
         "/js/lib/jquery.js",
         "/js/lib/knockout.js",
         "/js/lib/jquery.sha1.js",
@@ -22,10 +21,11 @@
         "/js/ko/ko.menuToggleBindingHandler.js",
         "/js/tms.js",
         "/js/eventBus.js",
+        "/js/contentScripts/resourceLoader.js",
         "/js/contentScripts/songViewModel.js",
         "/js/contentScripts/currentSongViewModel.js",
         "/js/contentScripts/playlistViewModel.js",
-        "/js/contentScripts/libraryViewModelNEW.js",
+        "/js/contentScripts/libraryViewModel.js",
         "/js/contentScripts/tmsViewModel.js",
         "/js/contentScripts/bootstrapper.js"
       ],

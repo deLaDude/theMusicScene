@@ -7,8 +7,6 @@
 	// scripts
 	var scripts = [
 		"/js/tms.js",
-		"/js/socketUtility.js",
-		"/js/eventBus.js",
 		"/js/ttBroker.js"
 	];
 
@@ -26,7 +24,7 @@
 
 		if (isTemplate) {
 			// Knockout templates need to be handled differently than normal scripts
-			//  This is step one of two. step two gets carried out by loadTemplates() in library.js
+			//  This is step one of two. Step two gets carried out by getTemplates() in bootstrapper.js
 
 			var startpoint = source.lastIndexOf("/") + 1;
 			var name = source.substring(startpoint, source.length-5);

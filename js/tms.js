@@ -22,7 +22,7 @@ var tms = {
         room: "tms.tt.api.roominfo",
         playlists: "tms.tt.api.playlists",
         playlist: "tms.tt.api.playlist",
-        song: "tms.tt.api.song",
+        songdata: "tms.tt.api.song",
         snag: "tms.tt.api.snagSong",
         vote: "tms.tt.api.vote",
         search: "tms.tt.api.search"
@@ -50,7 +50,7 @@ var tms = {
         room: "tms.ext.api.roominfo",
         playlists: "tms.ext.api.playlists",
         playlist: "tms.ext.api.playlist",
-        song: "tms.ext.api.song",
+        songdata: "tms.ext.api.song",
         snag: "tms.ext.api.snagSong",
         vote: "tms.ext.api.vote",
         search: "tms.ext.api.search"
