@@ -284,11 +284,15 @@
 
         // change playlist menu title when songs are selected to draw user
         self.playlistMenuTitle = ko.computed(function () {
+          var title;
           if (self.selectedSongs().length > 0) {
-            return "Add selected songs to a Playlist";
+            title = "Add selected songs to a Playlist";
+          } else if (self.playlistsOpen()) { 
+            title = "Hide Playlists";
           } else {
-            return "View Playlists";
+            title = "View Playlists";
           }
+          return title;
         });
 
         // add or remove song from selected list

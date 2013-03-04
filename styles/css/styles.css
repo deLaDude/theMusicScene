@@ -59,7 +59,7 @@
 /* line 87, ../sass/_common.scss */
 #songList section button, #tmsContent menu h2, #songList section button.deselect, #songList .toTop:hover,
 #songList .toBottom:hover,
-#songList .playPause:hover, #tmsContent menu h2.addActive, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.open:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn, #songList section button.remove, #songList td .remove:hover, #tmsContent menu li .playBtn:hover {
+#songList .playPause:hover, #tmsContent menu h2.addActive, #tmsPanel .listBtn:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn, #songList section button.remove, #songList td .remove:hover, #tmsContent menu li .playBtn:hover {
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
   opacity: 0.75;
@@ -71,9 +71,9 @@
 /* line 93, ../sass/_common.scss */
 #songList section button:hover, #tmsContent menu h2:hover, #songList section button.deselect:hover, #songList .toTop:hover,
 #songList .toBottom:hover,
-#songList .playPause:hover, #tmsContent menu h2.addActive:hover, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.open:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn:hover, #songList section button.remove:hover, #songList td .remove:hover, #tmsContent menu li .playBtn:hover, #songList section button.active, #tmsContent menu h2.active, #songList section button.active.deselect, #songList .active.toTop:hover,
+#songList .playPause:hover, #tmsContent menu h2.addActive:hover, #tmsPanel .listBtn:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn:hover, #songList section button.remove:hover, #songList td .remove:hover, #tmsContent menu li .playBtn:hover, #songList section button.active, #tmsContent menu h2.active, #songList section button.active.deselect, #songList .active.toTop:hover,
 #songList .active.toBottom:hover,
-#songList .active.playPause:hover, #tmsContent menu h2.active.addActive, #tmsPanel .active.listBtn:hover, #tmsPanel .active.listBtn.open:hover, #tmsPanel .active.heartBtn:hover, #tmsPanel .active.bopBtn:hover, #tmsContent menu li .active.addBtn, #songList section button.active.remove, #songList td .active.remove:hover, #tmsContent menu li .active.playBtn:hover {
+#songList .active.playPause:hover, #tmsContent menu h2.active.addActive, #tmsPanel .active.listBtn:hover, #tmsPanel .active.heartBtn:hover, #tmsPanel .active.bopBtn:hover, #tmsContent menu li .active.addBtn, #songList section button.active.remove, #songList td .active.remove:hover, #tmsContent menu li .active.playBtn:hover {
   opacity: 1;
 }
 
@@ -88,7 +88,7 @@
 /* line 106, ../sass/_common.scss */
 #songList section button.deselect, #songList .toTop:hover,
 #songList .toBottom:hover,
-#songList .playPause:hover, #tmsContent menu h2.addActive, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.open:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover {
+#songList .playPause:hover, #tmsContent menu h2.addActive, #tmsPanel .listBtn:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover {
   background-image: -webkit-linear-gradient(top, #4fc9ee, #3aa2d0);
   background-image: linear-gradient(to bottom, #4fc9ee, #3aa2d0);
 }
@@ -1939,105 +1939,113 @@ body {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 136, ../sass/styles.scss */
+/* line 135, ../sass/styles.scss */
+#tmsPanel .bopBtn.open, #tmsPanel .bopBtn.active,
+#tmsPanel .listBtn.open,
+#tmsPanel .listBtn.active,
+#tmsPanel .heartBtn.open,
+#tmsPanel .heartBtn.active {
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 3px rgba(255, 255, 255, 0.3);
+}
+/* line 141, ../sass/styles.scss */
 #tmsPanel .listBtn {
   margin-left: 10px;
 }
-/* line 140, ../sass/styles.scss */
-#tmsPanel .listBtn.open {
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
-}
-/* line 143, ../sass/styles.scss */
-#tmsPanel .listBtn.open div div {
-  -webkit-box-shadow: 0 0 4px #d8a126;
-}
-/* line 146, ../sass/styles.scss */
+/* line 145, ../sass/styles.scss */
 #tmsPanel .listBtn.open div div::before {
   background: #d8a126;
 }
-/* line 150, ../sass/styles.scss */
-#tmsPanel .listBtn.open div div::after {
-  border-color: #d8a126;
+/* line 153, ../sass/styles.scss */
+#tmsPanel .listBtn:hover.open div div::before {
+  background: #4d4d4d;
 }
-/* line 168, ../sass/styles.scss */
+/* line 167, ../sass/styles.scss */
+#tmsPanel .heartBtn.active div div::before, #tmsPanel .heartBtn.active div div::after {
+  background: #912120;
+}
+/* line 173, ../sass/styles.scss */
+#tmsPanel .heartBtn:hover {
+  -webkit-box-shadow: none;
+}
+/* line 178, ../sass/styles.scss */
 #tmsPanel .heartBtn:hover div div::before, #tmsPanel .heartBtn:hover div div::after {
   background-color: #912120;
 }
-/* line 178, ../sass/styles.scss */
+/* line 188, ../sass/styles.scss */
 #tmsPanel .bopBtn > div {
   margin-top: 6px;
   margin-left: 2px;
 }
-/* line 183, ../sass/styles.scss */
-#tmsPanel .bopBtn.active {
-  -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.7);
-}
-/* line 186, ../sass/styles.scss */
+/* line 194, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div {
   border-color: #d8a126;
 }
-/* line 189, ../sass/styles.scss */
-#tmsPanel .bopBtn.active > div > div::before {
+/* line 198, ../sass/styles.scss */
+#tmsPanel .bopBtn.active > div > div::before, #tmsPanel .bopBtn.active > div > div::after {
   background: #d8a126;
 }
-/* line 193, ../sass/styles.scss */
-#tmsPanel .bopBtn.active > div > div::after {
-  background: #d8a126;
+/* line 208, ../sass/styles.scss */
+#tmsPanel .bopBtn:hover.active > div > div, #tmsPanel .bopBtn.active:hover.active > div > div {
+  border-color: #4d4d4d;
+}
+/* line 212, ../sass/styles.scss */
+#tmsPanel .bopBtn:hover.active > div > div::before, #tmsPanel .bopBtn:hover.active > div > div::after, #tmsPanel .bopBtn.active:hover.active > div > div::before, #tmsPanel .bopBtn.active:hover.active > div > div::after {
+  background-color: #4d4d4d;
 }
 
-/* line 205, ../sass/styles.scss */
+/* line 221, ../sass/styles.scss */
 #hud {
   width: 40%;
   height: 50px;
   padding: 5px;
 }
-/* line 211, ../sass/styles.scss */
+/* line 227, ../sass/styles.scss */
 #hud hgroup {
   margin-top: -3px;
   margin-bottom: 8px;
 }
-/* line 215, ../sass/styles.scss */
+/* line 231, ../sass/styles.scss */
 #hud hgroup h1, #hud hgroup h2 {
   display: inline-block;
 }
-/* line 219, ../sass/styles.scss */
+/* line 235, ../sass/styles.scss */
 #hud hgroup h1 {
   font-size: 13px;
   color: white;
 }
-/* line 224, ../sass/styles.scss */
+/* line 240, ../sass/styles.scss */
 #hud hgroup h2 {
   font-size: 12px;
   color: #999999;
   width: 180px;
   text-align: right;
 }
-/* line 233, ../sass/styles.scss */
+/* line 249, ../sass/styles.scss */
 #hud section > div {
   width: 100%;
   padding: 5px;
   margin: -5px;
   background-color: rgba(204, 204, 204, 0.05);
 }
-/* line 240, ../sass/styles.scss */
+/* line 256, ../sass/styles.scss */
 #hud div {
   float: left;
 }
-/* line 242, ../sass/styles.scss */
+/* line 258, ../sass/styles.scss */
 #hud img {
   width: 25px;
   height: 25px;
 }
-/* line 247, ../sass/styles.scss */
+/* line 263, ../sass/styles.scss */
 #hud label {
   margin-top: -2px;
   color: #999999;
 }
-/* line 252, ../sass/styles.scss */
+/* line 268, ../sass/styles.scss */
 #hud span {
   color: #cccccc;
 }
-/* line 256, ../sass/styles.scss */
+/* line 272, ../sass/styles.scss */
 #hud label, #hud span {
   margin-left: 5px;
   font-size: 11px;
@@ -2045,7 +2053,7 @@ body {
   width: 245px;
 }
 
-/* line 266, ../sass/styles.scss */
+/* line 282, ../sass/styles.scss */
 #tmsContent {
   position: relative;
   width: 700px;
@@ -2066,12 +2074,12 @@ body {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 280, ../sass/styles.scss */
+/* line 296, ../sass/styles.scss */
 .open #tmsContent {
   height: 400px;
   margin-bottom: 0;
 }
-/* line 285, ../sass/styles.scss */
+/* line 301, ../sass/styles.scss */
 #tmsContent.idle {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 15s;
@@ -2079,18 +2087,18 @@ body {
   opacity: 0.05;
 }
 
-/* line 293, ../sass/styles.scss */
+/* line 309, ../sass/styles.scss */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #FFFFFF;
 }
 
-/* line 298, ../sass/styles.scss */
+/* line 314, ../sass/styles.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* line 302, ../sass/styles.scss */
+/* line 318, ../sass/styles.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
