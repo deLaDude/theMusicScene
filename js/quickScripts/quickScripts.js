@@ -23,17 +23,25 @@ tms.utils.socket({
   console.log(data);
 });
 
+
+
 // get all playlists
-tms.utils.socket({
-  api: "playlist.list_all",
-  minimal: true
-}).done(function (data) {
-  for(var i in data.list) {
-    console.log(data.list[i]);
-  }
-}).fail(function (data) {
-  console.log(data);
-});
+
+setInterval(
+  function () {
+    tms.utils.socket({
+      api: "playlist.list_all",
+      minimal: true
+    }).done(function (data) {
+      for(var i in data.list) {
+        if (data.list[i].active) {
+          console.log(data.list[i].name);
+        }
+      }
+    }).fail(function (data) {
+      console.log(data);
+    });
+  } ,3000);
 
 // get metadata
 

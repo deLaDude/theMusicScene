@@ -128,13 +128,12 @@ body {
 		float: left;
 
 		border-radius: 25px;
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.6);
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 
 		@include transition(all 0.4s ease-in-out);
 
-		&.open, &.active {
-			-webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 
-													0 0 3px rgba(255, 255, 255, 0.3);
+		&.active {
+			@extend %orangeBtn;
 		}
 	}	
 
@@ -142,16 +141,26 @@ body {
 		@extend %playlist-icon;
 		margin-left: 10px;
 
-		&.open div div::before {
-      background: $buttonActive;
+		&.active div div{
+			&::before {
+	      background: #4fc9ee;
+			}
+
+			&::after {
+				border-color: #4fc9ee;
+			}
 		}
 
-		&:hover {
+		&:hover, &.active:hover {
 			@extend %blueBtn;
 		
-			&.open div div {
+			&.active div div {
 				&::before {
 	      	background: lighten($contentColor, 10%);
+				}
+
+				&::after {
+					border-color: lighten($contentColor, 10%);
 				}
 			}
 		}
@@ -192,26 +201,25 @@ body {
 
 		&.active {
 			& > div > div {
-        border-color: $buttonActive;
+        border-color: darken(#4fc9ee, 10%);
 
 	      &::before,
 	      &::after {
-					background: $buttonActive;
+					background: #4fc9ee;
+					-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
 	      }
 			}
 		}
 	
 		&:hover, &.active:hover {
 			@extend %blueBtn;
-		
-			&.active {
-				& > div > div {				
-					border-color: lighten($contentColor, 10%);
+			
+			& > div > div {				
+				border-color: lighten($contentColor, 10%);
 
-					&::before,
-					&::after {
-						background-color: lighten($contentColor, 10%);
-					}
+				&::before,
+				&::after {
+					background-color: lighten($contentColor, 10%);
 				}
 			}
 		}

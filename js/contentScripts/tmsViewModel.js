@@ -32,6 +32,8 @@
       // if user is DJing, update playlist
       if (roomData.metadata.current_dj === self.tt.userId) {
         self.library.updateActive();
+      } else {
+        self.library.resetActiveList();
       }
 
       self.recentlyPlayed.push(self.currentSong()); // currently not in use

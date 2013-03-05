@@ -116,20 +116,7 @@
     // <playlist management>
       // <private members>
         var activeListLength;
-        
-        // Requesting a playlist makes it active; this is TT's default behavior 
-        //  So sometime we need to reset the active playlist to keep TMS and TT in sync.
-        function resetActiveList () {
-          self.eventBus.request(
-            tms.events.tt.playlist.change,
-            {
-              api: "playlist.switch",
-              playlist_name: self.activePlaylist().name()
-            },
-            tms.events.ext.playlist.change
-          );
-        }
-
+      
         // changes viewing playlist and can also make it the activeplaylist 
         function changeviewingPlaylist (playlist, makeActive) {
           var returnEvent = tms.events.ext.api.playlist + playlist.name().split(' ').join('_');
@@ -172,10 +159,10 @@
 
               self.activePlaylist(playlist);
               self.topOfActive(songs[0]);
-              resetActiveList();
+              self.resetActiveList();
               activeListLength = songs.length;
             } else {
-              resetActiveList();
+              self.resetActiveList();
             }         
           })
           .fail(function(err){
@@ -294,6 +281,19 @@
           }
           return title;
         });
+
+        // Requesting a playlist makes it active; this is TT's default behavior 
+        //  So sometime we need to reset the active playlist to keep TMS and TT in sync.
+        self.resetActiveList = function () {
+          self.eventBus.request(
+            tms.events.tt.playlist.change,
+            {
+              api: "playlist.switch",
+              playlist_name: self.activePlaylist().name()
+            },
+            tms.events.ext.playlist.change
+          );
+        };
 
         // add or remove song from selected list
         self.rowSelectionToggle = function (songPosition, add) {
@@ -435,6 +435,7 @@
             songList.push(target[0]);
             self.songList(songList);
             self.topOfActive(songList[0]);
+            self.resetActiveList();
           } else {
             // get top of queue from TT
             var playlistName = self.activePlaylist().name(),
