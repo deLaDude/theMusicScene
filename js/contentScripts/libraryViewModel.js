@@ -142,13 +142,7 @@
               return new tms.viewmodels.SongViewModel(songModel);
             });
 
-            // update viewing 
-            self.viewingPlaylist(playlist);
-            self.songList(songs);
-            self.clearAllSelected();
-
             if (makeActive) {
-              // update playlist array
               $.each(self.playlists(), function (i, list) {
                 if (list.name() === playlist.name()) {
                   self.playlists()[i].active(true);
@@ -164,6 +158,11 @@
             } else {
               self.resetActiveList();
             }         
+
+            // update viewing 
+            self.viewingPlaylist(playlist);
+            self.songList(songs);
+            self.clearAllSelected();
           })
           .fail(function(err){
             console.log("Failed to change playlists", err);
@@ -438,20 +437,9 @@
             self.resetActiveList();
           } else {
             // get top of queue from TT
-            var playlistName = self.activePlaylist().name(),
-                returnEvent = tms.events.ext.api.playlist + playlistName.split(' ').join('_'),
-                songId;
+            var songId;
             
-            self.eventBus.request(
-              tms.events.tt.api.playlist,
-              {
-                api: "playlist.all",
-                playlist_name: playlistName,
-                minimal: true
-              },
-              returnEvent
-            )
-            .then(function (listData) {
+            self.getActiveSongIds().then(function (listData) {
               songId = listData.list[0]._id;
 
               return self.eventBus.request(
@@ -468,6 +456,21 @@
               self.topOfActive(new tms.viewmodels.SongViewModel(songData.files[songId]));
             });
           }
+        };
+
+        self.getActiveSongIds = function () {
+          var playlistName = self.activePlaylist().name(),
+              returnEvent = tms.events.ext.api.playlist + playlistName.split(' ').join('_');
+            
+          return self.eventBus.request(
+            tms.events.tt.api.playlist,
+            {
+              api: "playlist.all",
+              playlist_name: playlistName,
+              minimal: true
+            },
+            returnEvent
+          );
         };
       // </public members>
     // </playlist management>         

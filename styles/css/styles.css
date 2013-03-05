@@ -244,10 +244,14 @@
   width: 1.4em;
   height: 0.9em;
   margin: 0.2em auto;
-  background: #4d4d4d;
+  background-color: #4d4d4d;
   box-shadow: inset 0.1em -0.1em 0.1em rgba(0, 0, 0, 0.2), inset 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.2), inset -0.1em 0.1em 0.1em rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 2s ease-in-out;
+  -moz-transition: all 2s ease-in-out;
+  -o-transition: all 2s ease-in-out;
+  transition: all 2s ease-in-out;
 }
-/* line 246, ../sass/_common.scss */
+/* line 247, ../sass/_common.scss */
 #tmsPanel .listBtn div div::after {
   display: block;
   content: "";
@@ -258,20 +262,20 @@
   border-radius: 50%;
 }
 
-/* line 258, ../sass/_common.scss */
+/* line 259, ../sass/_common.scss */
 #tmsPanel .heartBtn {
   text-align: center;
 }
-/* line 261, ../sass/_common.scss */
+/* line 262, ../sass/_common.scss */
 #tmsPanel .heartBtn > div {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 267, ../sass/_common.scss */
+/* line 268, ../sass/_common.scss */
 #tmsPanel .heartBtn:hover div div::before, #tmsPanel .heartBtn:hover div div::after {
   background: #e0b451;
 }
-/* line 272, ../sass/_common.scss */
+/* line 273, ../sass/_common.scss */
 #tmsPanel .heartBtn div div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -286,7 +290,7 @@
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-/* line 282, ../sass/_common.scss */
+/* line 283, ../sass/_common.scss */
 #tmsPanel .heartBtn div div::before, #tmsPanel .heartBtn div div::after {
   position: absolute;
   content: "";
@@ -299,7 +303,7 @@
   -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
 }
-/* line 295, ../sass/_common.scss */
+/* line 296, ../sass/_common.scss */
 #tmsPanel .heartBtn div div::after {
   left: -0.96em;
   -webkit-transform: rotate(45deg);
@@ -308,7 +312,7 @@
   transform-origin: 100% 100%;
 }
 
-/* line 376, ../sass/_common.scss */
+/* line 377, ../sass/_common.scss */
 #songList .playPause div, #tmsContent menu li .playBtn div {
   width: 2em;
   height: 2em;
@@ -316,7 +320,7 @@
   position: relative;
   border: 0.3em solid #333333;
 }
-/* line 383, ../sass/_common.scss */
+/* line 384, ../sass/_common.scss */
 #songList .playPause div::before, #tmsContent menu li .playBtn div::before {
   position: absolute;
   content: "";
@@ -329,7 +333,7 @@
   border-left: 0.8em solid #333333;
 }
 
-/* line 397, ../sass/_common.scss */
+/* line 398, ../sass/_common.scss */
 #songList .toTop div {
   position: relative;
   background: #333333;
@@ -338,7 +342,7 @@
   height: 1em;
   margin-top: 1em;
 }
-/* line 405, ../sass/_common.scss */
+/* line 406, ../sass/_common.scss */
 #songList .toTop div::before {
   position: absolute;
   bottom: 0.8em;
@@ -349,7 +353,7 @@
   content: "";
 }
 
-/* line 416, ../sass/_common.scss */
+/* line 417, ../sass/_common.scss */
 #songList .toBottom div {
   background: #333333;
   font-size: 12px;
@@ -357,7 +361,7 @@
   width: 1em;
   height: 1em;
 }
-/* line 423, ../sass/_common.scss */
+/* line 424, ../sass/_common.scss */
 #songList .toBottom div::before {
   bottom: -0.8em;
   left: -0.666em;
@@ -368,7 +372,7 @@
   content: "";
 }
 
-/* line 457, ../sass/_common.scss */
+/* line 458, ../sass/_common.scss */
 #songList td .remove > div {
   position: relative;
   width: 0.2em;
@@ -378,7 +382,7 @@
   transform: rotate(45deg);
   font-size: 22px;
 }
-/* line 466, ../sass/_common.scss */
+/* line 467, ../sass/_common.scss */
 #songList td .remove > div::after {
   content: "";
   position: absolute;
@@ -392,7 +396,7 @@
 }
 
 /* Toggle Switches */
-/* line 481, ../sass/_common.scss */
+/* line 482, ../sass/_common.scss */
 .switch {
   position: relative;
   margin: 0 auto;
@@ -403,7 +407,7 @@
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* line 491, ../sass/_common.scss */
+/* line 492, ../sass/_common.scss */
 .switch-label {
   position: relative;
   z-index: 2;
@@ -417,17 +421,17 @@
   cursor: pointer;
 }
 
-/* line 504, ../sass/_common.scss */
+/* line 505, ../sass/_common.scss */
 .switch-label:active {
   font-weight: bold;
 }
 
-/* line 508, ../sass/_common.scss */
+/* line 509, ../sass/_common.scss */
 .switch-label-off {
   padding-left: 2px;
 }
 
-/* line 512, ../sass/_common.scss */
+/* line 513, ../sass/_common.scss */
 .switch-label-on {
   padding-right: 2px;
 }
@@ -438,12 +442,12 @@
  *       See this article for more info and a potential fix:
  *       http://css-tricks.com/webkit-sibling-bug/
  */
-/* line 522, ../sass/_common.scss */
+/* line 523, ../sass/_common.scss */
 .switch-input {
   display: none;
 }
 
-/* line 526, ../sass/_common.scss */
+/* line 527, ../sass/_common.scss */
 .switch-input:checked + .switch-label {
   font-weight: bold;
   color: rgba(0, 0, 0, 0.65);
@@ -452,13 +456,13 @@
   transition: 0.15s ease-out;
 }
 
-/* line 534, ../sass/_common.scss */
+/* line 535, ../sass/_common.scss */
 .switch-input:checked + .switch-label-on ~ .switch-selection {
   left: 80px;
   background: #d8a126;
 }
 
-/* line 539, ../sass/_common.scss */
+/* line 540, ../sass/_common.scss */
 .switch-selection {
   display: block;
   position: absolute;
@@ -480,7 +484,7 @@
   background-image: linear-gradient(to bottom, #4fc9ee, #3aa2d0);
 }
 
-/* line 563, ../sass/_common.scss */
+/* line 564, ../sass/_common.scss */
 .switch-yellow .switch-selection {
   background: #d8a126;
   background-image: -webkit-linear-gradient(top, #e0dd94, #c4bb61);
@@ -488,13 +492,13 @@
 }
 
 @-webkit-keyframes highlight {
-  /* line 570, ../sass/_common.scss */
+  /* line 571, ../sass/_common.scss */
   0% {
     background-color: #d8a126;
     -webkit-box-shadow: 0 0 5px #d8a126, 0 0 10px #d8a126, 0 0 15px #d8a126;
   }
 
-  /* line 571, ../sass/_common.scss */
+  /* line 572, ../sass/_common.scss */
   100% {
     background-color: rgba(216, 161, 38, 0.8);
     -webkit-box-shadow: 0 0 0 transparent;
@@ -502,24 +506,24 @@
 }
 
 @-webkit-keyframes ticker {
-  /* line 576, ../sass/_common.scss */
+  /* line 577, ../sass/_common.scss */
   0% {
     width: 0%;
   }
 
-  /* line 577, ../sass/_common.scss */
+  /* line 578, ../sass/_common.scss */
   100% {
     width: 100%;
   }
 }
 
 @-webkit-keyframes fade {
-  /* line 582, ../sass/_common.scss */
+  /* line 583, ../sass/_common.scss */
   0% {
     opacity: 0.93;
   }
 
-  /* line 583, ../sass/_common.scss */
+  /* line 584, ../sass/_common.scss */
   100% {
     opacity: 0.05;
   }
@@ -1952,7 +1956,7 @@ body {
 }
 /* line 145, ../sass/styles.scss */
 #tmsPanel .listBtn.active div div::before {
-  background: #4fc9ee;
+  background-color: #4fc9ee;
 }
 /* line 149, ../sass/styles.scss */
 #tmsPanel .listBtn.active div div::after {
@@ -1960,7 +1964,7 @@ body {
 }
 /* line 158, ../sass/styles.scss */
 #tmsPanel .listBtn:hover.active div div::before, #tmsPanel .listBtn.active:hover.active div div::before {
-  background: #4d4d4d;
+  background-color: #4d4d4d;
 }
 /* line 162, ../sass/styles.scss */
 #tmsPanel .listBtn:hover.active div div::after, #tmsPanel .listBtn.active:hover.active div div::after {
@@ -1989,7 +1993,7 @@ body {
 }
 /* line 207, ../sass/styles.scss */
 #tmsPanel .bopBtn.active > div > div::before, #tmsPanel .bopBtn.active > div > div::after {
-  background: #4fc9ee;
+  background-color: #4fc9ee;
   -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }
 /* line 217, ../sass/styles.scss */

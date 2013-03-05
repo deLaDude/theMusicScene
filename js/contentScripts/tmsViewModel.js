@@ -27,7 +27,9 @@
     self.currentSong = ko.observable(model.currentSong);
     self.recentlyPlayed = ko.observableArray([]);    
     self.songChange = function (roomData) {
-      self.songSnagged(false);
+      if (self.autoBopOn()) {
+        setBopTimer(roomData.metadata.current_song.metadata.length);
+      }
 
       // if user is DJing, update playlist
       if (roomData.metadata.current_dj === self.tt.userId) {
@@ -38,11 +40,35 @@
 
       self.recentlyPlayed.push(self.currentSong()); // currently not in use
       self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
-    
-      if (self.autoBopOn()) {
-        setBopTimer(roomData.metadata.current_song.metadata.length);
-      }
+
+      // check if its in our active playlist
+      self.library.getActiveSongIds().done(function(listData){
+        var inPlaylist = false;
+        $.each(listData.list, function (i, id) {
+          if (listData.list[0]._id === self.currentSong().fileId()) {
+            inPlaylist = true;
+          }
+        });
+
+        self.songSnagged(inPlaylist);
+      }); 
     };
+
+    // when the active list changes see if the current song is in it
+    self.library.songList.subscribe(function (songs) {
+      if (self.library.viewingPlaylist().active() && songs[0] !== "paused") {
+        var inPlaylist = false;
+        $.each(songs, function (i, song) {
+          if (song.fileId() === self.currentSong().fileId()) {
+            inPlaylist = true;
+          }
+        });
+
+        self.songSnagged(inPlaylist);
+      } else if (songs[0] !== "paused") {
+        self.songSnagged(false);
+      }
+    });
 
     // helper functions for events
     self.updateVotes = function (data) { self.currentSong().updateVotes(data); };
