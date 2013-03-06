@@ -25,7 +25,8 @@
      *   Current Song     *
      *********************/
     self.currentSong = ko.observable(model.currentSong);
-    self.recentlyPlayed = ko.observableArray([]);    
+    self.recentlyPlayed = ko.observableArray([]);  
+
     self.songChange = function (roomData) {
       if (self.autoBopOn()) {
         setBopTimer(roomData.metadata.current_song.metadata.length);
@@ -77,46 +78,33 @@
     self.songSnagged = ko.observable(false);
     self.snagSong = function () {
       if (self.currentSong().snaggable() && !self.songSnagged()) {
-        var thing1 = $.sha1(Math.random() + ""), 
-            thing2 = $.sha1(Math.random() + ""),
-            inPlaylist = "true", // we don't want TT to try and add it for us
-            site = "queue", 
-            location = "board",
-            soup = [
-              self.tt.userId, 
-              self.currentSong().djId(), 
-              self.currentSong().fileId(), 
-              self.tt.roomId, 
-              site, 
-              location, 
-              inPlaylist, 
-              self.currentSong().snaggable(), 
-              thing1
-              ],
-              snagReq = {
-                api: "snag.add",
-                djid: self.currentSong().djId(),
-                songid: self.currentSong().fileId(),
-                roomid: self.tt.roomId,
-                section: self.tt.section,
-                site: site,
-                location: location,
-                in_queue: inPlaylist,
-                blocked: self.currentSong().snaggable() ? "true" : "false",
-                vh: $.sha1(soup.join("/")),
-                sh: thing1,
-                fh: thing2
-              };
-
+        var userId = self.tt.userId,
+            djId = self.currentSong().djId(),
+            songId = self.currentSong().fileId(),
+            roomId = self.tt.roomId,
+            sh = $.sha1(Math.random() + ""),
+            fh = $.sha1(Math.random() + ""),
+            i  = [userId, djId, songId, roomId,
+                      'queue', 'board', 'false', 'false', sh],
+            vh = $.sha1(i.join('/')),
+            snagReq = { 
+              api      : 'snag.add', 
+              djid     : djId,
+              songid   : songId,
+              roomid   : roomId,
+              site     : 'queue',
+              location : 'board',
+              in_queue : 'false',
+              blocked  : 'false',
+              vh       : vh,
+              sh       : sh,
+              fh       : fh
+             };
         
+        // log snag, add to playlist then update state
         self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
-          .done(function () {
-            self.eventBus.postMessage(tms.events.tt.showHeart);
-            self.songSnagged(true);
-            
-            // update playlist
-            self.library.addSnagToPlaylist(self.currentSong());
-        });        
+          .then(function () { return self.library.addSnagToPlaylist(self.currentSong()); })
+          .done(function () { self.songSnagged(true); });        
       } else {
         if (!self.currentSong().snaggable()) {
           // $("#tmsTrigger")

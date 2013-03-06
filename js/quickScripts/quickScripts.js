@@ -24,9 +24,37 @@ tms.utils.socket({
 });
 
 
+// heartfart
+var userId = '4dfcdd564fe7d0250302b5a5',
+    djId = '5092ebe1aaa5cd211f0004ee',
+    songId = '512056d99f81f31ed7d78d36',
+    roomId = '50b6b4ccdf5bcf1596d45098';
 
-// get all playlists
+var sh = $.sha1(Math.random() + "");
+var fh = $.sha1(Math.random() + "");
+var i  = [userId, djId, songId, roomId,
+          'queue', 'board', 'false', 'false', sh];
+var vh = $.sha1(i.join('/'));
 
+tms.utils.socket({ 
+  api      : 'snag.add', 
+  djid     : djId,
+  songid   : songId,
+  roomid   : roomId,
+  site     : 'queue',
+  location : 'board',
+  in_queue : 'false',
+  blocked  : 'false',
+  vh       : vh,
+  sh       : sh,
+  fh       : fh
+ }).done(function (data) {
+  console.log(data);
+}).fail(function (data) {
+  console.log(data);
+});
+
+// get all playlists, looping on 5s delay
 setInterval(
   function () {
     tms.utils.socket({

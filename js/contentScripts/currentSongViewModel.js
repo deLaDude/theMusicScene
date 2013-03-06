@@ -7,6 +7,8 @@
     model = model || {};
     var self = this;
     self.model = model;
+
+    self.snagLog = ko.observableArray([]);
     
     if (model.metadata && model.metadata.current_song) {
       // dynamic variables
@@ -49,8 +51,11 @@
       self.downvotes(eventData.downvotes);  
     };
 
-    self.updateSnags = function () {
-      self.snags(self.snags() + 1);
+    self.updateSnags = function (eventData) {
+      if (self.snagLog.indexOf(eventData.userid)) {
+        self.snagLog.push(eventData.userid);
+        self.snags(self.snags() + 1);
+      }
     };
   };
 })();
