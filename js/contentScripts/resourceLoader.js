@@ -6,7 +6,7 @@
 (function () {
 	// scripts
 	var scripts = [
-		"/js/tms.js",
+		// "/js/tms.js",
 		"/js/ttBroker.js"
 	];
 

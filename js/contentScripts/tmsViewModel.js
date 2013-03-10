@@ -21,144 +21,185 @@
       }
     };
 
-    /********************** 
-     *   Current Song     *
-     *********************/
-    self.currentSong = ko.observable(model.currentSong);
-    self.recentlyPlayed = ko.observableArray([]);  
-
-    self.songChange = function (roomData) {
-      if (self.autoBopOn()) {
-        setBopTimer(roomData.metadata.current_song.metadata.length);
-      }
-
-      // if user is DJing, update playlist
-      if (roomData.metadata.current_dj === self.tt.userId) {
-        self.library.updateActive();
-      } else {
-        self.library.resetActiveList();
-      }
-
-      self.recentlyPlayed.push(self.currentSong()); // currently not in use
-      self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
-
-      // check if its in our active playlist
-      self.library.getActiveSongIds().done(function(listData){
-        var inPlaylist = false;
-        $.each(listData.list, function (i, id) {
-          if (listData.list[0]._id === self.currentSong().fileId()) {
-            inPlaylist = true;
-          }
-        });
-
-        self.songSnagged(inPlaylist);
-      }); 
-    };
-
-    // when the active list changes see if the current song is in it
-    self.library.songList.subscribe(function (songs) {
-      if (self.library.viewingPlaylist().active() && songs[0] !== "paused") {
-        var inPlaylist = false;
-        $.each(songs, function (i, song) {
-          if (song.fileId() === self.currentSong().fileId()) {
-            inPlaylist = true;
-          }
-        });
-
-        self.songSnagged(inPlaylist);
-      } else if (songs[0] !== "paused") {
-        self.songSnagged(false);
-      }
-    });
-
-    // helper functions for events
-    self.updateVotes = function (data) { self.currentSong().updateVotes(data); };
-    self.updateSnags = function (data) { self.currentSong().updateSnags(data); };
-
-    self.songSnagged = ko.observable(false);
-    self.snagSong = function () {
-      if (self.currentSong().snaggable() && !self.songSnagged()) {
-        var userId = self.tt.userId,
-            djId = self.currentSong().djId(),
-            songId = self.currentSong().fileId(),
-            roomId = self.tt.roomId,
-            sh = $.sha1(Math.random() + ""),
-            fh = $.sha1(Math.random() + ""),
-            i  = [userId, djId, songId, roomId,
-                      'queue', 'board', 'false', 'false', sh],
-            vh = $.sha1(i.join('/')),
-            snagReq = { 
-              api      : 'snag.add', 
-              djid     : djId,
-              songid   : songId,
-              roomid   : roomId,
-              site     : 'queue',
-              location : 'board',
-              in_queue : 'false',
-              blocked  : 'false',
-              vh       : vh,
-              sh       : sh,
-              fh       : fh
-             };
-        
-        // log snag, add to playlist then update state
-        self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
-          .then(function () { return self.library.addSnagToPlaylist(self.currentSong()); })
-          .done(function () { self.songSnagged(true); });        
-      } else {
-        if (!self.currentSong().snaggable()) {
-          // $("#tmsTrigger")
-          //   .attr("data-action", "showMessage")
-          //   .attr("data-message", "This song is not snaggable :(").click();
+    // <top of active preview>
+      self.previewActive = ko.observable(false);
+      self.toggleTopOfQueuePreview = function () {
+        if (self.previewActive()) {        
+          self.previewActive(false);
+          self.eventBus.postMessage(tms.events.tt.pauseSample);
         } else {
-          // $("#tmsTrigger")
-          //   .attr("data-action", "showMessage")
-          //   .attr("data-message", "You already snagged this song!").click();
+          if (self.library.playingPreview()) {
+            self.library.updatePreviewProgress('stop');
+          }
+
+          self.previewActive(true);
+          self.eventBus.postMessage(tms.events.tt.playSample, self.library.topOfActive().fileId());
         }
+      };
+
+      // if we're playing a preview, turn it off
+      //  otherwise forward to library 
+      self.updatePreviewProgress = function (status) {
+        if (self.previewActive() && status === "stop") {
+          self.previewActive(false);  
+        } else if (!self.previewActive()) {
+          self.library.updatePreviewProgress(status);
+        }
+      };
+
+      // need to de-activate preview visual in-case 
+      //  another preview starts before this one ends
+      self.library.playingPreview.subscribe(function (value) {
+        if (value && self.previewActive()) {
+          self.previewActive(false);  
+        }
+      });
+
+      // turn off preview state if top of active changes
+      self.library.topOfActive.subscribe(function (song) {
+        if (self.previewActive()) {
+          self.previewActive(false);
+        }
+      });    
+
+    // </top of active preview>
+
+    // <current song>
+      self.currentSong = ko.observable(model.currentSong);
+      self.recentlyPlayed = ko.observableArray([]);  
+
+      self.songChange = function (roomData) {
+        if (self.autoBopOn()) {
+          setBopTimer(roomData.metadata.current_song.metadata.length);
+        }
+
+        // if user is DJing, update playlist
+        if (roomData.metadata.current_dj === self.tt.userId) {
+          self.library.updateActive();
+        } else {
+          self.library.resetActiveList();
+        }
+
+        self.recentlyPlayed.push(self.currentSong()); // currently not in use
+        self.currentSong(new tms.viewmodels.CurrentSongViewModel(roomData));
+
+        // check if its in our active playlist
+        self.library.getActiveSongIds().done(function(listData){
+          var inPlaylist = false;
+          $.each(listData.list, function (i, id) {
+            if (listData.list[0]._id === self.currentSong().fileId()) {
+              inPlaylist = true;
+            }
+          });
+
+          self.songSnagged(inPlaylist);
+        }); 
+      };
+
+      // when the active list changes see if the current song is in it
+      self.library.songList.subscribe(function (songs) {
+        if (self.library.viewingPlaylist().active() && songs[0] !== "paused") {
+          var inPlaylist = false;
+          $.each(songs, function (i, song) {
+            if (song.fileId() === self.currentSong().fileId()) {
+              inPlaylist = true;
+            }
+          });
+
+          self.songSnagged(inPlaylist);
+        } else if (songs[0] !== "paused") {
+          self.songSnagged(false);
+        }
+      });
+
+      // helper functions for events
+      self.updateVotes = function (data) { self.currentSong().updateVotes(data); };
+      self.updateSnags = function (data) { self.currentSong().updateSnags(data); };
+
+      self.songSnagged = ko.observable(false);
+      self.snagSong = function () {
+        if (self.currentSong().snaggable() && !self.songSnagged()) {
+          var userId = self.tt.userId,
+              djId = self.currentSong().djId(),
+              songId = self.currentSong().fileId(),
+              roomId = self.tt.roomId,
+              sh = $.sha1(Math.random() + ""),
+              fh = $.sha1(Math.random() + ""),
+              i  = [userId, djId, songId, roomId,
+                        'queue', 'board', 'false', 'false', sh],
+              vh = $.sha1(i.join('/')),
+              snagReq = { 
+                api      : 'snag.add', 
+                djid     : djId,
+                songid   : songId,
+                roomid   : roomId,
+                site     : 'queue',
+                location : 'board',
+                in_queue : 'false',
+                blocked  : 'false',
+                vh       : vh,
+                sh       : sh,
+                fh       : fh
+               };
+          
+          // log snag, add to playlist then update state
+          self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
+            .then(function () { return self.library.addSnagToPlaylist(self.currentSong()); })
+            .done(function () { self.songSnagged(true); });        
+        } else {
+          if (!self.currentSong().snaggable()) {
+            // $("#tmsTrigger")
+            //   .attr("data-action", "showMessage")
+            //   .attr("data-message", "This song is not snaggable :(").click();
+          } else {
+            // $("#tmsTrigger")
+            //   .attr("data-action", "showMessage")
+            //   .attr("data-message", "You already snagged this song!").click();
+          }
+        }
+
+      };
+    // </current song>
+
+    // <auto bop>
+      var bopTimer = null,
+          btn = $("#awesome-button");
+      
+      // sets a random time to bop based on songs length
+      function setBopTimer () {
+        bopTimer = setTimeout(bop, Math.floor(Math.random() * self.currentSong().length()/4*1000));
       }
 
-    };
+      // make request and set state upon success
+      function bop () {
+        var request = {
+              api: 'room.vote',
+              roomid: self.tt.roomId,
+              section: self.tt.section,
+              val: 'up',
+              vh: self.currentSong().fileId(),
+              th: null,
+              ph: null
+            };
 
-    /********************** 
-     *     Auto Bop       *
-     *********************/
-    var bopTimer = null,
-        btn = $("#awesome-button");
-    
-    // sets a random time to bop based on songs length
-    function setBopTimer () {
-      bopTimer = setTimeout(bop, Math.floor(Math.random() * self.currentSong().length()/4*1000));
-    }
-
-    // make request and set state upon success
-    function bop () {
-      var request = {
-            api: 'room.vote',
-            roomid: self.tt.roomId,
-            section: self.tt.section,
-            val: 'up',
-            vh: self.currentSong().fileId(),
-            th: null,
-            ph: null
-          };
-
-      self.eventBus.request(tms.events.tt.api.vote, request, tms.events.ext.api.vote)
-        .done(function(data) { 
-          btn.addClass("selected");
-        });
-    }
-
-    // ui toggle
-    self.autoBopOn = ko.observable(false);
-    self.toggleAutoBop = function () {
-      if (self.autoBopOn()) {
-        clearTimeout(bopTimer);
-        self.autoBopOn(false);
-      } else {
-        bop();
-        self.autoBopOn(true);
+        self.eventBus.request(tms.events.tt.api.vote, request, tms.events.ext.api.vote)
+          .done(function(data) { 
+            btn.addClass("selected");
+          });
       }
-    };
+
+      // ui toggle
+      self.autoBopOn = ko.observable(false);
+      self.toggleAutoBop = function () {
+        if (self.autoBopOn()) {
+          clearTimeout(bopTimer);
+          self.autoBopOn(false);
+        } else {
+          bop();
+          self.autoBopOn(true);
+        }
+      };
+    // </auto bop>
   };
 
   /**
@@ -181,6 +222,10 @@
       {
         name: tms.events.ext.snag,
         callback: app.updateSnags
+      },
+      {
+        name: tms.events.ext.sampleProgress,
+        callback: app.updatePreviewProgress
       }
     ];
 

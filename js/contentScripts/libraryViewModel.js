@@ -117,6 +117,73 @@
       // <private members>
         var activeListLength;
       
+        self.creatingPlaylist = ko.observable(false);
+        self.newPlaylistInput = ko.observable("");
+        self.saveNewPlaylist = function () {
+          self.eventBus.request(
+            tms.events.tt.playlist.addPlaylist,
+            {
+              api: "playlist.create",
+              playlist_name: self.newPlaylistInput()
+            },
+            tms.events.ext.playlist.addPlaylist)
+            .done(function (){
+              var playlist = tms.factories.playlistFactory({
+                                name: self.newPlaylistInput(),
+                                active: true
+                              }, self.eventBus);
+
+              self.playlists.push(playlist);    
+              self.playlists.sort(function(a,b){
+                if(a.name().toLowerCase()<b.name().toLowerCase()) return -1;
+                if(a.name().toLowerCase()>b.name().toLowerCase()) return 1;
+                return 0;
+              });
+
+              self.changeActive(playlist);
+              self.creatingPlaylist(false);
+              self.newPlaylistInput('');
+            });
+        };
+
+        self.createNewPlaylist = function () {
+          self.creatingPlaylist(self.creatingPlaylist() ? false : true);
+        };
+
+        self.deletePlaylist = function (playlistName) {
+          self.eventBus.request(
+              tms.events.tt.playlist.deletePlaylist,
+              {
+                api: "playlist.delete",
+                playlist_name: playlistName
+              },
+              tms.events.ext.playlist.deletePlaylist) 
+            .done(function () {
+              $.each(self.playlists(), function (i, list) {
+                if (playlistName === list.name()) {
+                  // if we're deleting active we need to set new active
+                  if (list.active()) {
+                    // prefer next playlist. if at end then use first
+                    if (i < self.playlists().length - 1) {
+                      self.changeActive(self.playlists()[i + 1]);
+                    } else {
+                      self.changeActive(self.playlists()[0]);
+                    }
+                  }
+
+                  self.playlists.splice(i, 1);
+                  return;
+                }
+              });
+            });
+        };
+
+        self.confirmDelete = function (playlist) {
+          self.eventBus.postMessage(
+            tms.events.tt.playlist.deleteConfirm, 
+            playlist.name());
+        };
+
         // changes viewing playlist and can also make it the activeplaylist 
         function changeviewingPlaylist (playlist, makeActive) {
           var returnEvent = tms.events.ext.api.playlist + playlist.name().split(' ').join('_');
@@ -273,10 +340,8 @@
           var title;
           if (self.selectedSongs().length > 0) {
             title = "Add selected songs to a Playlist";
-          } else if (self.playlistsOpen()) { 
-            title = "Hide Playlists";
           } else {
-            title = "View Playlists";
+            title = "Playlist Menu";
           }
           return title;
         });
@@ -319,18 +384,23 @@
         };
 
         self.addSnagToPlaylist = function (song) {
-          var updateViewing = false;
-          if (self.activePlaylist().name() === self.viewingPlaylist().name()) {
-            updateViewing = true;
-          }
-          
-          addSongsToPlaylist([song], self.activePlaylist().name(), updateViewing, true);
+          var updateViewing = self.activePlaylist().name() === self.viewingPlaylist().name();
+          addSongsToPlaylist([song], self.activePlaylist().name(), updateViewing, updateViewing);
         };
 
         // add songs in selected list to playlist and clear selected list
         self.addSelectedSongsToPlaylist = function (playlist) {
           addSongsToPlaylist(self.selectedSongs(), playlist.name(), false, false)
               .done(self.clearAllSelected);
+        };
+
+        self.confirmRemove = function () {
+          var data = {
+            songs: self.selectedSongs().length + " songs",
+            playlist: self.viewingPlaylist().name()
+          };
+
+          self.eventBus.postMessage(tms.events.tt.playlist.removeConfirm, data);
         };
 
         // remove the selected songs from the viewing playlist and clear selected list
@@ -356,14 +426,14 @@
         // always assumes we want to remove from viewing list
         self.removeSongsFromPlaylist = function (songIndices) {
           // if we're playing a preview we'll want to turn it off before removing
-          if (playingPreview) {
+          if (self.playingPreview()) {
             $.each(songIndices, function (i, songPos) {
               // add to recently removed for easy recovery
               self.recentlyRemoved.push(self.songList()[songPos]);
 
               if (self.songList()[songPos].fileId() === previewSong.fileId()){
                 self.eventBus.postMessage(tms.events.tt.pauseSample);     
-                playingPreview = false;
+                self.playingPreview(false);
                 return;
               }
             });            
@@ -407,8 +477,7 @@
           reorderPlaylist(self.viewingPlaylist(), songPosition, self.songList().length-1);  
         };
 
-        // toggle for playlist menu
-        self.toggleOpen = function () {
+        self.togglePlaylistMenu = function () {
           self.playlistsOpen(self.playlistsOpen() ? false : true); 
         };
 
@@ -479,21 +548,22 @@
       var previewSong,
           previewSongPosition,
           previewStartedCallback,
-          previewEndedCallback,
-          playingPreview = false;
+          previewEndedCallback;
+
+      self.playingPreview = ko.observable(false);
 
       // initiates a song preview
       function playPreview (song, startedCallback, endedCallback) {
         previewSong = song;
         previewStartedCallback = startedCallback;
         previewEndedCallback = endedCallback;
+        self.playingPreview(true);
         self.eventBus.postMessage(tms.events.tt.playSample, song.fileId());
       }
 
       // calls bindingHandler callbacks to start and stop preview visuals
       self.updatePreviewProgress = function (status) {
-        if (status === "start" && !playingPreview) {
-          playingPreview = true;
+        if (status === "start") {
           previewStartedCallback(previewSongPosition);
         } else if (status === "stop") {
           previewEndedCallback(previewSongPosition);
@@ -504,17 +574,17 @@
       self.toggleSongPreview = function (songPosition, startedCallback, endedCallback) {
         var song = self.songList()[songPosition];     
 
-        if (!playingPreview) {
+        if (!self.playingPreview()) {
           previewSongPosition = songPosition;
           playPreview(song, startedCallback, endedCallback);
         } else if (previewSong.fileId() !== song.fileId()) {
           self.updatePreviewProgress('stop');
           previewSongPosition = songPosition;
-          playingPreview = false;
+          self.playingPreview(false);
           playPreview(song, startedCallback, endedCallback);
         } else {
           self.eventBus.postMessage(tms.events.tt.pauseSample);     
-          playingPreview = false;
+          self.playingPreview(false);
         }
       };
     // </song previews>
@@ -524,25 +594,29 @@
     var activePlaylist;
 
     model.playlists = $.map(model.playlistData, function (playlist, i) {
-      var list = tms.factories.playlistFactory(playlist);
+      var list = tms.factories.playlistFactory(playlist, model.eventBus);
       if (list.active()) {
         activePlaylist = list;
       } 
       return list;
     });
 
-    model.searchPlaylist = tms.factories.playlistFactory({ name: "Turntable Search", active: false });
+    model.searchPlaylist = tms.factories.playlistFactory({ name: "Turntable Search", active: false }, model.eventBus);
     model.searchPlaylist.forSearch = true;
 
     var library = new tms.viewmodels.LibraryViewModel(model),
         subscriptions = [
           {
-            name: tms.events.ext.sampleProgress,
-            callback: library.updatePreviewProgress
-          },
-          {
             name: tms.events.ext.api.search,
             callback: library.handleSearchResults
+          },
+          {
+            name: tms.events.ext.playlist.deleteConfirm,
+            callback: library.deletePlaylist
+          },
+          {
+            name: tms.events.ext.playlist.removeConfirm,
+            callback: library.removeSelectedSongsFromPlaylist
           }
         ];
 

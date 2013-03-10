@@ -5,7 +5,7 @@
 <section data-bind="css: { active: selectedSongs().length > 0 }">
   <h3 data-bind="text: selectedSongs().length + ' songs selected'"></h3>
   <button class="deselect" title="Deselect songs." data-bind="click: clearAllSelected">deselect all</button>
-  <button class="remove" title="Remove selected songs." data-bind="visible: listSource() === 'playlistsearch', click: removeSelectedSongsFromPlaylist">remove all</button>
+  <button class="remove" title="Remove selected songs." data-bind="visible: listSource() === 'playlistsearch', click: confirmRemove">remove all</button>
 </section>
 
 <div class="searchToggle switch">
@@ -20,4 +20,4 @@
 <table data-bind="dataTable: { data: songList, options: tableOptions }">
 </table>
 
-<menu data-bind='template: { name: "playlists-template", data: $data }, css: { open: playlistsOpen }'></menu>
+<menu data-bind='template: { name: "playlists-template", data: $data }, css: { open: playlistsOpen }, hoverintent: togglePlaylistMenu'></menu>

@@ -1,14 +1,34 @@
-<h2 data-bind='click: toggleOpen, text: playlistMenuTitle, css: { addActive: selectedSongs().length > 0 }, attr: { title: playlistMenuTitle }'></h2>
-<ul data-bind="foreach: playlists">
-  <li data-bind="click: $parent.changeViewing, css: { active: active, viewing: name() === $root.library.viewingPlaylist().name() }">
-    <label data-bind="text: name"></label>
-    <div>
-      <div class='addBtn' data-bind="visible: $parent.selectedSongs().length > 0, click: $parent.addSelectedSongsToPlaylist, clickBubble: false, attr: { title: 'Add selected songs to playlist' }">
-        <span>Add Songs</span>
-      </div>
-      <div class='playBtn' data-bind="visible: !active(), click: $parent.changeActive, clickBubble: false, attr: { title: 'Set ' + name() + ' as active.' }">
-        <div></div>
-      </div>
+<h2 data-bind='text: playlistMenuTitle, css: { addActive: selectedSongs().length > 0 }, attr: { title: playlistMenuTitle }'></h2>
+<ul>
+  <li class="create">
+    <label data-bind="click: createNewPlaylist">Create a New Playlist</label>
+    <input type="text" placeholder="Type a name and hit enter to save." data-bind="visible: creatingPlaylist, value: newPlaylistInput, valueUpdate: 'afterkeydown', onEnter: saveNewPlaylist, clickBubble: false" />
+
+    <div class='cancelBtn' title="Cancel" data-bind="visible: creatingPlaylist, click: createNewPlaylist">
+      <div></div>
     </div>
   </li>
+  <!-- ko foreach: playlists -->
+    <li data-bind="click: $parent.changeViewing, css: { active: active, viewing: name() === $root.library.viewingPlaylist().name() }">
+      <label data-bind="text: name"></label>
+      <input type="text" data-bind="visible: editInProgress, value: playlistInput, valueUpdate: 'afterkeydown', onEnter: saveName, clickBubble: false" />
+      <div>
+        <div class='playBtn' data-bind="click: $parent.changeActive, clickBubble: false, attr: { title: active() ? name() + ' is active.' : 'Set ' + name() + ' as active.' }, visible: $parent.selectedSongs().length === 0">
+          <div></div>
+        </div>
+        
+        <div class='editBtn' data-bind="click: editName, clickBubble: false, css: { active: editInProgress }, attr: { title: editInProgress() ? 'Cancel rename.' : 'Rename playlist.' }, visible: $parent.selectedSongs().length === 0">
+          <div></div>
+        </div>
+        
+        <div class='removeBtn' data-bind="click: $parent.confirmDelete, clickBubble: false, visible: $parent.selectedSongs().length === 0" title="Delete playlist.">
+          <div></div>
+        </div> 
+
+        <div class='addBtn' data-bind="visible: $parent.selectedSongs().length > 0, click: $parent.addSelectedSongsToPlaylist, clickBubble: false"  title="Add selected songs to playlist">
+          <span>Add Songs</span>
+        </div>
+      </div>
+    </li>
+  <!-- /ko -->
 </ul>

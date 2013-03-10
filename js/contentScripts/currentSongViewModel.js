@@ -52,7 +52,7 @@
     };
 
     self.updateSnags = function (eventData) {
-      if (self.snagLog.indexOf(eventData.userid)) {
+      if (!eventData.snagid && self.snagLog.indexOf(eventData.userid)) {
         self.snagLog.push(eventData.userid);
         self.snags(self.snags() + 1);
       }

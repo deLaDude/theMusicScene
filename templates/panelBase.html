@@ -12,7 +12,7 @@
 					<h1>Top of Queue</h1>
 					<h2 data-bind="text: library.activePlaylist().name" title="Active playlist."></h2>
 				</hgroup>
-				<div data-bind="if: library.topOfActive() !== undefined">
+				<div data-bind="if: library.topOfActive() !== undefined, css: { previewActive: previewActive }">
 					<div>
 						<img data-bind="attr: { src: library.topOfActive().art(), title: library.topOfActive().album() }" />
 					</div>
@@ -20,7 +20,10 @@
 						<label data-bind="text: library.topOfActive().artist"></label>
 						<span data-bind="text: library.topOfActive().song"></span>
 					</div>
-				</div>
+					<div class='playBtn' data-bind="click: toggleTopOfQueuePreview, attr: { title: 'Play Preview.' }">
+        		<div></div>
+					</div>					
+					<div class="ticker"></div>
 			</section>
 		</div>
 		<nav>
@@ -32,7 +35,7 @@
 				<div><div></div></div>
 			</div>
 
-			<div class='heartBtn' data-bind='click: snagSong, css: { active: songSnagged }, attr: { title: songSnagged() ? "Song snagged." : "Snag song."}'>
+			<div class='heartBtn' data-bind='click: snagSong, css: { active: songSnagged }, attr: { title: songSnagged() ? "This song is in your playlist." : "Snag song."}'>
 				<div><div></div></div>
 			</div>
 		</nav>

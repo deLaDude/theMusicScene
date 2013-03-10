@@ -1,6 +1,83 @@
+// note: keeping dependencies in broker files to avoid load order issues
+// <tms>
+  var tms = {
+    utils: {},
+    viewmodels: {},
+    factories: {},
+    app: {},
+    events: {
+      // events sent to the TT sandbox
+      tt: {
+        initInfo: "tms.tt.initInfo",
+        showHeart: "tms.tt.showHeart",
+        showMessage: "tms.tt.showMessage",
+        playSample: "tms.tt.playSample",
+        pauseSample: "tms.tt.pauseSample",
+        cache: {
+          get: "tms.tt.playlistCache.get",
+          set: "tms.tt.playlistCache.set"
+        },
+        api: {
+          room: "tms.tt.api.roominfo",
+          playlists: "tms.tt.api.playlists",
+          playlist: "tms.tt.api.playlist",
+          songdata: "tms.tt.api.song",
+          snag: "tms.tt.api.snagSong",
+          vote: "tms.tt.api.vote",
+          search: "tms.tt.api.search"
+        },
+        playlist: {
+          reorder: "tms.tt.api.playlist.reorder",
+          add: "tms.tt.api.playlist.add",
+          remove: "tms.tt.api.playplist.remove",
+          removeConfirm: "tms.tt.api.playlist.removeConfirm",
+          change: "tms.tt.api.playlist.switch",
+          songData: "tms.tt.api.playlist.songData",
+          deletePlaylist: "tms.tt.api.playlist.deletePlaylist",
+          deleteConfirm: "tms.tt.api.playlist.deleteConfirm",
+          renamePlaylist: "tms.tt.api.playlist.rename",
+          addPlaylist: "tms.tt.api.playlist.addPlaylist"
+        }
+      },
+      // event sent to the Content scripts
+      ext: { 
+        initInfo: "tms.ext.initInfo",
+        registered: "tms.ext.userRegistered",
+        snag: "tms.ext.snag",
+        vote: "tms.ext.vote",
+        songChange: "tms.ext.songChange",
+        sampleProgress: "tms.tt.sampleProgress",
+        cache: {
+          get: "tms.ext.playlistCache.get"
+        },
+        api: {
+          room: "tms.ext.api.roominfo",
+          playlists: "tms.ext.api.playlists",
+          playlist: "tms.ext.api.playlist",
+          songdata: "tms.ext.api.song",
+          snag: "tms.ext.api.snagSong",
+          vote: "tms.ext.api.vote",
+          search: "tms.ext.api.search"
+        },
+        playlist: {
+          reorder: "tms.ext.api.playlist.reorder",
+          add: "tms.ext.api.playlist.add",
+          remove: "tms.ext.api.playplist.remove",
+          removeConfirm: "tms.ext.api.playlist.removeConfirm",
+          change: "tms.ext.api.playlist.switch",
+          songData: "tms.ext.api.playlist.songData",
+          deletePlaylist: "tms.ext.api.playlist.deletePlaylist",
+          deleteConfirm: "tms.ext.api.playlist.deleteConfirm",
+          renamePlaylist: "tms.ext.api.playlist.rename",
+          addPlaylist: "tms.ext.api.playlist.addPlaylist"
+        }
+      }
+    }
+  };
+// </tms>
+
 // <socket utility>
   (function () {
-    // note: keeping module in broker to avoid load order issues
     /**
      * Turntable Websocket Utitlity. Biggybacks on Turntable's socket implementation.
      *
@@ -52,7 +129,6 @@
 
 // <event bus>
   (function () {
-    // note: keeping module in broker to avoid load order issues
     // Mechanism for communicating between TT and extension using window events
     function EventBus (subscriptions) {
       var self = this;
@@ -124,7 +200,6 @@
 
 // <song preview manager>
   (function () {
-    // note: keeping module in broker to avoid load order issues 
     function PreviewManager () {
       var self = this;
 
@@ -229,7 +304,7 @@
         // get TT room actions obj
         for (var x in room) { 
           if (room[x] && room[x].showHeart) { 
-            roomView = model.room[x]; 
+            roomView = room[x]; 
             break; 
           } 
         }
@@ -259,6 +334,30 @@
       function stopPreview () {
         tms.previewManager.stopSample(); 
       }
+
+      function showConfirmation (data, type) {
+        var layout;
+
+        if (type === 'playlist') {
+          layout = turntable.playlist.layouts.removePlaylistConfirmation(
+            data,
+            function () {
+              eventBus.postMessage(tms.events.ext.playlist.deleteConfirm, data);
+              turntable.playlist.displayMenu.removeMenu({ trigger: function () {} });
+          });
+        } else {
+          layout = turntable.playlist.layouts.removeSongConfirmation(
+            data.songs,
+            data.playlist,
+            function () {
+              eventBus.postMessage(tms.events.ext.playlist.removeConfirm);
+              turntable.playlist.displayMenu.removeMenu({ trigger: function () {} });
+          });
+        } 
+        
+        util.buildTree(layout, turntable.playlist);
+        turntable.playlist.modal.show();
+      }
     // </private helpers>
 
     // <window event subscriptions>
@@ -269,16 +368,21 @@
           callback: getInitInfo
         },
         {
-          name: tms.events.tt.showHeart,
-          callback: function () {
-            console.log("show heart " + turntable.user.id);
-            roomView.showHeart(turntable.user.id);
+          name: tms.events.tt.showMessage,
+          callback: function (message) {
+            room.showRoomTip(message, 3);
           }
         },
         {
-          name: tms.events.tt.showMessage,
-          callback: function (message) {
-            roomView.showRoomTip(message, 3);
+          name: tms.events.tt.playlist.removeConfirm,
+          callback: function (data) {
+            showConfirmation(data, 'song');
+          }
+        },
+        {
+          name: tms.events.tt.playlist.deleteConfirm,
+          callback: function (data) {
+            showConfirmation(data, 'playlist');
           }
         },
         {
@@ -394,6 +498,42 @@
             }).fail(function (err) { console.log(err); });   
           }
         },
+        {
+          name: tms.events.tt.playlist.addPlaylist,
+          callback: function (request) {
+            tms.utils.socket(request).done(function(data) {
+              eventBus.postMessage(tms.events.ext.playlist.addPlaylist, data);
+            }).fail(function (err) { console.log(err); });   
+          }
+        },
+        {
+          name: tms.events.tt.playlist.deletePlaylist,
+          callback: function (request) {
+            tms.utils.socket(request).done(function(data) {
+              eventBus.postMessage(tms.events.ext.playlist.deletePlaylist, data);
+            }).fail(function (err) { console.log(err); });   
+          }
+        },
+        {
+          name: tms.events.tt.playlist.renamePlaylist,
+          callback: function (request) {
+            tms.utils.socket(request).done(function(data) {
+              eventBus.postMessage(tms.events.ext.playlist.renamePlaylist, data);
+            }).fail(function (err) { console.log(err); });   
+          }
+        },
+        {
+          name: tms.events.tt.playlist.removeConfirm,
+          callback: function (data) {
+            showConfirmation(data, 'song');
+          }
+        },
+        {
+          name: tms.events.tt.playlist.deleteConfirm,
+          callback: function (data) {
+            showConfirmation(data, 'playlist');
+          }
+        },
 
         /*** cache evets ***/
         {
@@ -439,8 +579,7 @@
               eventBus.postMessage(tms.events.ext.vote, data.room.metadata);
               break;
             case on.songSnag:
-              console.log(data);
-              eventBus.postMessage(tms.events.ext.snag);  
+              eventBus.postMessage(tms.events.ext.snag, data);  
               break;
             case on.searchCompleted:
               eventBus.postMessage(tms.events.ext.api.search, data);

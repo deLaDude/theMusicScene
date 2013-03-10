@@ -61,7 +61,6 @@
       tmsModel: {
         tt: data,
         eventBus: eventBus,
-        room: null,
         roomInfo: null
       },
       libraryModel: {

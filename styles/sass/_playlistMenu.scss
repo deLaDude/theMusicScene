@@ -3,8 +3,8 @@
   position: absolute;
   right: 118px;
   bottom: 0px;
-  width: 250px;
-  height: 25px;
+  width: 275px;
+  height: 30px;
   background-color: $stripesOdd;
   opacity: .91;
 
@@ -12,29 +12,31 @@
   @include box-shadow($contentColor 0px 0px 5px);
   @include border-top-radius($border-radius);
 
-  &.open {
-    height: 220px;
-  }
-
   h2 {
     @extend %greyBtn;
     color: $headingColor2;
     text-shadow: 0 1px 0 $headingColor1;
-    height: 36px;
-    font-size: 13px;
+    height: 23px;
+    padding-top: 7px;
+    font-size: 16px;
     font-weight: bold;
     text-align: center;
-    @include border-top-radius($border-radius);
-
-    height: 20px;
-    padding-top: 5px;
     cursor: pointer;
+    @include border-top-radius($border-radius);
     @include transition(all $panelSpeed ease-in-out);
 
     &.addActive {
       @extend %blueBtn;
       color: $contentColor;
       text-shadow: 0 1px 0 $headingColor2;
+    }
+  }
+
+  &.open {
+    height: 222px;
+  
+    h2 {
+      cursor: default;
     }
   }
 
@@ -50,39 +52,78 @@
     cursor: pointer;
     @include transition(background-color 0.3s ease-in-out);
 
-    &.active::before {
-      content: '♫';
-      font-size: 14px;
-      margin-right: 3px;    
-      text-shadow: 0 0 7px $buttonActive, 
-                    0 0 8px $buttonActive,
-                    0 0 9px $buttonActive, 
-                    0 0 10px $buttonActive;
+    label, input {
+      width: 60%;
+    }
+
+    label { 
+      @extend %ellipsis;
+      cursor: pointer; 
+      display: inline-block;
+    }
+
+    input {
+      position: absolute;
+      left: 2px;
+      top: 1px;
     }
 
     & > div {
       position: absolute;
       right: 3px;
       top: 3px;
-      width: 80px; 
+      width: 39%; 
     }
 
-    .playBtn, .addBtn {
+    &:hover {
+      background-color: $stripesHighlight;
+
+      .playBtn, 
+      .addBtn, 
+      .editBtn, 
+      .removeBtn {
+        opacity: 0.7;
+      }
+    }
+
+    .playBtn, 
+    .addBtn, 
+    .editBtn, 
+    .removeBtn {
       float: right;
-      margin-left: 2px;
+      margin-left: 5px;
       @include transition(opacity 0.3s ease-in-out);
     }
 
-    .playBtn {
-      @extend %play-icon;
-
-      font-size: 7px;
+    .playBtn, 
+    .editBtn, 
+    .removeBtn,
+    .cancelBtn {
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       opacity: 0.0;
 
       &:hover {
-        @extend %orangeBtn;
-      }
+        @extend %blueBtn;
+      }      
+    }
+
+    .playBtn {
+      @extend %play-icon;
+      font-size: 7px;
+    }
+
+
+    &.active .playBtn,
+    .editBtn.active {
+      @extend %orangeBtn;
+      opacity: 1;
+    }
+
+    .editBtn {
+      @extend %edit-icon;  
+      position: relative;
     }
 
     .addBtn {
@@ -92,8 +133,32 @@
       margin-top: 1px;
       margin-left: 4px;
       font-size: 9px;
-      @include border-radius($border-radius);
       opacity: 0;
+      @include border-radius($border-radius);
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .removeBtn,
+    .cancelBtn {
+      @extend %x-icon;
+      font-size: 8px;
+
+      & div {
+        margin-left: 7px;
+        margin-top: 2px;
+      }
+
+      &:hover {
+        @extend %redBtn;
+
+        div,
+        div::after {
+          background-color: $headingColor2; 
+        }
+      }
     }
 
     &:nth-child(even) {
@@ -110,17 +175,47 @@
       background-color: lighten($stripesHighlight, 7%);
     }
 
-    &:hover {
-      background-color: $stripesHighlight;
+    &.create {
 
-      .playBtn, .addBtn {
-        opacity: 0.8;
-      
+      label { 
+        width: 100%;
+        display: inline-block;
+        text-transform: lowercase; 
+        text-align: center;
+      }
+
+      input {
+        width: 90%;
+        opacity: 1;
+        z-index: 9;
+      }
+
+      &:hover {
+        label {
+          line-height: 19px;
+          font-weight: bold;
+          color: $happyColor;
+        }
+
+        background-color: $songBoardColor;
+      }
+
+      .cancelBtn {
+        position: absolute;
+        right: 2px;
+        top: 2px;
+        opacity: 0.7; 
+
         &:hover {
-          opacity: 1;
+          @extend %blueBtn;
+          opacity: 0.7;
+
+          div,
+          div::after {
+            background-color: $contentColor; 
+          }
         }
       }
     }
-
   }
 }

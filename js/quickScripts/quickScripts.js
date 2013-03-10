@@ -145,6 +145,52 @@ roomView.showHeart('4dfcdd564fe7d0250302b5a5');
 
 
 
+// show message
+var room;
+for (var i in turntable) { 
+  if (turntable[i] && turntable[i].roomId) { 
+    room = turntable[i]; 
+    break; 
+  } 
+}
+room.showRoomTip("hellow world", 3);
+
+
+// show delete playlist menu
+util.buildTree(turntable.playlist.layouts.removePlaylistConfirmation(
+  "myplaylist",
+  function () {
+    console.log("durka!durka!");
+    turntable.playlist.displayMenu.removeMenu({ trigger: function () {}});
+}),
+turntable.playlist);
+turntable.playlist.modal.show();
+
+// show delete song menu
+util.buildTree(turntable.playlist.layouts.removeSongConfirmation(
+  "20 songs",
+  "myplaylist",
+  function () {
+    console.log("durka!durka!");
+    turntable.playlist.displayMenu.removeMenu();
+  }), 
+turntable.playlist);
+turntable.playlist.modal.show({ trigger: function () {}});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

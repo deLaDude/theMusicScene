@@ -31,8 +31,13 @@ var tms = {
         reorder: "tms.tt.api.playlist.reorder",
         add: "tms.tt.api.playlist.add",
         remove: "tms.tt.api.playplist.remove",
+        removeConfirm: "tms.tt.api.playlist.removeConfirm",
         change: "tms.tt.api.playlist.switch",
-        songData: "tms.tt.api.playlist.songData"
+        songData: "tms.tt.api.playlist.songData",
+        deletePlaylist: "tms.tt.api.playlist.deletePlaylist",
+        deleteConfirm: "tms.tt.api.playlist.deleteConfirm",
+        renamePlaylist: "tms.tt.api.playlist.rename",
+        addPlaylist: "tms.tt.api.playlist.addPlaylist"
       }
     },
     // event sent to the Content scripts
@@ -59,8 +64,13 @@ var tms = {
         reorder: "tms.ext.api.playlist.reorder",
         add: "tms.ext.api.playlist.add",
         remove: "tms.ext.api.playplist.remove",
+        removeConfirm: "tms.ext.api.playlist.removeConfirm",
         change: "tms.ext.api.playlist.switch",
-        songData: "tms.ext.api.playlist.songData"
+        songData: "tms.ext.api.playlist.songData",
+        deletePlaylist: "tms.ext.api.playlist.deletePlaylist",
+        deleteConfirm: "tms.ext.api.playlist.deleteConfirm",
+        renamePlaylist: "tms.ext.api.playlist.rename",
+        addPlaylist: "tms.ext.api.playlist.addPlaylist"
       }
     }
 	}

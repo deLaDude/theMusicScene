@@ -115,6 +115,8 @@ body {
 	nav {
 		position: relative;
 		width: 43%;
+	
+
 	}
 
 	.bopBtn,
@@ -255,13 +257,51 @@ body {
 	}
 
 	& section > div {
+		position: relative;
 		width: 100%;
 		padding: 5px;
 		margin: -5px;
 		background-color: transparentize($contentBgColor, .95);
+
+		.playBtn { 
+			@extend %play-icon;
+			position: absolute;
+			top: 2px;
+			right: 5px;
+			width: 30px;
+			height: 30px;
+			font-size: 12px;
+			border-radius: 50%;
+			cursor: pointer;
+			z-index: 9;
+		}
+
+		.ticker {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 0%;
+			height: 100%;
+			z-index: 1;
+		}
+
+		&:hover .playBtn {
+	    @extend %orangeBtn;
+	    opacity: 1;
+	    box-shadow: inset 0 0 3px $contentColor, inset 0 0 3px $contentColor;
+	  }
+
+	  &.previewActive .ticker {
+	  	-webkit-animation-name: ticker;
+			-webkit-animation-duration: 30s;
+			-webkit-animation-iteration-count: infinite;
+			background-color: darken($contentColor, 5%);
+	  }
 	}
 
 	div { float: left; }
+
+	img, label, span { position: relative; z-index: 9; }
 
 	img {
 		width: 25px;

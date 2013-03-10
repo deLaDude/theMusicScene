@@ -53,7 +53,6 @@
           for (var i in self.subscriptions) {
             if (eventData.type === self.subscriptions[i].name) {
               self.subscriptions[i].callback(eventData.data);
-              break;
             }
           }
         }
