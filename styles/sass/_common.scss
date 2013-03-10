@@ -210,14 +210,14 @@
   }
 
   &:hover div div {
-    -webkit-box-shadow: 0 0 4px lighten($buttonActive, 10%);
+    -webkit-box-shadow: 0 0 4px lighten(#4fc9ee, 10%);
 
     &::before {
-      background: lighten($buttonActive, 10%);
+      background: #4fc9ee;
     }
 
     &::after {
-      border-color: lighten($buttonActive, 10%);
+      border-color: #4fc9ee;
     }
   }
   
@@ -258,23 +258,19 @@
 
 %heart-icon {
   text-align: center;
+  display: inline-block;
+  vertical-align: middle;
   
-  & > div {
-    display: inline-block;
-    vertical-align: middle;
-  }
-
-  &:hover div div {
+  &:hover div {
     &::before, &::after {
       background: lighten($buttonActive, 10%);
     }
   }
   
-  div div {
+  div {
     @include box-sizing(content-box);
     position: relative;
     font-size: 19px;
-    margin-top: 4px;
     width: 0;
     height: 0;
 
@@ -283,6 +279,8 @@
     &::before, &::after {
       position: absolute;
       content: "";
+      left: 1.3em;
+      top: 0.6em;
       width: 1em;
       height: 1.6em;
       background: $contentColor;
@@ -294,7 +292,7 @@
     }
 
     &::after {
-      left: -0.96em;
+      left: 0.3em;
       -webkit-transform: rotate(45deg);
       transform: rotate(45deg);
       -webkit-transform-origin: 100% 100%;
@@ -455,7 +453,7 @@
   }
 }
 
-%x-icon > div {
+%x-icon div {
   position:relative;
   width: 0.2em;
   height: 0.7em;
@@ -478,6 +476,8 @@
 }
 
 %edit-icon {
+  position: relative;
+
   div::before,
   div::after {
     position: absolute;
@@ -507,6 +507,36 @@
     background: $contentColor;
   }
 }
+
+%check-icon div {
+  font-size: 10px;
+  position: relative;
+  width: 0.5em;
+  height: 2.0em;
+  margin: 30% auto;
+  background: #2c2c2c;
+  border-radius: 0.5em;
+  -webkit-transform: rotate(-30deg);
+  transform: rotate(-30deg);
+  margin-left: -0.7em;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left:1em;
+    top:-0.5em;
+    width: 0.5em;
+    height: 3.0em;
+    background: #2c2c2c;
+    border-radius: 0.5em;
+    -webkit-transform: rotate(50deg);   
+    -moz-transform: rotate(50deg);
+    -o-transform: rotate(50deg);
+    -ms-transform: rotate(50deg);
+    transform: rotate(50deg);
+  }
+}
+
 
 /* Toggle Switches */
 

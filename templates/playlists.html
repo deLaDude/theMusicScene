@@ -2,18 +2,22 @@
 <ul>
   <li class="create">
     <label data-bind="click: createNewPlaylist">Create a New Playlist</label>
-    <input type="text" placeholder="Type a name and hit enter to save." data-bind="visible: creatingPlaylist, value: newPlaylistInput, valueUpdate: 'afterkeydown', onEnter: saveNewPlaylist, clickBubble: false" />
+    <input type="text" placeholder="Type a name and hit enter to save." data-bind="visible: creatingPlaylist, hasfocus: true, value: newPlaylistInput, valueUpdate: 'afterkeydown', onEnter: saveNewPlaylist, clickBubble: false" />
 
-    <div class='cancelBtn' title="Cancel" data-bind="visible: creatingPlaylist, click: createNewPlaylist">
+    <div class='cancelBtn' title="Save playlist." data-bind="visible: creatingPlaylist, click: createNewPlaylist">
       <div></div>
     </div>
   </li>
   <!-- ko foreach: playlists -->
     <li data-bind="click: $parent.changeViewing, css: { active: active, viewing: name() === $root.library.viewingPlaylist().name() }">
       <label data-bind="text: name"></label>
-      <input type="text" data-bind="visible: editInProgress, value: playlistInput, valueUpdate: 'afterkeydown', onEnter: saveName, clickBubble: false" />
+      <input type="text" data-bind="hasfocus: true, visible: editInProgress, value: playlistInput, valueUpdate: 'afterkeydown', onEnter: saveName, clickBubble: false" />
       <div>
         <div class='playBtn' data-bind="click: $parent.changeActive, clickBubble: false, attr: { title: active() ? name() + ' is active.' : 'Set ' + name() + ' as active.' }, visible: $parent.selectedSongs().length === 0">
+          <div></div>
+        </div>
+        
+        <div class='heartBtn' data-bind="click: $parent.addSnagToPlaylist, clickBubble: false, css: { active: activeSongInList }, attr: { title: activeSongInList() ? 'Playing song is in this list already.' : 'Add playing song to this list.' }">
           <div></div>
         </div>
         

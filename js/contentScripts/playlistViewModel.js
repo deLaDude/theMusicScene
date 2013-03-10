@@ -7,6 +7,36 @@
     self.name = ko.observable(model.name);
     self.active = ko.observable(model.active);
 
+    self.activeSongInList = ko.observable(false);
+
+    self.getSongData = function (songId) {
+      var returnEvent = tms.events.ext.api.songdata + self.name().split(' ').join('_');
+      return self.eventBus.request(
+        tms.events.tt.api.songdata,
+        {
+          api: "playlist.get_metadata",
+          playlist_name: self.name(),
+          files: [songId]
+        },
+        returnEvent
+      );
+    };
+
+    self.getSongIds = function () {
+      var playlistName = self.name(),
+          returnEvent = tms.events.ext.api.playlist + playlistName.split(' ').join('_');
+        
+      return self.eventBus.request(
+        tms.events.tt.api.playlist,
+        {
+          api: "playlist.all",
+          playlist_name: playlistName,
+          minimal: true
+        },
+        returnEvent
+      );
+    };
+
     self.playlistInput = ko.observable(model.name);
     self.editInProgress = ko.observable(false);
 

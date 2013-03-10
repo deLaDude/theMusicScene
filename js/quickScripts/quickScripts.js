@@ -58,18 +58,28 @@ tms.utils.socket({
 setInterval(
   function () {
     tms.utils.socket({
-      api: "playlist.list_all",
-      minimal: true
+      api: "playlist.list_all"
     }).done(function (data) {
       for(var i in data.list) {
         if (data.list[i].active) {
-          console.log(data.list[i].name);
+          console.log(data.list[i]);
         }
       }
     }).fail(function (data) {
       console.log(data);
     });
   } ,3000);
+
+
+tms.utils.socket({
+  api: "playlist.list_all"
+}).done(function (data) {
+  for(var i in data.list) {
+    console.log(data.list[i]);
+  }
+}).fail(function (data) {
+  console.log(data);
+});
 
 // get metadata
 

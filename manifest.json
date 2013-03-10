@@ -17,6 +17,7 @@
         "/js/lib/jquery.liveQuery.js",
         "/js/lib/jquery.idleTimer.js",
         "/js/lib/jquery.hoverintent.js",
+        "/js/ko/ko.hasFocusBindingHandler.js",
         "/js/ko/ko.onEnterBindingHandler.js",
         "/js/ko/ko.hoverintentBindingHandler.js",
         "/js/ko/ko.dataTablesBindingHandler.js",

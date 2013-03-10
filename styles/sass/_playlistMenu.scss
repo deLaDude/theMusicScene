@@ -14,26 +14,29 @@
 
   h2 {
     @extend %greyBtn;
+    position: relative;
     color: $headingColor2;
     text-shadow: 0 1px 0 $headingColor1;
-    height: 23px;
+    height: 27px;
     padding-top: 7px;
     font-size: 16px;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
+    z-index: 9;
+    box-shadow: $listShadow;
     @include border-top-radius($border-radius);
     @include transition(all $panelSpeed ease-in-out);
 
     &.addActive {
       @extend %blueBtn;
-      color: $contentColor;
-      text-shadow: 0 1px 0 $headingColor2;
+      color: darken($headingColor2, 40%);
+      text-shadow: 0 1px 0 $contentBgColor;
     }
   }
 
   &.open {
-    height: 222px;
+    height: 227px;
   
     h2 {
       cursor: default;
@@ -44,6 +47,7 @@
     list-style-type: none;
     height: 193px;
     overflow: auto;
+    box-shadow: inset 0 0 2px #333;
   }
 
   li {
@@ -78,7 +82,8 @@
     &:hover {
       background-color: $stripesHighlight;
 
-      .playBtn, 
+      .playBtn,
+      .heartBtn, 
       .addBtn, 
       .editBtn, 
       .removeBtn {
@@ -86,7 +91,8 @@
       }
     }
 
-    .playBtn, 
+    .playBtn,
+    .heartBtn, 
     .addBtn, 
     .editBtn, 
     .removeBtn {
@@ -95,7 +101,8 @@
       @include transition(opacity 0.3s ease-in-out);
     }
 
-    .playBtn, 
+    .playBtn,
+    .heartBtn, 
     .editBtn, 
     .removeBtn,
     .cancelBtn {
@@ -112,6 +119,35 @@
     .playBtn {
       @extend %play-icon;
       font-size: 7px;
+    }
+
+    .heartBtn {
+      @extend %heart-icon;
+      
+      div {
+        font-size: 7px; 
+      }
+
+      &:hover {
+        div {
+          &::before, &::after {
+            background-color: $warningColor;
+          }
+        }
+      }
+
+      &.active {
+        @extend %blueBtn;
+        opacity: 1;
+
+        div {
+
+          &::before,
+          &::after {
+            background: $warningColor;
+          }
+        }
+      }      
     }
 
 
@@ -170,9 +206,8 @@
     }
 
     &.viewing {
-      color: lighten($contentColor, 10%);
-      text-shadow: 0 0 2px $buttonActive;
-      background-color: lighten($stripesHighlight, 7%);
+      // box-shadow: inset 0 0 5px $buttonActive;
+      background-color: $stripesHighlight;
     }
 
     &.create {

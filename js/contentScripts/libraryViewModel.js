@@ -2,6 +2,7 @@
   
   tms.viewmodels.LibraryViewModel = function (model, options) {
     var self = this;     
+    self.tt = model.tt;
     self.eventBus = model.eventBus;
 
     // <turntable search>
@@ -115,75 +116,6 @@
 
     // <playlist management>
       // <private members>
-        var activeListLength;
-      
-        self.creatingPlaylist = ko.observable(false);
-        self.newPlaylistInput = ko.observable("");
-        self.saveNewPlaylist = function () {
-          self.eventBus.request(
-            tms.events.tt.playlist.addPlaylist,
-            {
-              api: "playlist.create",
-              playlist_name: self.newPlaylistInput()
-            },
-            tms.events.ext.playlist.addPlaylist)
-            .done(function (){
-              var playlist = tms.factories.playlistFactory({
-                                name: self.newPlaylistInput(),
-                                active: true
-                              }, self.eventBus);
-
-              self.playlists.push(playlist);    
-              self.playlists.sort(function(a,b){
-                if(a.name().toLowerCase()<b.name().toLowerCase()) return -1;
-                if(a.name().toLowerCase()>b.name().toLowerCase()) return 1;
-                return 0;
-              });
-
-              self.changeActive(playlist);
-              self.creatingPlaylist(false);
-              self.newPlaylistInput('');
-            });
-        };
-
-        self.createNewPlaylist = function () {
-          self.creatingPlaylist(self.creatingPlaylist() ? false : true);
-        };
-
-        self.deletePlaylist = function (playlistName) {
-          self.eventBus.request(
-              tms.events.tt.playlist.deletePlaylist,
-              {
-                api: "playlist.delete",
-                playlist_name: playlistName
-              },
-              tms.events.ext.playlist.deletePlaylist) 
-            .done(function () {
-              $.each(self.playlists(), function (i, list) {
-                if (playlistName === list.name()) {
-                  // if we're deleting active we need to set new active
-                  if (list.active()) {
-                    // prefer next playlist. if at end then use first
-                    if (i < self.playlists().length - 1) {
-                      self.changeActive(self.playlists()[i + 1]);
-                    } else {
-                      self.changeActive(self.playlists()[0]);
-                    }
-                  }
-
-                  self.playlists.splice(i, 1);
-                  return;
-                }
-              });
-            });
-        };
-
-        self.confirmDelete = function (playlist) {
-          self.eventBus.postMessage(
-            tms.events.tt.playlist.deleteConfirm, 
-            playlist.name());
-        };
-
         // changes viewing playlist and can also make it the activeplaylist 
         function changeviewingPlaylist (playlist, makeActive) {
           var returnEvent = tms.events.ext.api.playlist + playlist.name().split(' ').join('_');
@@ -271,14 +203,13 @@
         }
 
         // adds the passed in songs to the passed in playlist. updates songList if updateViewing is true.
-        function addSongsToPlaylist (songs, playlistName, updateViewing, isSnag) {
+        function addSongsToPlaylist (songs, playlistName, updateViewing, addToEnd) {
           var songIds = $.map(songs, function (song, i) { return { fileid: song.fileId() }; }),
               targetPos = 0;
 
           // if we're snagging, add to bottom (curretly assumes we add to active list)
-          if (isSnag) {
-            targetPos = activeListLength;
-            activeListLength = activeListLength + songIds.length;
+          if (addToEnd) {
+            targetPos = addToEnd;
           }
 
           return self.eventBus.request(
@@ -307,6 +238,11 @@
 
               self.songList(songList);
             }
+
+            // if we added to a non-active list, we need to reset active
+            if (self.activePlaylist().name() !== playlistName) {
+              self.resetActiveList();
+            }
           });
         }      
       // </private members>
@@ -321,6 +257,12 @@
         self.selectedSongs = ko.observableArray([]);
         self.tableOptions = model.tableOptions;
 
+        self.currentSong = ko.observable();
+        
+        self.creatingPlaylist = ko.observable(false);
+        self.newPlaylistInput = ko.observable("");
+      
+
         // TODO: use this to recover accidentally deleted songs
         self.recentlyRemoved = ko.observableArray([]);
         
@@ -332,6 +274,20 @@
             self.recentlyRemoved.slice(0, reduceBy);
           }
         });
+
+        self.currentSong.subscribe(function (song) {
+          $.each(self.playlists(), function (i, playlist) {
+            playlist.getSongData(song.fileId())
+              .done(function (data) {
+                if(data.files[song.fileId()]) {
+                  playlist.activeSongInList(true);
+                } else {
+                  playlist.activeSongInList(false);
+                }    
+              });
+          });
+        });
+        self.currentSong(model.currentSong);
 
         self.playlistsOpen = ko.observable(false);
 
@@ -345,6 +301,71 @@
           }
           return title;
         });
+
+        self.saveNewPlaylist = function () {
+          self.eventBus.request(
+            tms.events.tt.playlist.addPlaylist,
+            {
+              api: "playlist.create",
+              playlist_name: self.newPlaylistInput()
+            },
+            tms.events.ext.playlist.addPlaylist)
+            .done(function (){
+              var playlist = tms.factories.playlistFactory({
+                                name: self.newPlaylistInput(),
+                                active: true
+                              }, self.eventBus);
+
+              self.playlists.push(playlist);    
+              self.playlists.sort(function(a,b){
+                if(a.name().toLowerCase()<b.name().toLowerCase()) return -1;
+                if(a.name().toLowerCase()>b.name().toLowerCase()) return 1;
+                return 0;
+              });
+
+              self.changeActive(playlist);
+              self.creatingPlaylist(false);
+              self.newPlaylistInput('');
+            });
+        };
+
+        self.createNewPlaylist = function () {
+          self.creatingPlaylist(self.creatingPlaylist() ? false : true);
+        };
+
+        self.deletePlaylist = function (playlistName) {
+          self.eventBus.request(
+              tms.events.tt.playlist.deletePlaylist,
+              {
+                api: "playlist.delete",
+                playlist_name: playlistName
+              },
+              tms.events.ext.playlist.deletePlaylist) 
+            .done(function () {
+              $.each(self.playlists(), function (i, list) {
+                if (playlistName === list.name()) {
+                  // if we're deleting active we need to set new active
+                  if (list.active()) {
+                    // prefer next playlist. if at end then use first
+                    if (i < self.playlists().length - 1) {
+                      self.changeActive(self.playlists()[i + 1]);
+                    } else {
+                      self.changeActive(self.playlists()[0]);
+                    }
+                  }
+
+                  self.playlists.splice(i, 1);
+                  return;
+                }
+              });
+            });
+        };
+
+        self.confirmDelete = function (playlist) {
+          self.eventBus.postMessage(
+            tms.events.tt.playlist.deleteConfirm, 
+            playlist.name());
+        };
 
         // Requesting a playlist makes it active; this is TT's default behavior 
         //  So sometime we need to reset the active playlist to keep TMS and TT in sync.
@@ -383,9 +404,42 @@
           self.clearSelectedCallback();
         };
 
-        self.addSnagToPlaylist = function (song) {
-          var updateViewing = self.activePlaylist().name() === self.viewingPlaylist().name();
-          addSongsToPlaylist([song], self.activePlaylist().name(), updateViewing, updateViewing);
+        self.addSnagToPlaylist = function (playlist) {
+          // if snaggable, and not already in list
+          if (!playlist.activeSongInList() && self.currentSong().snaggable()) { 
+            var userId = self.tt.userId,
+                djId = self.currentSong().djId(),
+                songId = self.currentSong().fileId(),
+                roomId = self.tt.roomId,
+                sh = $.sha1(Math.random() + ""),
+                fh = $.sha1(Math.random() + ""),
+                i  = [userId, djId, songId, roomId,
+                          'queue', 'board', 'false', 'false', sh],
+                vh = $.sha1(i.join('/')),
+                snagReq = { 
+                  api      : 'snag.add', 
+                  djid     : djId,
+                  songid   : songId,
+                  roomid   : roomId,
+                  site     : 'queue',
+                  location : 'board',
+                  in_queue : 'false',
+                  blocked  : 'false',
+                  vh       : vh,
+                  sh       : sh,
+                  fh       : fh
+                 };
+
+
+            // log snag, add to playlist then update state
+            self.eventBus.request(tms.events.tt.api.snag, snagReq, tms.events.ext.api.snag)
+              .then(playlist.getSongIds)
+                .done(function (listData) {
+                  var updateViewing = playlist.name() === self.viewingPlaylist().name();
+                  addSongsToPlaylist([self.currentSong()], playlist.name(), updateViewing, listData.list.length);
+                  playlist.activeSongInList(true);
+                });           
+          } 
         };
 
         // add songs in selected list to playlist and clear selected list
@@ -425,19 +479,25 @@
 
         // always assumes we want to remove from viewing list
         self.removeSongsFromPlaylist = function (songIndices) {
-          // if we're playing a preview we'll want to turn it off before removing
-          if (self.playingPreview()) {
-            $.each(songIndices, function (i, songPos) {
-              // add to recently removed for easy recovery
-              self.recentlyRemoved.push(self.songList()[songPos]);
+          
+          $.each(songIndices, function (i, songPos) {
+            var songId = self.songList()[songPos].fileId();
 
-              if (self.songList()[songPos].fileId() === previewSong.fileId()){
-                self.eventBus.postMessage(tms.events.tt.pauseSample);     
-                self.playingPreview(false);
-                return;
-              }
-            });            
-          }
+            // add to recently removed for easy recovery
+            self.recentlyRemoved.push(self.songList()[songPos]);
+
+            // change playlist state if needed
+            if (self.currentSong().fileId() === songId) {
+              self.viewingPlaylist().activeSongInList(false);
+            }
+
+            // stop song preview if needed
+            if (self.playingPreview() && previewSong.fileId() === songId){
+              self.eventBus.postMessage(tms.events.tt.pauseSample);     
+              self.playingPreview(false);
+              return;
+            }
+          });           
 
           self.eventBus.request(
             tms.events.tt.playlist.remove,
@@ -508,38 +568,14 @@
             // get top of queue from TT
             var songId;
             
-            self.getActiveSongIds().then(function (listData) {
+            self.activePlaylist.getSongIds().then(function (listData) {
               songId = listData.list[0]._id;
-
-              return self.eventBus.request(
-                tms.events.tt.api.songdata,
-                {
-                  api: "playlist.get_metadata",
-                  playlist_name: playlistName,
-                  files: [songId]
-                },
-                tms.events.ext.api.songdata
-              );
+              return self.activePlaylist.getSongData(songId);
             })
             .done(function(songData){
               self.topOfActive(new tms.viewmodels.SongViewModel(songData.files[songId]));
             });
           }
-        };
-
-        self.getActiveSongIds = function () {
-          var playlistName = self.activePlaylist().name(),
-              returnEvent = tms.events.ext.api.playlist + playlistName.split(' ').join('_');
-            
-          return self.eventBus.request(
-            tms.events.tt.api.playlist,
-            {
-              api: "playlist.all",
-              playlist_name: playlistName,
-              minimal: true
-            },
-            returnEvent
-          );
         };
       // </public members>
     // </playlist management>         

@@ -1,3 +1,5 @@
+@import "config";
+
 // variables
 $border-radius: 5px !default;
 
@@ -25,8 +27,10 @@ $buttonActive: #d8a126;
 $happyColor: #4b8821;
 $warningColor: #912120;
 
+$listShadow: 0px 3px 5px transparentize(#333, 0.6);
+
+
 // imports
-@import "config";
 @import "common";
 @import "dataTables";
 @import "songList";
@@ -116,116 +120,115 @@ body {
 		position: relative;
 		width: 43%;
 	
+		.bopBtn,
+		.listBtn,
+		.heartBtn {
+			position: relative;
+			height: 50px;
+			width: 50px;
+			margin: 5px;
+			cursor: pointer;
+			float: left;
+			border-radius: 50%;
+			-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 
-	}
+			@include transition(all 0.4s ease-in-out);
 
-	.bopBtn,
-	.listBtn,
-	.heartBtn {
-		position: relative;
-		height: 50px;
-		width: 50px;
-		margin: 5px;
-		cursor: pointer;
-		float: left;
-
-		border-radius: 25px;
-		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-
-		@include transition(all 0.4s ease-in-out);
-
-		&.active {
-			@extend %orangeBtn;
-		}
-	}	
-
-	.listBtn {
-		@extend %playlist-icon;
-		margin-left: 10px;
-
-		&.active div div{
-			&::before {
-	      background-color: #4fc9ee;
+			&:hover {
+				@extend %orangeBtn;
+				
 			}
 
-			&::after {
-				border-color: #4fc9ee;
+			&.active {
+				@extend %blueBtn;
 			}
-		}
+		}	
 
-		&:hover, &.active:hover {
-			@extend %blueBtn;
-		
-			&.active div div {
+		.listBtn {
+			@extend %playlist-icon;
+			margin-left: 10px;
+
+			&.active div div{
 				&::before {
-	      	background-color: lighten($contentColor, 10%);
+		      background-color: $buttonActive;
 				}
 
 				&::after {
-					border-color: lighten($contentColor, 10%);
+					border-color: $buttonActive;
+				}
+			}
+
+			&:hover, &.active:hover {		
+				&.active div div {
+					&::before {
+		      	background-color: lighten($contentColor, 10%);
+					}
+
+					&::after {
+						border-color: lighten($contentColor, 10%);
+					}
 				}
 			}
 		}
-	}
 
-	.heartBtn {
-		@extend %heart-icon;
+		.heartBtn {
+			@extend %heart-icon;
 
-		&.active {
-			div div {
+			&.active {
+				div {
 
-		    &::before,
-		    &::after {
-		      background: $warningColor;
-		    }
-		  }
-		}
+			    &::before,
+			    &::after {
+			      background: $warningColor;
+			    }
+			  }
+			}
 
-		&:hover {
-			-webkit-box-shadow: none;
-			@extend %blueBtn;
+			&:hover {
+				-webkit-box-shadow: none;
 			
-			div div {
-				&::before, &::after {
-					background-color: $warningColor;
+				div {
+					&::before, &::after {
+						background-color: $warningColor;
+					}
 				}
 			}
 		}
-	}
 
-	.bopBtn {
-		@extend %headphones-icon;
+		.bopBtn {
+			@extend %headphones-icon;
 
-		& > div {
-			margin-top: 6px;			
-			margin-left: 2px;
-		}
-
-		&.active {
-			& > div > div {
-        border-color: darken(#4fc9ee, 10%);
-
-	      &::before,
-	      &::after {
-					background-color: #4fc9ee;
-					-webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-	      }
+			& > div {
+				margin-top: 6px;			
+				margin-left: 2px;
 			}
-		}
-	
-		&:hover, &.active:hover {
-			@extend %blueBtn;
-			
-			& > div > div {				
-				border-color: lighten($contentColor, 10%);
 
-				&::before,
-				&::after {
-					background-color: lighten($contentColor, 10%);
+			&.active {
+				& > div > div {
+	        border-color: darken($songBoardColor, 10%);
+
+		      &::before,
+		      &::after {
+						background-color: darken($songBoardColor, 10%);
+						// -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,0.3);
+		      }
+				}
+			}
+		
+			&:hover, &.active:hover {		
+				& > div > div {				
+					border-color: darken(#4fc9ee, 15%);
+
+					&::before,
+					&::after {
+						background-color: darken(#4fc9ee, 15%);
+					}
 				}
 			}
 		}
+
 	}
+
 }
 
 #hud {

@@ -426,9 +426,11 @@
         {
           name: tms.events.tt.api.songdata,
           callback: function (request) {
+            var returnEvent = tms.events.ext.api.songdata + request.playlist_name.split(' ').join('_');
+
             tms.utils.socket(request)
               .done(function(data) {
-                eventBus.postMessage(tms.events.ext.api.songdata, data);
+                eventBus.postMessage(returnEvent, data);
               })
               .fail(function (err) { console.log(err); });
           }

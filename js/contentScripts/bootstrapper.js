@@ -64,6 +64,7 @@
         roomInfo: null
       },
       libraryModel: {
+        tt: data,
         eventBus: eventBus,
         playlistData: [],
         tableOptions: {
@@ -84,9 +85,9 @@
             { "sWidth": "3%", "aTargets": [ 0 ] },
             { "sWidth": "19%", "aTargets": [ 1 ] },
             { "sWidth": "28%", "aTargets": [ 2 ] },
-            { "sWidth": "20%", "aTargets": [ 3 ] },
+            { "sWidth": "19%", "aTargets": [ 3 ] },
             { "sWidth": "19%", "aTargets": [ 4 ] },
-            { "sWidth": "6%", "aTargets": [ 5 ] },
+            { "sWidth": "7%", "aTargets": [ 5 ] },
             { "sWidth": "3%", "aTargets": [ 6 ] },
             //column classes
             { "sClass": "pos", "aTargets": [ 0 ] },
@@ -151,8 +152,8 @@
    * @param  {object} model    [app model]
    */
   function init (models) {
+    models.tmsModel.currentSong = models.libraryModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
     models.tmsModel.library = tms.factories.libraryFactory(models.libraryModel);
-    models.tmsModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
     
     // wait til TT dynamic html has been generated
     $("#bigboard").livequery(function () {

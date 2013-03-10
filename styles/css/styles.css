@@ -56,15 +56,18 @@
  * Custom Common Styles
  */
 /* line 87, ../sass/_common.scss */
-#songList section button, #tmsContent menu h2, #songList section button.deselect, #songList .toTop:hover,
+#songList section button, #tmsContent menu h2, #songList section button.deselect, #songList table thead .sorting_asc, #songList table thead .sorting_desc, #songList .toTop:hover,
 #songList .toBottom:hover,
 #songList .playPause:hover, #tmsContent menu h2.addActive, #tmsContent menu li .playBtn:hover,
+#tmsContent menu li .heartBtn:hover,
 #tmsContent menu li .editBtn:hover,
 #tmsContent menu li .removeBtn:hover,
-#tmsContent menu li .cancelBtn:hover, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.active:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn, #songList section button.remove, #songList td .remove:hover, #tmsContent menu li.active .playBtn,
-#tmsContent menu li .editBtn.active, #tmsPanel .bopBtn.active,
-#tmsPanel .listBtn.active,
-#tmsPanel .heartBtn.active, #hud section > div:hover .playBtn {
+#tmsContent menu li .cancelBtn:hover, #tmsContent menu li .heartBtn.active, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel nav .bopBtn.active,
+#tmsPanel nav .listBtn.active,
+#tmsPanel nav .heartBtn.active, #tmsContent menu li .addBtn, #songList section button.remove, #songList td .remove:hover, #tmsContent menu li.active .playBtn,
+#tmsContent menu li .editBtn.active, #tmsPanel nav .bopBtn:hover,
+#tmsPanel nav .listBtn:hover,
+#tmsPanel nav .heartBtn:hover, #hud section > div:hover .playBtn {
   -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), 0 0 2px rgba(0, 0, 0, 0.2);
   opacity: 0.75;
@@ -74,22 +77,29 @@
   transition: all 0.4s ease-in-out;
 }
 /* line 94, ../sass/_common.scss */
-#songList section button:hover, #tmsContent menu h2:hover, #songList section button.deselect:hover, #songList .toTop:hover,
+#songList section button:hover, #tmsContent menu h2:hover, #songList section button.deselect:hover, #songList table thead .sorting_asc:hover, #songList table thead .sorting_desc:hover, #songList .toTop:hover,
 #songList .toBottom:hover,
 #songList .playPause:hover, #tmsContent menu h2.addActive:hover, #tmsContent menu li .playBtn:hover,
+#tmsContent menu li .heartBtn:hover,
 #tmsContent menu li .editBtn:hover,
 #tmsContent menu li .removeBtn:hover,
-#tmsContent menu li .cancelBtn:hover, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.active:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover, #tmsContent menu li .addBtn:hover, #songList section button.remove:hover, #songList td .remove:hover, #tmsContent menu li.active .playBtn:hover,
-#tmsContent menu li .editBtn.active:hover,
-#tmsPanel .heartBtn.active:hover, #hud section > div:hover .playBtn:hover, #songList section button.active, #tmsContent menu h2.active, #songList section button.active.deselect, #songList .active.toTop:hover,
+#tmsContent menu li .cancelBtn:hover, #tmsContent menu li .heartBtn.active:hover, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel nav .bopBtn.active:hover,
+#tmsPanel nav .listBtn.active:hover,
+#tmsPanel nav .heartBtn.active:hover, #tmsContent menu li .addBtn:hover, #songList section button.remove:hover, #songList td .remove:hover, #tmsContent menu li.active .playBtn:hover,
+#tmsContent menu li .editBtn.active:hover, #tmsPanel nav .bopBtn:hover,
+#tmsPanel nav .listBtn:hover,
+#tmsPanel nav .heartBtn:hover, #hud section > div:hover .playBtn:hover, #songList section button.active, #tmsContent menu h2.active, #songList section button.active.deselect, #songList table thead .active.sorting_asc, #songList table thead .active.sorting_desc, #songList .active.toTop:hover,
 #songList .active.toBottom:hover,
 #songList .active.playPause:hover, #tmsContent menu h2.active.addActive, #tmsContent menu li .active.playBtn:hover,
+#tmsContent menu li .active.heartBtn:hover,
 #tmsContent menu li .active.editBtn:hover,
 #tmsContent menu li .active.removeBtn:hover,
-#tmsContent menu li .active.cancelBtn:hover, #tmsContent menu li.create .active.cancelBtn:hover, #tmsPanel .active.listBtn:hover, #tmsPanel .active.heartBtn:hover, #tmsPanel .active.bopBtn:hover, #tmsContent menu li .active.addBtn, #songList section button.active.remove, #songList td .active.remove:hover, #tmsContent menu li.active .active.playBtn,
-#tmsContent menu li .active.editBtn, #tmsPanel .active.bopBtn,
-#tmsPanel .active.listBtn,
-#tmsPanel .active.heartBtn, #hud section > div:hover .active.playBtn {
+#tmsContent menu li .active.cancelBtn:hover, #tmsContent menu li .active.heartBtn, #tmsContent menu li.create .active.cancelBtn:hover, #tmsPanel nav .active.bopBtn,
+#tmsPanel nav .active.listBtn,
+#tmsPanel nav .active.heartBtn, #tmsContent menu li .active.addBtn, #songList section button.active.remove, #songList td .active.remove:hover, #tmsContent menu li.active .active.playBtn,
+#tmsContent menu li .active.editBtn, #tmsPanel nav .active.bopBtn:hover,
+#tmsPanel nav .active.listBtn:hover,
+#tmsPanel nav .active.heartBtn:hover, #hud section > div:hover .active.playBtn {
   opacity: 1;
 }
 
@@ -102,12 +112,15 @@
 }
 
 /* line 107, ../sass/_common.scss */
-#songList section button.deselect, #songList .toTop:hover,
+#songList section button.deselect, #songList table thead .sorting_asc, #songList table thead .sorting_desc, #songList .toTop:hover,
 #songList .toBottom:hover,
 #songList .playPause:hover, #tmsContent menu h2.addActive, #tmsContent menu li .playBtn:hover,
+#tmsContent menu li .heartBtn:hover,
 #tmsContent menu li .editBtn:hover,
 #tmsContent menu li .removeBtn:hover,
-#tmsContent menu li .cancelBtn:hover, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel .listBtn:hover, #tmsPanel .listBtn.active:hover, #tmsPanel .heartBtn:hover, #tmsPanel .bopBtn:hover, #tmsPanel .bopBtn.active:hover {
+#tmsContent menu li .cancelBtn:hover, #tmsContent menu li .heartBtn.active, #tmsContent menu li.create .cancelBtn:hover, #tmsPanel nav .bopBtn.active,
+#tmsPanel nav .listBtn.active,
+#tmsPanel nav .heartBtn.active {
   background-image: -webkit-linear-gradient(top, #4fc9ee, #3aa2d0);
   background-image: linear-gradient(to bottom, #4fc9ee, #3aa2d0);
 }
@@ -127,9 +140,9 @@
 
 /* line 125, ../sass/_common.scss */
 #tmsContent menu li.active .playBtn,
-#tmsContent menu li .editBtn.active, #tmsPanel .bopBtn.active,
-#tmsPanel .listBtn.active,
-#tmsPanel .heartBtn.active, #hud section > div:hover .playBtn {
+#tmsContent menu li .editBtn.active, #tmsPanel nav .bopBtn:hover,
+#tmsPanel nav .listBtn:hover,
+#tmsPanel nav .heartBtn:hover, #hud section > div:hover .playBtn {
   background-image: -webkit-linear-gradient(top, #e8c77c, #d8a126);
   background-image: linear-gradient(to bottom, #e8c77c, #d8a126);
 }
@@ -154,28 +167,28 @@
 }
 
 /* line 147, ../sass/_common.scss */
-#tmsPanel .bopBtn {
+#tmsPanel nav .bopBtn {
   text-align: center;
 }
 /* line 150, ../sass/_common.scss */
-#tmsPanel .bopBtn > div {
+#tmsPanel nav .bopBtn > div {
   display: inline-block;
   vertical-align: middle;
 }
 /* line 155, ../sass/_common.scss */
-#tmsPanel .bopBtn:hover div div {
+#tmsPanel nav .bopBtn:hover div div {
   border-color: #e0b451;
 }
 /* line 158, ../sass/_common.scss */
-#tmsPanel .bopBtn:hover div div::before {
+#tmsPanel nav .bopBtn:hover div div::before {
   background: #e0b451;
 }
 /* line 162, ../sass/_common.scss */
-#tmsPanel .bopBtn:hover div div::after {
+#tmsPanel nav .bopBtn:hover div div::after {
   background: #e0b451;
 }
 /* line 167, ../sass/_common.scss */
-#tmsPanel .bopBtn div div {
+#tmsPanel nav .bopBtn div div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -193,7 +206,7 @@
   transition: all 0.2s ease-in-out;
 }
 /* line 180, ../sass/_common.scss */
-#tmsPanel .bopBtn div div::before {
+#tmsPanel nav .bopBtn div div::before {
   position: absolute;
   content: '';
   top: 1.1em;
@@ -204,7 +217,7 @@
   border-radius: 0 0.125em 0.125em 0;
 }
 /* line 191, ../sass/_common.scss */
-#tmsPanel .bopBtn div div::after {
+#tmsPanel nav .bopBtn div div::after {
   position: absolute;
   content: '';
   top: 1.1em;
@@ -216,28 +229,28 @@
 }
 
 /* line 204, ../sass/_common.scss */
-#tmsPanel .listBtn {
+#tmsPanel nav .listBtn {
   text-align: center;
 }
 /* line 207, ../sass/_common.scss */
-#tmsPanel .listBtn > div {
+#tmsPanel nav .listBtn > div {
   display: inline-block;
   vertical-align: middle;
 }
 /* line 212, ../sass/_common.scss */
-#tmsPanel .listBtn:hover div div {
-  -webkit-box-shadow: 0 0 4px #e0b451;
+#tmsPanel nav .listBtn:hover div div {
+  -webkit-box-shadow: 0 0 4px #7ed7f2;
 }
 /* line 215, ../sass/_common.scss */
-#tmsPanel .listBtn:hover div div::before {
-  background: #e0b451;
+#tmsPanel nav .listBtn:hover div div::before {
+  background: #4fc9ee;
 }
 /* line 219, ../sass/_common.scss */
-#tmsPanel .listBtn:hover div div::after {
-  border-color: #e0b451;
+#tmsPanel nav .listBtn:hover div div::after {
+  border-color: #4fc9ee;
 }
 /* line 224, ../sass/_common.scss */
-#tmsPanel .listBtn div div {
+#tmsPanel nav .listBtn div div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -254,7 +267,7 @@
   transition: all 0.2s ease-in-out;
 }
 /* line 236, ../sass/_common.scss */
-#tmsPanel .listBtn div div::before {
+#tmsPanel nav .listBtn div div::before {
   display: block;
   content: "";
   width: 1.4em;
@@ -268,7 +281,7 @@
   transition: all 2s ease-in-out;
 }
 /* line 247, ../sass/_common.scss */
-#tmsPanel .listBtn div div::after {
+#tmsPanel nav .listBtn div div::after {
   display: block;
   content: "";
   width: 0.3em;
@@ -279,26 +292,22 @@
 }
 
 /* line 259, ../sass/_common.scss */
-#tmsPanel .heartBtn {
+#tmsContent menu li .heartBtn, #tmsPanel nav .heartBtn {
   text-align: center;
-}
-/* line 262, ../sass/_common.scss */
-#tmsPanel .heartBtn > div {
   display: inline-block;
   vertical-align: middle;
 }
-/* line 268, ../sass/_common.scss */
-#tmsPanel .heartBtn:hover div div::before, #tmsPanel .heartBtn:hover div div::after {
+/* line 265, ../sass/_common.scss */
+#tmsContent menu li .heartBtn:hover div::before, #tmsPanel nav .heartBtn:hover div::before, #tmsContent menu li .heartBtn:hover div::after, #tmsPanel nav .heartBtn:hover div::after {
   background: #e0b451;
 }
-/* line 273, ../sass/_common.scss */
-#tmsPanel .heartBtn div div {
+/* line 270, ../sass/_common.scss */
+#tmsContent menu li .heartBtn div, #tmsPanel nav .heartBtn div {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
   position: relative;
   font-size: 19px;
-  margin-top: 4px;
   width: 0;
   height: 0;
   -webkit-transition: all 0.2s ease-in-out;
@@ -306,10 +315,12 @@
   -o-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
 }
-/* line 283, ../sass/_common.scss */
-#tmsPanel .heartBtn div div::before, #tmsPanel .heartBtn div div::after {
+/* line 279, ../sass/_common.scss */
+#tmsContent menu li .heartBtn div::before, #tmsPanel nav .heartBtn div::before, #tmsContent menu li .heartBtn div::after, #tmsPanel nav .heartBtn div::after {
   position: absolute;
   content: "";
+  left: 1.3em;
+  top: 0.6em;
   width: 1em;
   height: 1.6em;
   background: #333333;
@@ -319,16 +330,16 @@
   -webkit-transform-origin: 0 100%;
   transform-origin: 0 100%;
 }
-/* line 296, ../sass/_common.scss */
-#tmsPanel .heartBtn div div::after {
-  left: -0.96em;
+/* line 294, ../sass/_common.scss */
+#tmsContent menu li .heartBtn div::after, #tmsPanel nav .heartBtn div::after {
+  left: 0.3em;
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
   -webkit-transform-origin: 100% 100%;
   transform-origin: 100% 100%;
 }
 
-/* line 377, ../sass/_common.scss */
+/* line 375, ../sass/_common.scss */
 #songList .playPause div, #tmsContent menu li .playBtn div, #hud section > div .playBtn div {
   width: 2em;
   height: 2em;
@@ -336,7 +347,7 @@
   position: relative;
   border: 0.3em solid #333333;
 }
-/* line 384, ../sass/_common.scss */
+/* line 382, ../sass/_common.scss */
 #songList .playPause div::before, #tmsContent menu li .playBtn div::before, #hud section > div .playBtn div::before {
   position: absolute;
   content: "";
@@ -349,7 +360,7 @@
   border-left: 0.8em solid #333333;
 }
 
-/* line 398, ../sass/_common.scss */
+/* line 396, ../sass/_common.scss */
 #songList .toTop div {
   position: relative;
   background: #333333;
@@ -358,7 +369,7 @@
   height: 1em;
   margin-top: 1em;
 }
-/* line 406, ../sass/_common.scss */
+/* line 404, ../sass/_common.scss */
 #songList .toTop div::before {
   position: absolute;
   bottom: 0.8em;
@@ -369,7 +380,7 @@
   content: "";
 }
 
-/* line 417, ../sass/_common.scss */
+/* line 415, ../sass/_common.scss */
 #songList .toBottom div {
   background: #333333;
   font-size: 12px;
@@ -377,7 +388,7 @@
   width: 1em;
   height: 1em;
 }
-/* line 424, ../sass/_common.scss */
+/* line 422, ../sass/_common.scss */
 #songList .toBottom div::before {
   bottom: -0.8em;
   left: -0.666em;
@@ -388,9 +399,9 @@
   content: "";
 }
 
-/* line 458, ../sass/_common.scss */
-#songList td .remove > div, #tmsContent menu li .removeBtn > div,
-#tmsContent menu li .cancelBtn > div {
+/* line 456, ../sass/_common.scss */
+#songList td .remove div, #tmsContent menu li .removeBtn div,
+#tmsContent menu li .cancelBtn div {
   position: relative;
   width: 0.2em;
   height: 0.7em;
@@ -399,9 +410,9 @@
   transform: rotate(45deg);
   font-size: 22px;
 }
-/* line 467, ../sass/_common.scss */
-#songList td .remove > div::after, #tmsContent menu li .removeBtn > div::after,
-#tmsContent menu li .cancelBtn > div::after {
+/* line 465, ../sass/_common.scss */
+#songList td .remove div::after, #tmsContent menu li .removeBtn div::after,
+#tmsContent menu li .cancelBtn div::after {
   content: "";
   position: absolute;
   top: 0;
@@ -413,6 +424,10 @@
   transform: rotate(-90deg);
 }
 
+/* line 478, ../sass/_common.scss */
+#tmsContent menu li .editBtn {
+  position: relative;
+}
 /* line 482, ../sass/_common.scss */
 #tmsContent menu li .editBtn div::before,
 #tmsContent menu li .editBtn div::after {
@@ -443,7 +458,7 @@
 }
 
 /* Toggle Switches */
-/* line 513, ../sass/_common.scss */
+/* line 543, ../sass/_common.scss */
 .switch {
   position: relative;
   margin: 0 auto;
@@ -454,7 +469,7 @@
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* line 523, ../sass/_common.scss */
+/* line 553, ../sass/_common.scss */
 .switch-label {
   position: relative;
   z-index: 2;
@@ -468,17 +483,17 @@
   cursor: pointer;
 }
 
-/* line 536, ../sass/_common.scss */
+/* line 566, ../sass/_common.scss */
 .switch-label:active {
   font-weight: bold;
 }
 
-/* line 540, ../sass/_common.scss */
+/* line 570, ../sass/_common.scss */
 .switch-label-off {
   padding-left: 2px;
 }
 
-/* line 544, ../sass/_common.scss */
+/* line 574, ../sass/_common.scss */
 .switch-label-on {
   padding-right: 2px;
 }
@@ -489,12 +504,12 @@
  *       See this article for more info and a potential fix:
  *       http://css-tricks.com/webkit-sibling-bug/
  */
-/* line 554, ../sass/_common.scss */
+/* line 584, ../sass/_common.scss */
 .switch-input {
   display: none;
 }
 
-/* line 558, ../sass/_common.scss */
+/* line 588, ../sass/_common.scss */
 .switch-input:checked + .switch-label {
   font-weight: bold;
   color: rgba(0, 0, 0, 0.65);
@@ -503,13 +518,13 @@
   transition: 0.15s ease-out;
 }
 
-/* line 566, ../sass/_common.scss */
+/* line 596, ../sass/_common.scss */
 .switch-input:checked + .switch-label-on ~ .switch-selection {
   left: 80px;
   background: #d8a126;
 }
 
-/* line 571, ../sass/_common.scss */
+/* line 601, ../sass/_common.scss */
 .switch-selection {
   display: block;
   position: absolute;
@@ -531,7 +546,7 @@
   background-image: linear-gradient(to bottom, #4fc9ee, #3aa2d0);
 }
 
-/* line 595, ../sass/_common.scss */
+/* line 625, ../sass/_common.scss */
 .switch-yellow .switch-selection {
   background: #d8a126;
   background-image: -webkit-linear-gradient(top, #e0dd94, #c4bb61);
@@ -539,13 +554,13 @@
 }
 
 @-webkit-keyframes highlight {
-  /* line 602, ../sass/_common.scss */
+  /* line 632, ../sass/_common.scss */
   0% {
     background-color: #d8a126;
     -webkit-box-shadow: 0 0 5px #d8a126, 0 0 10px #d8a126, 0 0 15px #d8a126;
   }
 
-  /* line 603, ../sass/_common.scss */
+  /* line 633, ../sass/_common.scss */
   100% {
     background-color: rgba(216, 161, 38, 0.8);
     -webkit-box-shadow: 0 0 0 transparent;
@@ -553,24 +568,24 @@
 }
 
 @-webkit-keyframes ticker {
-  /* line 608, ../sass/_common.scss */
+  /* line 638, ../sass/_common.scss */
   0% {
     width: 0%;
   }
 
-  /* line 609, ../sass/_common.scss */
+  /* line 639, ../sass/_common.scss */
   100% {
     width: 100%;
   }
 }
 
 @-webkit-keyframes fade {
-  /* line 614, ../sass/_common.scss */
+  /* line 644, ../sass/_common.scss */
   0% {
     opacity: 0.93;
   }
 
-  /* line 615, ../sass/_common.scss */
+  /* line 645, ../sass/_common.scss */
   100% {
     opacity: 0.05;
   }
@@ -1251,17 +1266,17 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 56, ../sass/_songList.scss */
+/* line 55, ../sass/_songList.scss */
 #songList section button.deselect {
   float: left;
   color: #333333;
 }
-/* line 67, ../sass/_songList.scss */
+/* line 61, ../sass/_songList.scss */
 #songList section button.remove {
   float: right;
   color: #999999;
 }
-/* line 80, ../sass/_songList.scss */
+/* line 69, ../sass/_songList.scss */
 #songList .switch {
   position: absolute;
   top: 24px;
@@ -1278,14 +1293,14 @@ div.box {
   -webkit-border-bottom-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-/* line 91, ../sass/_songList.scss */
+/* line 80, ../sass/_songList.scss */
 #songList .switch label {
   height: 18px;
   font-size: 11px;
   margin-top: -4px;
   width: 48%;
 }
-/* line 98, ../sass/_songList.scss */
+/* line 87, ../sass/_songList.scss */
 #songList .switch span {
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
@@ -1294,18 +1309,18 @@ div.box {
   margin-top: -1px;
   width: 49%;
 }
-/* line 104, ../sass/_songList.scss */
+/* line 93, ../sass/_songList.scss */
 #songList .switch .searchInput {
   position: absolute;
   top: -20px;
   left: 0px;
   display: none;
 }
-/* line 110, ../sass/_songList.scss */
+/* line 99, ../sass/_songList.scss */
 #songList .switch .searchInput.active {
   display: block;
 }
-/* line 116, ../sass/_songList.scss */
+/* line 105, ../sass/_songList.scss */
 #songList table {
   font-size: 12px;
   height: 0px;
@@ -1313,46 +1328,46 @@ div.box {
   width: 680px;
   table-layout: fixed;
 }
-/* line 126, ../sass/_songList.scss */
+/* line 115, ../sass/_songList.scss */
 #songList table thead .sorting_asc, #songList table thead .sorting_desc {
-  color: #666666;
-  text-shadow: 0 1px 0 #eeeeee;
+  color: #333333;
+  text-shadow: 0 1px 0 #cccccc;
 }
-/* line 132, ../sass/_songList.scss */
+/* line 122, ../sass/_songList.scss */
 #songList table tbody {
   height: 400px;
   overflow: auto;
   color: #333333;
 }
-/* line 138, ../sass/_songList.scss */
+/* line 128, ../sass/_songList.scss */
 #songList table tbody tr:hover td {
   background: #baebfe;
 }
-/* line 142, ../sass/_songList.scss */
+/* line 132, ../sass/_songList.scss */
 #songList table tbody tr.selected td {
   background: rgba(216, 161, 38, 0.8);
   -webkit-animation-name: highlight;
   -webkit-animation-duration: 1s;
   -webkit-animation-iteration-count: 1;
 }
-/* line 151, ../sass/_songList.scss */
+/* line 141, ../sass/_songList.scss */
 #songList table th {
   cursor: pointer;
-  padding: 0 2px;
+  padding: 0 2px 2px 2px;
 }
-/* line 156, ../sass/_songList.scss */
+/* line 146, ../sass/_songList.scss */
 #songList table tr {
   cursor: pointer;
 }
-/* line 161, ../sass/_songList.scss */
+/* line 151, ../sass/_songList.scss */
 #songList table tr .length, #songList table tr .genre, #songList table tr .pos {
   text-align: center;
 }
-/* line 165, ../sass/_songList.scss */
+/* line 155, ../sass/_songList.scss */
 #songList table tr td.pos {
   font-size: 8px;
 }
-/* line 170, ../sass/_songList.scss */
+/* line 160, ../sass/_songList.scss */
 #songList table td {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
@@ -1365,8 +1380,9 @@ div.box {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 182, ../sass/_songList.scss */
+/* line 172, ../sass/_songList.scss */
 #songList .songListHead {
+  border-bottom: none;
   padding: 5px;
   height: 35px;
   -moz-border-radius-topleft: 5px;
@@ -1376,7 +1392,7 @@ div.box {
   -webkit-border-top-right-radius: 5px;
   border-top-right-radius: 5px;
 }
-/* line 190, ../sass/_songList.scss */
+/* line 181, ../sass/_songList.scss */
 #songList .songListHead .dataTables_info {
   position: absolute;
   top: 25px;
@@ -1384,19 +1400,19 @@ div.box {
   width: 400px;
   text-align: left;
 }
-/* line 198, ../sass/_songList.scss */
+/* line 189, ../sass/_songList.scss */
 #songList .songListHead .dataTables_filter {
   position: absolute;
   top: 3px;
   right: 5px;
   width: 25%;
 }
-/* line 204, ../sass/_songList.scss */
+/* line 195, ../sass/_songList.scss */
 #songList .songListHead .dataTables_filter input {
   margin-top: 1px;
   margin-right: -3px;
 }
-/* line 212, ../sass/_songList.scss */
+/* line 203, ../sass/_songList.scss */
 #songList .searchInput,
 #songList .dataTables_filter input {
   padding: 2px 5px;
@@ -1412,7 +1428,7 @@ div.box {
   box-shadow: inset 0 0 0 1px #999999;
   outline: none;
 }
-/* line 222, ../sass/_songList.scss */
+/* line 213, ../sass/_songList.scss */
 #songList .dataTables_wrapper {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -1420,28 +1436,29 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 226, ../sass/_songList.scss */
+/* line 217, ../sass/_songList.scss */
 #songList .dataTables_scrollHead {
   width: 700px !important;
-  height: 18px;
+  box-shadow: 0px 3px 5px rgba(51, 51, 51, 0.4);
+  z-index: 9;
 }
-/* line 232, ../sass/_songList.scss */
+/* line 224, ../sass/_songList.scss */
 #songList .dataTables_scrollBody {
   width: 700px !important;
 }
-/* line 240, ../sass/_songList.scss */
+/* line 232, ../sass/_songList.scss */
 #songList tr:hover .toTop,
 #songList tr:hover .toBottom,
 #songList tr:hover .playPause,
 #songList tr:hover .remove {
   opacity: 0.5;
 }
-/* line 244, ../sass/_songList.scss */
+/* line 236, ../sass/_songList.scss */
 #songList .actions {
   position: relative;
   overflow: visible;
 }
-/* line 248, ../sass/_songList.scss */
+/* line 240, ../sass/_songList.scss */
 #songList .actions > div {
   position: absolute;
   top: 0px;
@@ -1449,7 +1466,7 @@ div.box {
   width: 25px;
   height: 22px;
 }
-/* line 256, ../sass/_songList.scss */
+/* line 248, ../sass/_songList.scss */
 #songList .actions .songFlyout {
   overflow: hidden;
   z-index: 9;
@@ -1464,7 +1481,7 @@ div.box {
   -webkit-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-/* line 262, ../sass/_songList.scss */
+/* line 254, ../sass/_songList.scss */
 #songList .actions .songFlyout:hover {
   width: 90px;
   background-color: #baebfe;
@@ -1472,7 +1489,7 @@ div.box {
   -moz-box-shadow: #333333 0px 0px 5px;
   box-shadow: #333333 0px 0px 5px;
 }
-/* line 273, ../sass/_songList.scss */
+/* line 265, ../sass/_songList.scss */
 #songList .toTop,
 #songList .toBottom,
 #songList .playPause,
@@ -1490,7 +1507,7 @@ div.box {
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 284, ../sass/_songList.scss */
+/* line 276, ../sass/_songList.scss */
 #songList .toTop div,
 #songList .toBottom div,
 #songList .playPause div,
@@ -1498,13 +1515,13 @@ div.box {
   margin-left: auto;
   margin-right: auto;
 }
-/* line 296, ../sass/_songList.scss */
+/* line 288, ../sass/_songList.scss */
 #songList .ticker {
   position: absolute;
   width: 0%;
   height: 100%;
 }
-/* line 303, ../sass/_songList.scss */
+/* line 295, ../sass/_songList.scss */
 #songList .previewActive .ticker {
   background-color: rgba(216, 161, 38, 0.9);
   -webkit-animation-name: ticker;
@@ -1517,49 +1534,49 @@ div.box {
   -webkit-border-bottom-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
-/* line 311, ../sass/_songList.scss */
+/* line 303, ../sass/_songList.scss */
 #songList .previewActive .playPause {
   opacity: 0.9;
 }
-/* line 317, ../sass/_songList.scss */
+/* line 309, ../sass/_songList.scss */
 #songList tr.selected .previewActive .ticker {
   background-color: rgba(186, 235, 254, 0.9);
 }
-/* line 321, ../sass/_songList.scss */
+/* line 313, ../sass/_songList.scss */
 #songList tr.selected .previewActive:hover .ticker {
   background-color: rgba(216, 161, 38, 0.9);
 }
-/* line 326, ../sass/_songList.scss */
+/* line 318, ../sass/_songList.scss */
 #songList .toTop div {
   top: 3px;
 }
-/* line 330, ../sass/_songList.scss */
+/* line 322, ../sass/_songList.scss */
 #songList .toBottom div {
   top: 5px;
 }
-/* line 335, ../sass/_songList.scss */
+/* line 327, ../sass/_songList.scss */
 #songList .toTop div,
 #songList .toBottom div {
   font-size: 6px;
 }
-/* line 347, ../sass/_songList.scss */
+/* line 339, ../sass/_songList.scss */
 #songList .playPause {
   font-size: 7px;
   margin-right: 2px;
 }
-/* line 352, ../sass/_songList.scss */
+/* line 344, ../sass/_songList.scss */
 #songList .playPause div {
   margin-top: 1px;
 }
-/* line 357, ../sass/_songList.scss */
+/* line 349, ../sass/_songList.scss */
 #songList td .remove {
   font-size: 8px;
 }
-/* line 361, ../sass/_songList.scss */
+/* line 353, ../sass/_songList.scss */
 #songList td .remove div {
   margin-top: 3px;
 }
-/* line 369, ../sass/_songList.scss */
+/* line 361, ../sass/_songList.scss */
 #songList td .remove:hover div,
 #songList td .remove:hover div::after {
   background-color: #999999;
@@ -1590,14 +1607,17 @@ div.box {
 }
 /* line 15, ../sass/_playlistMenu.scss */
 #tmsContent menu h2 {
+  position: relative;
   color: #999999;
   text-shadow: 0 1px 0 white;
-  height: 23px;
+  height: 27px;
   padding-top: 7px;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
+  z-index: 9;
+  box-shadow: 0px 3px 5px rgba(51, 51, 51, 0.4);
   -moz-border-radius-topleft: 5px;
   -webkit-border-top-left-radius: 5px;
   border-top-left-radius: 5px;
@@ -1609,26 +1629,27 @@ div.box {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 28, ../sass/_playlistMenu.scss */
+/* line 31, ../sass/_playlistMenu.scss */
 #tmsContent menu h2.addActive {
   color: #333333;
-  text-shadow: 0 1px 0 #999999;
-}
-/* line 35, ../sass/_playlistMenu.scss */
-#tmsContent menu.open {
-  height: 222px;
+  text-shadow: 0 1px 0 #cccccc;
 }
 /* line 38, ../sass/_playlistMenu.scss */
+#tmsContent menu.open {
+  height: 227px;
+}
+/* line 41, ../sass/_playlistMenu.scss */
 #tmsContent menu.open h2 {
   cursor: default;
 }
-/* line 43, ../sass/_playlistMenu.scss */
+/* line 46, ../sass/_playlistMenu.scss */
 #tmsContent menu ul {
   list-style-type: none;
   height: 193px;
   overflow: auto;
+  box-shadow: inset 0 0 2px #333333;
 }
-/* line 49, ../sass/_playlistMenu.scss */
+/* line 53, ../sass/_playlistMenu.scss */
 #tmsContent menu li {
   position: relative;
   padding: 2px;
@@ -1638,41 +1659,43 @@ div.box {
   -o-transition: background-color 0.3s ease-in-out;
   transition: background-color 0.3s ease-in-out;
 }
-/* line 55, ../sass/_playlistMenu.scss */
+/* line 59, ../sass/_playlistMenu.scss */
 #tmsContent menu li label, #tmsContent menu li input {
   width: 60%;
 }
-/* line 59, ../sass/_playlistMenu.scss */
+/* line 63, ../sass/_playlistMenu.scss */
 #tmsContent menu li label {
   cursor: pointer;
   display: inline-block;
 }
-/* line 65, ../sass/_playlistMenu.scss */
+/* line 69, ../sass/_playlistMenu.scss */
 #tmsContent menu li input {
   position: absolute;
   left: 2px;
   top: 1px;
 }
-/* line 71, ../sass/_playlistMenu.scss */
+/* line 75, ../sass/_playlistMenu.scss */
 #tmsContent menu li > div {
   position: absolute;
   right: 3px;
   top: 3px;
   width: 39%;
 }
-/* line 78, ../sass/_playlistMenu.scss */
+/* line 82, ../sass/_playlistMenu.scss */
 #tmsContent menu li:hover {
   background-color: #baebfe;
 }
-/* line 84, ../sass/_playlistMenu.scss */
+/* line 89, ../sass/_playlistMenu.scss */
 #tmsContent menu li:hover .playBtn,
+#tmsContent menu li:hover .heartBtn,
 #tmsContent menu li:hover .addBtn,
 #tmsContent menu li:hover .editBtn,
 #tmsContent menu li:hover .removeBtn {
   opacity: 0.7;
 }
-/* line 92, ../sass/_playlistMenu.scss */
+/* line 98, ../sass/_playlistMenu.scss */
 #tmsContent menu li .playBtn,
+#tmsContent menu li .heartBtn,
 #tmsContent menu li .addBtn,
 #tmsContent menu li .editBtn,
 #tmsContent menu li .removeBtn {
@@ -1683,8 +1706,9 @@ div.box {
   -o-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
 }
-/* line 101, ../sass/_playlistMenu.scss */
+/* line 108, ../sass/_playlistMenu.scss */
 #tmsContent menu li .playBtn,
+#tmsContent menu li .heartBtn,
 #tmsContent menu li .editBtn,
 #tmsContent menu li .removeBtn,
 #tmsContent menu li .cancelBtn {
@@ -1693,20 +1717,36 @@ div.box {
   border-radius: 50%;
   opacity: 0.0;
 }
-/* line 112, ../sass/_playlistMenu.scss */
+/* line 119, ../sass/_playlistMenu.scss */
 #tmsContent menu li .playBtn {
   font-size: 7px;
 }
-/* line 119, ../sass/_playlistMenu.scss */
+/* line 127, ../sass/_playlistMenu.scss */
+#tmsContent menu li .heartBtn div {
+  font-size: 7px;
+}
+/* line 133, ../sass/_playlistMenu.scss */
+#tmsContent menu li .heartBtn:hover div::before, #tmsContent menu li .heartBtn:hover div::after {
+  background-color: #912120;
+}
+/* line 139, ../sass/_playlistMenu.scss */
+#tmsContent menu li .heartBtn.active {
+  opacity: 1;
+}
+/* line 146, ../sass/_playlistMenu.scss */
+#tmsContent menu li .heartBtn.active div::before, #tmsContent menu li .heartBtn.active div::after {
+  background: #912120;
+}
+/* line 155, ../sass/_playlistMenu.scss */
 #tmsContent menu li.active .playBtn,
 #tmsContent menu li .editBtn.active {
   opacity: 1;
 }
-/* line 124, ../sass/_playlistMenu.scss */
+/* line 160, ../sass/_playlistMenu.scss */
 #tmsContent menu li .editBtn {
   position: relative;
 }
-/* line 129, ../sass/_playlistMenu.scss */
+/* line 165, ../sass/_playlistMenu.scss */
 #tmsContent menu li .addBtn {
   color: white;
   padding: 2px 4px;
@@ -1720,77 +1760,75 @@ div.box {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
-/* line 139, ../sass/_playlistMenu.scss */
+/* line 175, ../sass/_playlistMenu.scss */
 #tmsContent menu li .addBtn:hover {
   opacity: 1;
 }
-/* line 145, ../sass/_playlistMenu.scss */
+/* line 181, ../sass/_playlistMenu.scss */
 #tmsContent menu li .removeBtn,
 #tmsContent menu li .cancelBtn {
   font-size: 8px;
 }
-/* line 149, ../sass/_playlistMenu.scss */
+/* line 185, ../sass/_playlistMenu.scss */
 #tmsContent menu li .removeBtn div,
 #tmsContent menu li .cancelBtn div {
   margin-left: 7px;
   margin-top: 2px;
 }
-/* line 158, ../sass/_playlistMenu.scss */
+/* line 194, ../sass/_playlistMenu.scss */
 #tmsContent menu li .removeBtn:hover div,
 #tmsContent menu li .removeBtn:hover div::after,
 #tmsContent menu li .cancelBtn:hover div,
 #tmsContent menu li .cancelBtn:hover div::after {
   background-color: #999999;
 }
-/* line 164, ../sass/_playlistMenu.scss */
+/* line 200, ../sass/_playlistMenu.scss */
 #tmsContent menu li:nth-child(even) {
   background-color: white;
 }
-/* line 168, ../sass/_playlistMenu.scss */
+/* line 204, ../sass/_playlistMenu.scss */
 #tmsContent menu li:nth-child(odd) {
   background-color: #eeeeee;
 }
-/* line 172, ../sass/_playlistMenu.scss */
+/* line 208, ../sass/_playlistMenu.scss */
 #tmsContent menu li.viewing {
-  color: #4d4d4d;
-  text-shadow: 0 0 2px #d8a126;
-  background-color: #ddf5ff;
+  background-color: #baebfe;
 }
-/* line 180, ../sass/_playlistMenu.scss */
+/* line 215, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create label {
   width: 100%;
   display: inline-block;
   text-transform: lowercase;
   text-align: center;
 }
-/* line 187, ../sass/_playlistMenu.scss */
+/* line 222, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create input {
   width: 90%;
   opacity: 1;
   z-index: 9;
 }
-/* line 193, ../sass/_playlistMenu.scss */
+/* line 228, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create:hover {
   background-color: #f2dace;
 }
-/* line 194, ../sass/_playlistMenu.scss */
+/* line 229, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create:hover label {
   line-height: 19px;
   font-weight: bold;
   color: #4b8821;
 }
-/* line 203, ../sass/_playlistMenu.scss */
+/* line 238, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create .cancelBtn {
   position: absolute;
   right: 2px;
   top: 2px;
   opacity: 0.7;
 }
-/* line 209, ../sass/_playlistMenu.scss */
+/* line 244, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create .cancelBtn:hover {
   opacity: 0.7;
 }
-/* line 214, ../sass/_playlistMenu.scss */
+/* line 249, ../sass/_playlistMenu.scss */
 #tmsContent menu li.create .cancelBtn:hover div,
 #tmsContent menu li.create .cancelBtn:hover div::after {
   background-color: #333333;
@@ -1973,7 +2011,7 @@ input[type="checkbox"]:checked:hover:after {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#303030), to(#262626));
 }
 
-/* line 40, ../sass/styles.scss */
+/* line 44, ../sass/styles.scss */
 #tmsPanel,
 #tmsPanel *
 #tmsCurrentSong,
@@ -1983,12 +2021,12 @@ input[type="checkbox"]:checked:hover:after {
   box-sizing: content-box;
 }
 
-/* line 44, ../sass/styles.scss */
+/* line 48, ../sass/styles.scss */
 body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* line 49, ../sass/styles.scss */
+/* line 53, ../sass/styles.scss */
 #tmsPanel {
   position: absolute;
   bottom: -75px;
@@ -2008,52 +2046,52 @@ body {
   -o-transition: height 0.4s ease-in-out;
   transition: height 0.4s ease-in-out;
 }
-/* line 61, ../sass/styles.scss */
+/* line 65, ../sass/styles.scss */
 .width-level-0 #tmsPanel, .width-level-1 #tmsPanel {
   right: 631px;
 }
-/* line 62, ../sass/styles.scss */
+/* line 66, ../sass/styles.scss */
 .width-level-2 #tmsPanel, .centered-mode #tmsPanel {
   right: 50%;
 }
-/* line 67, ../sass/styles.scss */
+/* line 71, ../sass/styles.scss */
 #tmsPanel.open {
   height: 460px;
 }
-/* line 71, ../sass/styles.scss */
+/* line 75, ../sass/styles.scss */
 #tmsPanel header {
   left: 0;
   bottom: 0;
   z-index: 9;
 }
-/* line 77, ../sass/styles.scss */
+/* line 81, ../sass/styles.scss */
 #tmsPanel header > hgroup {
   width: 15%;
   height: 43px;
   padding-top: 20px;
 }
-/* line 82, ../sass/styles.scss */
+/* line 86, ../sass/styles.scss */
 #tmsPanel header > hgroup a {
   text-decoration: none;
 }
-/* line 86, ../sass/styles.scss */
+/* line 90, ../sass/styles.scss */
 #tmsPanel header > hgroup h1, #tmsPanel header > hgroup h2 {
   -webkit-transform: rotate(-25deg) translate3d(0, 0, 0);
   text-align: center;
 }
-/* line 91, ../sass/styles.scss */
+/* line 95, ../sass/styles.scss */
 #tmsPanel header > hgroup h1 {
   color: #d8a126;
   margin-right: 8px;
   font-size: 12px;
 }
-/* line 98, ../sass/styles.scss */
+/* line 102, ../sass/styles.scss */
 #tmsPanel header > hgroup h2 {
   font-size: 10px;
   margin-top: -3px;
   margin-left: 10px;
 }
-/* line 107, ../sass/styles.scss */
+/* line 111, ../sass/styles.scss */
 #tmsPanel.open header {
   -moz-border-radius-topleft: 0;
   -webkit-border-top-left-radius: 0;
@@ -2062,115 +2100,114 @@ body {
   -webkit-border-top-right-radius: 0;
   border-top-right-radius: 0;
 }
-/* line 111, ../sass/styles.scss */
+/* line 115, ../sass/styles.scss */
 #tmsPanel hgroup, #tmsPanel #hud, #tmsPanel nav {
   float: left;
 }
-/* line 115, ../sass/styles.scss */
+/* line 119, ../sass/styles.scss */
 #tmsPanel nav {
   position: relative;
   width: 43%;
 }
-/* line 124, ../sass/styles.scss */
-#tmsPanel .bopBtn,
-#tmsPanel .listBtn,
-#tmsPanel .heartBtn {
+/* line 125, ../sass/styles.scss */
+#tmsPanel nav .bopBtn,
+#tmsPanel nav .listBtn,
+#tmsPanel nav .heartBtn {
   position: relative;
   height: 50px;
   width: 50px;
   margin: 5px;
   cursor: pointer;
   float: left;
-  border-radius: 25px;
+  border-radius: 50%;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 142, ../sass/styles.scss */
-#tmsPanel .listBtn {
+/* line 147, ../sass/styles.scss */
+#tmsPanel nav .listBtn {
   margin-left: 10px;
 }
-/* line 147, ../sass/styles.scss */
-#tmsPanel .listBtn.active div div::before {
-  background-color: #4fc9ee;
+/* line 152, ../sass/styles.scss */
+#tmsPanel nav .listBtn.active div div::before {
+  background-color: #d8a126;
 }
-/* line 151, ../sass/styles.scss */
-#tmsPanel .listBtn.active div div::after {
-  border-color: #4fc9ee;
+/* line 156, ../sass/styles.scss */
+#tmsPanel nav .listBtn.active div div::after {
+  border-color: #d8a126;
 }
-/* line 160, ../sass/styles.scss */
-#tmsPanel .listBtn:hover.active div div::before, #tmsPanel .listBtn.active:hover.active div div::before {
+/* line 163, ../sass/styles.scss */
+#tmsPanel nav .listBtn:hover.active div div::before, #tmsPanel nav .listBtn.active:hover.active div div::before {
   background-color: #4d4d4d;
 }
-/* line 164, ../sass/styles.scss */
-#tmsPanel .listBtn:hover.active div div::after, #tmsPanel .listBtn.active:hover.active div div::after {
+/* line 167, ../sass/styles.scss */
+#tmsPanel nav .listBtn:hover.active div div::after, #tmsPanel nav .listBtn.active:hover.active div div::after {
   border-color: #4d4d4d;
 }
-/* line 178, ../sass/styles.scss */
-#tmsPanel .heartBtn.active div div::before, #tmsPanel .heartBtn.active div div::after {
+/* line 181, ../sass/styles.scss */
+#tmsPanel nav .heartBtn.active div::before, #tmsPanel nav .heartBtn.active div::after {
   background: #912120;
 }
-/* line 184, ../sass/styles.scss */
-#tmsPanel .heartBtn:hover {
+/* line 187, ../sass/styles.scss */
+#tmsPanel nav .heartBtn:hover {
   -webkit-box-shadow: none;
 }
-/* line 189, ../sass/styles.scss */
-#tmsPanel .heartBtn:hover div div::before, #tmsPanel .heartBtn:hover div div::after {
+/* line 191, ../sass/styles.scss */
+#tmsPanel nav .heartBtn:hover div::before, #tmsPanel nav .heartBtn:hover div::after {
   background-color: #912120;
 }
-/* line 199, ../sass/styles.scss */
-#tmsPanel .bopBtn > div {
+/* line 201, ../sass/styles.scss */
+#tmsPanel nav .bopBtn > div {
   margin-top: 6px;
   margin-left: 2px;
 }
-/* line 205, ../sass/styles.scss */
-#tmsPanel .bopBtn.active > div > div {
-  border-color: #20bbea;
+/* line 207, ../sass/styles.scss */
+#tmsPanel nav .bopBtn.active > div > div {
+  border-color: #e7bca6;
 }
-/* line 209, ../sass/styles.scss */
-#tmsPanel .bopBtn.active > div > div::before, #tmsPanel .bopBtn.active > div > div::after {
-  background-color: #4fc9ee;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+/* line 211, ../sass/styles.scss */
+#tmsPanel nav .bopBtn.active > div > div::before, #tmsPanel nav .bopBtn.active > div > div::after {
+  background-color: #e7bca6;
 }
 /* line 219, ../sass/styles.scss */
-#tmsPanel .bopBtn:hover > div > div, #tmsPanel .bopBtn.active:hover > div > div {
-  border-color: #4d4d4d;
+#tmsPanel nav .bopBtn:hover > div > div, #tmsPanel nav .bopBtn.active:hover > div > div {
+  border-color: #15addb;
 }
 /* line 223, ../sass/styles.scss */
-#tmsPanel .bopBtn:hover > div > div::before, #tmsPanel .bopBtn:hover > div > div::after, #tmsPanel .bopBtn.active:hover > div > div::before, #tmsPanel .bopBtn.active:hover > div > div::after {
-  background-color: #4d4d4d;
+#tmsPanel nav .bopBtn:hover > div > div::before, #tmsPanel nav .bopBtn:hover > div > div::after, #tmsPanel nav .bopBtn.active:hover > div > div::before, #tmsPanel nav .bopBtn.active:hover > div > div::after {
+  background-color: #15addb;
 }
 
-/* line 231, ../sass/styles.scss */
+/* line 234, ../sass/styles.scss */
 #hud {
   width: 40%;
   height: 50px;
   padding: 5px;
 }
-/* line 237, ../sass/styles.scss */
+/* line 240, ../sass/styles.scss */
 #hud hgroup {
   margin-top: -3px;
   margin-bottom: 8px;
 }
-/* line 241, ../sass/styles.scss */
+/* line 244, ../sass/styles.scss */
 #hud hgroup h1, #hud hgroup h2 {
   display: inline-block;
 }
-/* line 245, ../sass/styles.scss */
+/* line 248, ../sass/styles.scss */
 #hud hgroup h1 {
   font-size: 13px;
   color: white;
 }
-/* line 250, ../sass/styles.scss */
+/* line 253, ../sass/styles.scss */
 #hud hgroup h2 {
   font-size: 12px;
   color: #999999;
   width: 180px;
   text-align: right;
 }
-/* line 259, ../sass/styles.scss */
+/* line 262, ../sass/styles.scss */
 #hud section > div {
   position: relative;
   width: 100%;
@@ -2178,7 +2215,7 @@ body {
   margin: -5px;
   background-color: rgba(204, 204, 204, 0.05);
 }
-/* line 266, ../sass/styles.scss */
+/* line 269, ../sass/styles.scss */
 #hud section > div .playBtn {
   position: absolute;
   top: 2px;
@@ -2190,7 +2227,7 @@ body {
   cursor: pointer;
   z-index: 9;
 }
-/* line 279, ../sass/styles.scss */
+/* line 282, ../sass/styles.scss */
 #hud section > div .ticker {
   position: absolute;
   top: 0;
@@ -2199,42 +2236,42 @@ body {
   height: 100%;
   z-index: 1;
 }
-/* line 288, ../sass/styles.scss */
+/* line 291, ../sass/styles.scss */
 #hud section > div:hover .playBtn {
   opacity: 1;
   box-shadow: inset 0 0 3px #333333, inset 0 0 3px #333333;
 }
-/* line 294, ../sass/styles.scss */
+/* line 297, ../sass/styles.scss */
 #hud section > div.previewActive .ticker {
   -webkit-animation-name: ticker;
   -webkit-animation-duration: 30s;
   -webkit-animation-iteration-count: infinite;
   background-color: #262626;
 }
-/* line 302, ../sass/styles.scss */
+/* line 305, ../sass/styles.scss */
 #hud div {
   float: left;
 }
-/* line 304, ../sass/styles.scss */
+/* line 307, ../sass/styles.scss */
 #hud img, #hud label, #hud span {
   position: relative;
   z-index: 9;
 }
-/* line 306, ../sass/styles.scss */
+/* line 309, ../sass/styles.scss */
 #hud img {
   width: 25px;
   height: 25px;
 }
-/* line 311, ../sass/styles.scss */
+/* line 314, ../sass/styles.scss */
 #hud label {
   margin-top: -2px;
   color: #999999;
 }
-/* line 316, ../sass/styles.scss */
+/* line 319, ../sass/styles.scss */
 #hud span {
   color: #cccccc;
 }
-/* line 320, ../sass/styles.scss */
+/* line 323, ../sass/styles.scss */
 #hud label, #hud span {
   margin-left: 5px;
   font-size: 11px;
@@ -2242,7 +2279,7 @@ body {
   width: 245px;
 }
 
-/* line 330, ../sass/styles.scss */
+/* line 333, ../sass/styles.scss */
 #tmsContent {
   position: relative;
   width: 700px;
@@ -2263,12 +2300,12 @@ body {
   -o-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
 }
-/* line 344, ../sass/styles.scss */
+/* line 347, ../sass/styles.scss */
 .open #tmsContent {
   height: 400px;
   margin-bottom: 0;
 }
-/* line 349, ../sass/styles.scss */
+/* line 352, ../sass/styles.scss */
 #tmsContent.idle {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 15s;
@@ -2276,18 +2313,18 @@ body {
   opacity: 0.05;
 }
 
-/* line 357, ../sass/styles.scss */
+/* line 360, ../sass/styles.scss */
 ::-webkit-scrollbar {
   width: 8px;
   background-color: #FFFFFF;
 }
 
-/* line 362, ../sass/styles.scss */
+/* line 365, ../sass/styles.scss */
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
 
-/* line 366, ../sass/styles.scss */
+/* line 369, ../sass/styles.scss */
 ::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);

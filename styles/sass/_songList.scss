@@ -44,7 +44,6 @@
 		button { 
 			position: relative;
 			top: 2px;
-			// background-color: $stripesHighlight;
       padding: 1px 4px;
       margin: 0 6px; 
       font-size: 10px;
@@ -57,22 +56,12 @@
 	      @extend %blueBtn;
       	float: left;
 	      color: $contentColor;	
-      	
-      	&:hover {
-	        // background-color: $stripesHighlight;
-	        // -webkit-box-shadow: inset 0 0 5px $contentColor;
-	      }
       }
 
       &.remove {
    			@extend %redBtn;
       	float: right;
       	color: $headingColor2;
-
-      	&:hover {
-	        // color: $stripesHighlight;
-	        // background-color: $warningColor;
-	      }
       }
 		}
 	}
@@ -124,8 +113,9 @@
 			@extend %ttPanelHeader;
 
 			.sorting_asc, .sorting_desc {
-				color: darken($headingColor2, 20%);
-				text-shadow: 0 1px 0 #eee;
+				@extend %blueBtn;
+				color: darken($headingColor2, 40%);
+				text-shadow: 0 1px 0 $contentBgColor;
 			}
 		}
 
@@ -150,7 +140,7 @@
 
 		th { 
 			cursor: pointer; 
-			padding: 0 2px;
+			padding: 0 2px 2px 2px;
 		}
 
 		tr { 
@@ -182,6 +172,7 @@
 	.songListHead {
 		@extend %ttPanelHeader;
 		
+		border-bottom: none;
 		padding: 5px;
 		height: 35px;
 
@@ -226,7 +217,8 @@
 	.dataTables_scrollHead {
 		@extend %headingTwo;
 		width: $panelWidth !important;
-		height: 18px;
+		box-shadow: $listShadow;
+		z-index: 9;
 	}
 
 	.dataTables_scrollBody {
