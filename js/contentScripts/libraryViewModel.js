@@ -202,6 +202,20 @@
             });
         }
 
+        // see if the current song is in 
+        function checkPlaylistsForActive (song) {
+          $.each(self.playlists(), function (i, playlist) {
+            playlist.getSongData(song.fileId())
+              .done(function (data) {
+                if(data.files[song.fileId()]) {
+                  playlist.activeSongInList(true);
+                } else {
+                  playlist.activeSongInList(false);
+                }    
+              });
+          });
+        }
+
         // adds the passed in songs to the passed in playlist. updates songList if updateViewing is true.
         function addSongsToPlaylist (songs, playlistName, updateViewing, addToEnd) {
           var songIds = $.map(songs, function (song, i) { return { fileid: song.fileId() }; }),
@@ -233,11 +247,24 @@
                   var songModel = song.model.metadata.current_song;
                   song = new tms.viewmodels.SongViewModel(songModel);
                 } 
+
                 songList.push(song);
               });
 
               self.songList(songList);
             }
+
+            // if the song is playing, mark the playlist
+            $.each(songs, function (i, song) {
+              if (song.fileId() === self.currentSong().fileId()) {
+                $.each(self.playlists(), function (i, playlist) {
+                  if (playlist.name() === playlistName) {
+                    playlist.activeSongInList(true);
+                    return;
+                  }
+                });
+              }
+            });
 
             // if we added to a non-active list, we need to reset active
             if (self.activePlaylist().name() !== playlistName) {
@@ -275,18 +302,7 @@
           }
         });
 
-        self.currentSong.subscribe(function (song) {
-          $.each(self.playlists(), function (i, playlist) {
-            playlist.getSongData(song.fileId())
-              .done(function (data) {
-                if(data.files[song.fileId()]) {
-                  playlist.activeSongInList(true);
-                } else {
-                  playlist.activeSongInList(false);
-                }    
-              });
-          });
-        });
+        self.currentSong.subscribe(checkPlaylistsForActive);
         self.currentSong(model.currentSong);
 
         self.playlistsOpen = ko.observable(false);
@@ -437,7 +453,6 @@
                 .done(function (listData) {
                   var updateViewing = playlist.name() === self.viewingPlaylist().name();
                   addSongsToPlaylist([self.currentSong()], playlist.name(), updateViewing, listData.list.length);
-                  playlist.activeSongInList(true);
                 });           
           } 
         };
@@ -488,7 +503,12 @@
 
             // change playlist state if needed
             if (self.currentSong().fileId() === songId) {
-              self.viewingPlaylist().activeSongInList(false);
+              $.each(self.playlists(), function (i, playlist) {
+                if (playlist.name() === self.viewingPlaylist().name()) {
+                  playlist.activeSongInList(false);
+                  return;
+                }
+              });
             }
 
             // stop song preview if needed
