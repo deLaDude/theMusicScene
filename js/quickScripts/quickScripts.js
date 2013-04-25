@@ -3,8 +3,8 @@ tms.utils.socket({
   api: "room.info", 
   roomid: "4e726c6467db461e659e5503", 
   section: undefined, 
-  userid: "4dfcdd564fe7d0250302b5a5", 
-  userauth: "auth+live+42feffbb9f410823ef6a21a95d493f677b6a670f"
+  userid: "xxxxxxxxxxxxxxxxxxx", 
+  userauth: "xxxxxxxxxxxxxxxxxxx"
 })
 .done(function (data) {
   console.log(data);
@@ -25,8 +25,8 @@ tms.utils.socket({
 
 
 // heartfart
-var userId = '4dfcdd564fe7d0250302b5a5',
-    djId = '5092ebe1aaa5cd211f0004ee',
+var userId = 'xxxxxxxxxxxxxxxxxxx',
+    djId = 'xxxxxxxxxxxxxxxxxxx',
     songId = '512056d99f81f31ed7d78d36',
     roomId = '50b6b4ccdf5bcf1596d45098';
 
@@ -119,8 +119,8 @@ tms.utils.socket({
   ph: "db98b877a085c168d349780bc8da1d7b017debff",
   roomid: "4e726c6467db461e659e5503",
   th: "15feaa4af21bf4c8692ea9986a599c0c0b7a4213",
-  userauth: "auth+live+42feffbb9f410823ef6a21a95d493f677b6a670f",
-  userid: "4dfcdd564fe7d0250302b5a5",
+  userauth: "xxxxxxxxxxxxxxxxxxx",
+  userid: "xxxxxxxxxxxxxxxxxxx",
   val: "up",
   vh: "d5f85d244995769c95bd4195f71bd28081efb03b"
 })
