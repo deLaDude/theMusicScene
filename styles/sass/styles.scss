@@ -1,7 +1,7 @@
 @import "config";
 
 // variables
-$border-radius: 5px !default;
+$border-radius: 6px !default;
 
 $headerHeight: 60px !default;
 $libraryHeight: 400px !default;
@@ -52,7 +52,7 @@ body {
 // begin base styles
 #tmsPanel {
 	position: absolute;
-	bottom: -75px;
+	bottom: 45px;
 	width: $panelWidth;
 	height: $panelClosedHeight;
 	margin-right: -350px;

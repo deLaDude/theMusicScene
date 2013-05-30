@@ -36,7 +36,7 @@
 			</div>
 
 			<!-- ko if: library.activePlaylist().active !== undefined -->
-				<div class='heartBtn' data-bind='click: snagSong, css: { active: library.activePlaylist().activeSongInList }, attr: { title: library.activePlaylist().activeSongInList() ? "This song is in your playlist." : "Snag song."}'>
+				<div class='heartBtn' data-bind='click: snagSong, css: { active: library.activePlaylist().activeSongInList }, attr: { title: library.activePlaylist().activeSongInList() ? "Playing song is in your active list." : "Add song to active list."}'>
 					<div></div>
 				</div>
 			<!-- /ko -->

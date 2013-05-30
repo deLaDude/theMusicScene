@@ -17,7 +17,7 @@
           <div></div>
         </div>
         
-        <div class='heartBtn' data-bind="click: $parent.addSnagToPlaylist, clickBubble: false, css: { active: activeSongInList }, attr: { title: activeSongInList() ? 'Playing song is in this list already.' : 'Add playing song to this list.' }">
+        <div class='heartBtn' data-bind="click: $parent.addSnagToPlaylist, clickBubble: false, css: { active: activeSongInList }, attr: { title: activeSongInList() ? 'Playing song is in this list already.' : 'Add playing song to this list.' }, visible: $parent.selectedSongs().length === 0">
           <div></div>
         </div>
         

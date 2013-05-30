@@ -19,7 +19,7 @@
 
       templates.push($.get(src, function (payload, status, xhr) {
         if (id === "panelBase") {
-          $("#turntable .roomView").append(payload);
+          $("#turntable").append(payload);
         } else if (id === "songBoard") {
           songBoardHtml = payload;
         } else {
@@ -46,10 +46,10 @@
           minimal: true
         },
         returnEvent
-      ));        
+      ));
     }
 
-    return reqs;      
+    return reqs;
   }
 
   /**
@@ -142,7 +142,7 @@
           return 0;
       });
 
-      init(models);           
+      init(models);
     })
     .fail(function(err){ console.log(err); });
   }
@@ -154,15 +154,15 @@
   function init (models) {
     models.tmsModel.currentSong = models.libraryModel.currentSong = new tms.viewmodels.CurrentSongViewModel(models.tmsModel.roomInfo.room);
     models.tmsModel.library = tms.factories.libraryFactory(models.libraryModel);
-    
+
     // wait til TT dynamic html has been generated
-    $("#bigboard").livequery(function () {
+    $("#board").livequery(function () {
       $(this).append(songBoardHtml);
       // create library and bind to view
-      tms.app = tms.factories.tmsFactory(models.tmsModel);   
-   
+      tms.app = tms.factories.tmsFactory(models.tmsModel);
+
       ko.applyBindings(tms.app);
-      console.log("tms ready");   
+      console.log("tms ready");
     });
   }
 

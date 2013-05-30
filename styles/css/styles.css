@@ -10,11 +10,11 @@
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #666666), color-stop(100%, #333333));
   background: -webkit-linear-gradient(top, #666666 0, #333333 100%);
   background: linear-gradient(to bottom, #666666 0%, #333333 100%);
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
 }
 
 /* line 16, ../sass/_common.scss */
@@ -1260,11 +1260,11 @@ div.box {
   font-size: 10px;
   border: none;
   cursor: pointer;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
 }
 /* line 55, ../sass/_songList.scss */
 #songList section button.deselect {
@@ -1286,12 +1286,12 @@ div.box {
   background-color: #999999;
   box-shadow: inset 0 0 0 1px #999999;
   z-index: 9;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 /* line 80, ../sass/_songList.scss */
 #songList .switch label {
@@ -1353,7 +1353,7 @@ div.box {
 /* line 141, ../sass/_songList.scss */
 #songList table th {
   cursor: pointer;
-  padding: 0 2px 2px 2px;
+  padding: 2px;
 }
 /* line 146, ../sass/_songList.scss */
 #songList table tr {
@@ -1385,12 +1385,12 @@ div.box {
   border-bottom: none;
   padding: 5px;
   height: 35px;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
 }
 /* line 181, ../sass/_songList.scss */
 #songList .songListHead .dataTables_info {
@@ -1419,22 +1419,22 @@ div.box {
   border: 0;
   outline: 0;
   background: #FFF;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
   box-shadow: inset 0 0 0 1px #999999;
   outline: none;
 }
 /* line 213, ../sass/_songList.scss */
 #songList .dataTables_wrapper {
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
 }
 /* line 217, ../sass/_songList.scss */
 #songList .dataTables_scrollHead {
@@ -1474,12 +1474,12 @@ div.box {
   -moz-transition: all 0.3s ease-in-out;
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 /* line 254, ../sass/_songList.scss */
 #songList .actions .songFlyout:hover {
@@ -1527,12 +1527,12 @@ div.box {
   -webkit-animation-name: ticker;
   -webkit-animation-duration: 30s;
   -webkit-animation-iteration-count: infinite;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 /* line 303, ../sass/_songList.scss */
 #songList .previewActive .playPause {
@@ -1598,12 +1598,12 @@ div.box {
   -webkit-box-shadow: #333333 0px 0px 5px;
   -moz-box-shadow: #333333 0px 0px 5px;
   box-shadow: #333333 0px 0px 5px;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
 }
 /* line 15, ../sass/_playlistMenu.scss */
 #tmsContent menu h2 {
@@ -1618,12 +1618,12 @@ div.box {
   cursor: pointer;
   z-index: 9;
   box-shadow: 0px 3px 5px rgba(51, 51, 51, 0.4);
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
@@ -1754,11 +1754,11 @@ div.box {
   margin-left: 4px;
   font-size: 9px;
   opacity: 0;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
 }
 /* line 175, ../sass/_playlistMenu.scss */
 #tmsContent menu li .addBtn:hover {
@@ -1849,33 +1849,43 @@ div.box {
 
 /* line 13, ../sass/_songBoard.scss */
 #tmsCurrentSong {
-  position: relative;
-  top: -126px;
-  left: 0px;
+  position: absolute;
+  bottom: -15px;
+  left: 30%;
+  width: 40%;
   display: inline-block;
-  padding: 5px 7px 0px 7px;
-  background: url(https://s3.amazonaws.com/static.turntable.fm/images/room/board-sprite-0.png) top left no-repeat;
+  background: url(https://s3.amazonaws.com/static.turntable.fm/images/room/board-sprite-0.png) 0 -15px no-repeat;
   background-size: 100%;
+  padding: 0px 7px 5px 7px;
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 /* line 24, ../sass/_songBoard.scss */
 #tmsCurrentSong div {
-  background-position: -20px -102px;
+  background-size: 200%;
+  background-position: -60px -152px;
+  background: url(https://s3.amazonaws.com/static.turntable.fm/images/room/board-sprite-0.png) top left no-repeat;
+  background-size: 100%;
   padding: 0 5px;
   text-align: center;
-  box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.5);
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  box-shadow: inset 1px 1px 1px 0 rgba(0, 0, 0, 0.5);
+  -moz-border-radius-bottomleft: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
-/* line 34, ../sass/_songBoard.scss */
+/* line 37, ../sass/_songBoard.scss */
 #tmsCurrentSong label {
   display: inline-block;
-  margin: 2px 2px 0 2px;
+  margin: 2px 4px 0 4px;
 }
-/* line 38, ../sass/_songBoard.scss */
+/* line 41, ../sass/_songBoard.scss */
 #tmsCurrentSong label .emoji {
   opacity: .7;
 }
@@ -2029,18 +2039,18 @@ body {
 /* line 53, ../sass/styles.scss */
 #tmsPanel {
   position: absolute;
-  bottom: -75px;
+  bottom: 45px;
   width: 700px;
   height: 60px;
   margin-right: -350px;
   overflow: hidden;
   z-index: 9;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -o-border-radius: 6px;
+  border-radius: 6px;
   -webkit-transition: height 0.4s ease-in-out;
   -moz-transition: height 0.4s ease-in-out;
   -o-transition: height 0.4s ease-in-out;
@@ -2289,12 +2299,12 @@ body {
   opacity: 0.93;
   color: #333333;
   background-color: #cccccc;
-  -moz-border-radius-topleft: 5px;
-  -webkit-border-top-left-radius: 5px;
-  border-top-left-radius: 5px;
-  -moz-border-radius-topright: 5px;
-  -webkit-border-top-right-radius: 5px;
-  border-top-right-radius: 5px;
+  -moz-border-radius-topleft: 6px;
+  -webkit-border-top-left-radius: 6px;
+  border-top-left-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  -webkit-border-top-right-radius: 6px;
+  border-top-right-radius: 6px;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -o-transition: all 0.4s ease-in-out;
